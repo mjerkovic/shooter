@@ -33,11 +33,11 @@ public class Arrive implements SteeringBehaviour {
     }
 
     public Vector calculate() {
-        System.out.print("MovingTo: " + targetPosition + "\t");
+        //System.out.print("MovingTo: " + targetPosition + "\t");
         Vector toTarget = targetPosition.subtract(entity.getPosition());
-        System.out.print("toTarget: " + toTarget + "\t");
+        //System.out.print("toTarget: " + toTarget + "\t");
         double dist = toTarget.length();
-        System.out.print("dist: " + dist + "\t");
+        //System.out.print("dist: " + dist + "\t");
         if (dist > 0.1) {
             double tweaker = 0.3;
             double speed = dist / (Arrival.SLOW.getDeceleration() * tweaker);
@@ -45,8 +45,8 @@ public class Arrive implements SteeringBehaviour {
             speed = min(speed, entity.getMaxSpeed());
             //System.out.print("adjustedSpeed: " + speed + "\t");
             Vector desiredVelocity = toTarget.scale(speed / dist);
-            System.out.print("desiredVelocity: " + desiredVelocity + "\n");
-            System.out.print("desiredVelocity.subtract(entity.getVelocity()y: " + desiredVelocity.subtract(entity.getVelocity()) + "\n");
+            //System.out.print("desiredVelocity: " + desiredVelocity + "\n");
+            //System.out.print("desiredVelocity.subtract(entity.getVelocity()y: " + desiredVelocity.subtract(entity.getVelocity()) + "\n");
             return desiredVelocity.subtract(entity.getVelocity());
         }
         return Vector.ZERO;

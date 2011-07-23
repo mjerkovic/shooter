@@ -1,5 +1,8 @@
 package shooter.geom;
 
+import static shooter.geom.Rotation.ANTI_CLOCKWISE;
+import static shooter.geom.Rotation.CLOCKWISE;
+
 import javax.vecmath.Vector2d;
 
 public class Vector {
@@ -85,4 +88,12 @@ public class Vector {
         return new Vector(-point.x, -point.y);
     }
 
+    public Rotation rotationTo(Vector vector) {
+        return (point.y* vector.point.x > point.x * vector.point.y) ? ANTI_CLOCKWISE : CLOCKWISE;
+    }
+
+    public double dot(Vector vector) {
+        return point.dot(vector.point);
+    }
+    
 }

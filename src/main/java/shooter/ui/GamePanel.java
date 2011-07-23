@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
             paintScreen();
             timeDiff = (startTime + DELAY) - System.nanoTime();
             try {
-                System.out.println("timeDiff/1000000L = " + timeDiff / 1000000L);
+                //System.out.println("timeDiff/1000000L = " + timeDiff / 1000000L);
                 Thread.sleep(max(0, (timeDiff/1000000L)));
             } catch (InterruptedException e) {
             }

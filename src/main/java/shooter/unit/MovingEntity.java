@@ -20,7 +20,7 @@ public abstract class MovingEntity extends Entity {
 
     public void update() {
         Vector steeringForce = steering.calculate();
-        System.out.print("steeringForce: " + steeringForce + "\t");
+        //System.out.print("steeringForce: " + steeringForce + "\t");
         Vector acceleration = steeringForce.dividedBy(mass);//.dividedBy(timeDiff);
         //System.out.print("acceleration: " + acceleration + "\t");
         velocity = velocity.add(acceleration).truncate(maxSpeed);
