@@ -1,17 +1,15 @@
 package shooter.steering;
 
-import javax.xml.transform.Result;
-
 import org.testng.annotations.Test;
 import shooter.geom.Vector;
 import shooter.unit.Vehicle;
 
-public class ArriveBehaviourTest {
+public class ArriveTest {
 
     @Test
     public void testCalculate() {
-        Vehicle vehicle = new Vehicle(null);
-        ArriveBehaviour arrive = new ArriveBehaviour(vehicle, new Vector(100, 100));
+        Vehicle vehicle = new Vehicle(0, 0, null);
+        Arrive arrive = new Arrive(vehicle, new Vector(100, 100));
         Vector result;
         do{
             result = arrive.calculate();

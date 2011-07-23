@@ -1,5 +1,8 @@
 package shooter.ui;
 
+import static java.awt.Color.WHITE;
+import static java.lang.Math.max;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -7,25 +10,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
-
-import static java.awt.Color.WHITE;
 
 public class GamePanel extends JPanel implements Runnable {
 
     private static final int PWIDTH = 600;
     private static final int PHEIGHT = 600;
-    private static final int FRAMES_PER_SECOND = 24;
+    private static final int FRAMES_PER_SECOND = 80;
+    private static final long DELAY = 41000000L;
+
     private static final long NANOS_PER_SECOND = 1000000000L;
-
     private volatile boolean running = false;
-    private volatile boolean gameOver = false;
 
+    private volatile boolean gameOver = false;
     private Thread animator;
     private Graphics dbg;
     private Image dbImage = null;
-    private int delay = 1000 / FRAMES_PER_SECOND;
     private final GameMediator mediator;
 
     public GamePanel(GameMediator gameMediator) {
@@ -56,17 +55,18 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         running = true;
         long timeDiff = 0;
-        long beforeTime = System.nanoTime();
+        long startTime = System.nanoTime();
         while (running) {
-            gameUpdate(timeDiff);
+            gameUpdate();
             gameRender();
             paintScreen();
-            timeDiff = (System.nanoTime() - beforeTime)/1000000L;
+            timeDiff = (startTime + DELAY) - System.nanoTime();
             try {
-                Thread.sleep(timeDiff);
+                System.out.println("timeDiff/1000000L = " + timeDiff / 1000000L);
+                Thread.sleep(max(0, (timeDiff/1000000L)));
             } catch (InterruptedException e) {
             }
-            beforeTime = System.nanoTime();
+            startTime = System.nanoTime();
         }
         System.exit(0);
     }
@@ -92,9 +92,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void gameUpdate(double timeDiff) {
+    private void gameUpdate() {
         if (!gameOver) {
-            mediator.update(timeDiff);
+            mediator.update();
         }
     }
 

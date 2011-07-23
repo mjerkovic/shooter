@@ -113,4 +113,13 @@ public class VectorTest {
         assertThat(v3, hasCoordinates(1, 4));
     }
 
+    public void itShouldReturnANewVectorThatIsTheReverseOfTheOriginalVector() {
+        Vector v1 = new Vector(4, 3);
+
+        Vector v2 = v1.reverse();
+
+        assertThat(v2, is(not(sameInstance(v1))));
+        assertThat(v2, hasCoordinates(-4, -3));
+    }
+
 }

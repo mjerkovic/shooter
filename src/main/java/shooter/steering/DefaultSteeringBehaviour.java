@@ -8,7 +8,4 @@ public class DefaultSteeringBehaviour implements SteeringBehaviour {
         return Vector.ZERO;
     }
 
-    public void terminate() {
-    }
-
 }

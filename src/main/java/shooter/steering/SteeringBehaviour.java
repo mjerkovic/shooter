@@ -6,5 +6,4 @@ public interface SteeringBehaviour {
 
     Vector calculate();
 
-    void terminate();
 }

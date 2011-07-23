@@ -80,5 +80,9 @@ public class Vector {
     public boolean isZero() {
         return point.x == ZERO.X() && point.y == ZERO.Y();
     }
-    
+
+    public Vector reverse() {
+        return new Vector(-point.x, -point.y);
+    }
+
 }

@@ -22,16 +22,16 @@ public class SteeringBehaviours {
             SteeringBehaviour steeringBehaviour = behaviourIterator.next();
             Vector steeringForce = steeringBehaviour.calculate();
             force = force.add(steeringForce);
-            if (steeringForce.isZero()) {
-                steeringBehaviour.terminate();
-                behaviourIterator.remove();
-            }
         }
         return force;
     }
 
     public void move(MovingEntity entity, Vector toPosition) {
-        steeringBehaviours.add(new ArriveBehaviour(entity, toPosition));
+        steeringBehaviours.add(new Seek(entity, toPosition));
+    }
+
+    public void wander(MovingEntity entity) {
+        steeringBehaviours.add(new Wander(entity));
     }
 
 }

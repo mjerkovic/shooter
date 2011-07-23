@@ -2,12 +2,14 @@ package shooter.unit;
 
 import shooter.geom.Transformations;
 import shooter.geom.Vector;
-import shooter.steering.SteeringBehaviours;
+import shooter.steering.Steering;
 
 public class Vehicle extends MovingEntity {
 
-    public Vehicle(SteeringBehaviours steeringBehaviours) {
-        super(steeringBehaviours);
+    public Vehicle(int x, int y, Steering steering) {
+        super(steering);
+        steering.setOwner(this);
+        position = new Vector(x, y);
     }
 
     public double X() {
@@ -32,6 +34,10 @@ public class Vehicle extends MovingEntity {
 
 
         return new int[][] { xPos, yPos };
+    }
+
+    public void wander() {
+        steering.wanderOn();
     }
 
 }

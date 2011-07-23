@@ -16,9 +16,9 @@ import shooter.unit.MovingEntity;
 import shooter.unit.Vehicle;
 
 @Test
-public class SeekBehaviourTest {
+public class SeekTest {
 
-    private SeekBehaviour seekBehaviour;
+    private Seek seek;
     private Vector targetPos;
     private Vector difference;
     private Vector normalised;
@@ -38,11 +38,11 @@ public class SeekBehaviourTest {
         when(normalised.scale(anyDouble())).thenReturn(desiredVelocity);
         when(desiredVelocity.subtract(any(Vector.class))).thenReturn(result);
 
-        seekBehaviour = new SeekBehaviour(mock(MovingEntity.class), targetPos);
+        seek = new Seek(mock(MovingEntity.class), targetPos);
     }
 
     public void itShouldReturnAVectorToTheTargetPosition() {
-        assertThat(seekBehaviour.calculate(), is(equalTo(result)));
+        assertThat(seek.calculate(), is(equalTo(result)));
 
         verify(targetPos).subtract(any(Vector.class));
         verify(difference).normalise();
@@ -51,9 +51,9 @@ public class SeekBehaviourTest {
     }
 
     public void testMe() {
-        Vehicle vehicle = new Vehicle(null);
-        seekBehaviour = new SeekBehaviour(vehicle, new Vector(4,4));
-        Vector result = seekBehaviour.calculate();
+        Vehicle vehicle = new Vehicle(0, 0, null);
+        seek = new Seek(vehicle, new Vector(4,4));
+        Vector result = seek.calculate();
         System.out.println("result = " + result);
     }
 }
