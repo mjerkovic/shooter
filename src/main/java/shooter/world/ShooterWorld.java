@@ -1,6 +1,9 @@
 package shooter.world;
 
 import shooter.geom.Vector;
+import shooter.goals.Roam;
+import shooter.goals.Track;
+import shooter.goals.UserControl;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
 import shooter.unit.Signpost;
@@ -12,13 +15,16 @@ public class ShooterWorld implements GameWorld {
     private int x =  0;
     private int y = 0;
 
-    private Vehicle vehicle = new Vehicle(0, 0, new Steering());
-    private Vehicle wanderer = new Vehicle(300, 300, new Steering());
-    private Signpost signpost = new Signpost("Sign", 100, 100);
-    private WatchTower watchTower = new WatchTower(300, 500, new Steering());
+    private Vehicle vehicle;
+    private Vehicle wanderer;
+    private Signpost signpost;
+    private WatchTower watchTower;
 
     public ShooterWorld() {
-        watchTower.track(wanderer);
+        vehicle = new Vehicle(0, 0, new UserControl(), new Steering());
+        wanderer = new Vehicle(300, 300, new Roam(), new Steering());
+        signpost = new Signpost("Sign", 100, 100);
+        watchTower = new WatchTower(300, 570, new Track(this), new Steering());
     }
 
     public void update() {
@@ -37,6 +43,10 @@ public class ShooterWorld implements GameWorld {
         renderer.render(wanderer);
         renderer.render(signpost);
         renderer.render(watchTower);
+    }
+
+    public Vehicle getWanderer() {
+        return wanderer;
     }
 
 }

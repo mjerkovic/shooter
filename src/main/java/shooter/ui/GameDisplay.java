@@ -7,11 +7,14 @@ import java.awt.event.WindowListener;
 
 public class GameDisplay extends JFrame implements WindowListener {
 
+    public static final Dimension DISPLAY_SIZE = new Dimension(600, 600);
+
     private final GamePanel gamePanel;
 
     public GameDisplay(GamePanel gamePanel) {
         super("");
-        setPreferredSize(new Dimension(600, 600));
+        setPreferredSize(DISPLAY_SIZE);
+        setSize(DISPLAY_SIZE);
         addWindowListener(this);
         Container c = getContentPane(); // default BorderLayout used
         this.gamePanel = gamePanel;

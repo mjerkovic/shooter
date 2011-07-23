@@ -46,8 +46,8 @@ public class Arrive implements SteeringBehaviour {
             //System.out.print("adjustedSpeed: " + speed + "\t");
             Vector desiredVelocity = toTarget.scale(speed / dist);
             //System.out.print("desiredVelocity: " + desiredVelocity + "\n");
-            //System.out.print("desiredVelocity.subtract(entity.getVelocity()y: " + desiredVelocity.subtract(entity.getVelocity()) + "\n");
-            return desiredVelocity.subtract(entity.getVelocity());
+            //System.out.print("desiredVelocity.subtract(entity.velocity()y: " + desiredVelocity.subtract(entity.velocity()) + "\n");
+            return desiredVelocity.subtract(entity.velocity());
         }
         return Vector.ZERO;
     }

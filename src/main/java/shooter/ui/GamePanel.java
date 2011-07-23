@@ -30,7 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel(GameMediator gameMediator) {
         this.mediator = gameMediator;
         setBackground(WHITE);
-        //setPreferredSize(new Dimension(PWIDTH, PHEIGHT));
+        setSize(GameDisplay.DISPLAY_SIZE);
+        setPreferredSize(GameDisplay.DISPLAY_SIZE);
         setFocusable(true);
         requestFocus();
         readyForTermination();

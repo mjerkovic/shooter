@@ -7,9 +7,11 @@ public class Steering {
 
     private boolean wander;
     private boolean pursuit;
+    private boolean fire;
 
     private MovingEntity owner;
     private MovingEntity evader;
+    private MovingEntity target;
 
     public Vector calculate() {
         Vector steeringForce = Vector.ZERO;
@@ -18,6 +20,9 @@ public class Steering {
         }
         if (pursuit) {
             steeringForce = steeringForce.add(new Pursuit(owner, evader).calculate());
+        }
+        if (fire) {
+            new Fire(owner, target).calculate();
         }
         return steeringForce;
     }
@@ -38,6 +43,15 @@ public class Steering {
     public void pursuitOff() {
         this.evader = null;
         pursuit = false;
+    }
+
+    public void fireOn(MovingEntity target) {
+        this.target = target;
+        fire = true;
+    }
+
+    public void fireOff() {
+        fire = false;
     }
 
     public void setOwner(MovingEntity owner) {

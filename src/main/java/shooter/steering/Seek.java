@@ -15,7 +15,7 @@ public class Seek implements SteeringBehaviour {
 
     public Vector calculate() {
         Vector desiredVelocity = targetPosition.subtract(entity.getPosition()).normalise().scale(entity.getMaxSpeed());
-        return desiredVelocity.subtract(entity.getVelocity());
+        return desiredVelocity.subtract(entity.velocity());
     }
 
 }

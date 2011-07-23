@@ -27,15 +27,12 @@ public class GameRenderer {
 
     public void render(WatchTower watchTower) {
         Vector pos = watchTower.getPosition();
-        System.out.print("pos = "+pos+"\t");
-        graphics.drawOval((int) pos.X() - 5, (int) pos.Y() - 5, 10, 10);
-        Vector heading = watchTower.getHeading();
-        System.out.println("heading = " +heading);
         int x1 = (int) pos.X();
         int y1 = (int) pos.Y();
-        int x2 = (int) pos.X() + (int) (heading.X() * 20);
-        int y2 = (int) pos.Y() + (int) (heading.Y() * 20);
-        System.out.println("line = " + x1 + ", " + y1 + ", " + x2 + ", " + y2);
+        graphics.drawOval(x1 - 5, y1 - 5, 10, 10);
+        Vector heading = watchTower.heading();
+        int x2 = x1 + (int) (heading.X() * 20);
+        int y2 = y1 + (int) (heading.Y() * 20);
         graphics.drawLine(x1, y1, x2, y2);
     }
     

@@ -51,7 +51,7 @@ public class SeekTest {
     }
 
     public void testMe() {
-        Vehicle vehicle = new Vehicle(0, 0, null);
+        Vehicle vehicle = new Vehicle(0, 0, null, null);
         seek = new Seek(vehicle, new Vector(4,4));
         Vector result = seek.calculate();
         System.out.println("result = " + result);

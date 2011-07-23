@@ -2,12 +2,13 @@ package shooter.unit;
 
 import shooter.geom.Transformations;
 import shooter.geom.Vector;
+import shooter.goals.Goal;
 import shooter.steering.Steering;
 
 public class Vehicle extends MovingEntity {
 
-    public Vehicle(int x, int y, Steering steering) {
-        super(steering);
+    public Vehicle(int x, int y, Goal goal, Steering steering) {
+        super(goal, steering);
         steering.setOwner(this);
         position = new Vector(x, y);
     }
