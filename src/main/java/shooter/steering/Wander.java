@@ -22,8 +22,8 @@ public class Wander implements SteeringBehaviour {
         Vector wanderTarget = new Vector(randomNumber(), randomNumber()).normalise().scale(WANDER_RADIUS);
         Vector targetLocal = wanderTarget.add(new Vector(WANDER_DISTANCE, 0));
         Vector targetWorld = pointToWorldSpace(targetLocal, entity.heading(), entity.side(),
-                entity.getPosition());
-        return targetWorld.subtract(entity.position);
+                entity.position());
+        return targetWorld.subtract(entity.position());
     }
 
     private double randomNumber() {

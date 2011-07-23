@@ -34,7 +34,7 @@ public class Arrive implements SteeringBehaviour {
 
     public Vector calculate() {
         //System.out.print("MovingTo: " + targetPosition + "\t");
-        Vector toTarget = targetPosition.subtract(entity.getPosition());
+        Vector toTarget = targetPosition.subtract(entity.position());
         //System.out.print("toTarget: " + toTarget + "\t");
         double dist = toTarget.length();
         //System.out.print("dist: " + dist + "\t");

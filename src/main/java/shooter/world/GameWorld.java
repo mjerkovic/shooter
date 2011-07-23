@@ -9,5 +9,5 @@ public interface GameWorld {
 
     void moveVehicleTo(Vector vector);
 
-    void renderVehiclesWith(GameRenderer renderer);
+    void renderWith(GameRenderer renderer);
 }

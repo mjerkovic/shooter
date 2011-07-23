@@ -16,7 +16,7 @@ public class GameMediator {
     }
 
     public void renderUsing(GameRenderer renderer) {
-        gameWorld.renderVehiclesWith(renderer);
+        gameWorld.renderWith(renderer);
     }
 
     public void clickRecordedAt(double x, double y) {

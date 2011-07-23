@@ -2,8 +2,12 @@ package shooter.steering;
 
 import shooter.geom.Vector;
 import shooter.unit.MovingEntity;
+import shooter.world.ShooterWorld;
 
 public class Steering {
+
+    private final ShooterWorld world;
+    private final Fire fireBehaviour = new Fire();
 
     private boolean wander;
     private boolean pursuit;
@@ -12,6 +16,10 @@ public class Steering {
     private MovingEntity owner;
     private MovingEntity evader;
     private MovingEntity target;
+
+    public Steering(ShooterWorld world) {
+        this.world = world;
+    }
 
     public Vector calculate() {
         Vector steeringForce = Vector.ZERO;
@@ -22,7 +30,7 @@ public class Steering {
             steeringForce = steeringForce.add(new Pursuit(owner, evader).calculate());
         }
         if (fire) {
-            new Fire(owner, target).calculate();
+            fireBehaviour.calculate(owner, target, world);
         }
         return steeringForce;
     }
