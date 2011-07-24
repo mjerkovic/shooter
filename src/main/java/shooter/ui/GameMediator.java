@@ -1,6 +1,7 @@
 package shooter.ui;
 
 import shooter.geom.Vector;
+import shooter.steering.Direction;
 import shooter.world.GameWorld;
 
 public class GameMediator {
@@ -22,4 +23,9 @@ public class GameMediator {
     public void clickRecordedAt(double x, double y) {
         gameWorld.moveVehicleTo(new Vector(x, y));
     }
+
+    public void moveVehicle(Direction direction) {
+        gameWorld.moveVehicle(direction);
+    }
+
 }

@@ -8,7 +8,7 @@ public abstract class MovingEntity extends Entity {
 
     protected final Goal goal;
     protected final Steering steering;
-    public Vector velocity = new Vector(0, 0);
+    protected Vector velocity = new Vector(0, 0);
     protected Vector heading = new Vector(0, 1);
     protected Vector side = new Vector(-1, 0);
     double mass = 1;

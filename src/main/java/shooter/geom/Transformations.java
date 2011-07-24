@@ -9,4 +9,15 @@ public class Transformations {
         return matrix.transform(point);
     }
 
+    public static Vector pointToLocalSpace(Vector point, Vector heading, Vector side, Vector position) {
+        double Tx = -position.dot(heading);
+        double Ty = -position.dot(side);
+        double[][] matrix = new double[][] {
+                { heading.X(), side.X(), 0 },
+                { heading.Y(), side.Y(), 0 },
+                { Tx, Ty, 1}
+        };
+        return new Matrix(matrix).transform(point);
+    }
+
 }

@@ -8,14 +8,17 @@ public class Steering {
 
     private final ShooterWorld world;
     private final Fire fireBehaviour = new Fire();
+    private UserControlledBehaviour userControlledBehaviour = new UserControlledBehaviour();
 
     private boolean wander;
     private boolean pursuit;
     private boolean fire;
+    private boolean userControlled;
 
     private MovingEntity owner;
     private MovingEntity evader;
     private MovingEntity target;
+    private Direction direction;
 
     public Steering(ShooterWorld world) {
         this.world = world;
@@ -31,6 +34,9 @@ public class Steering {
         }
         if (fire) {
             fireBehaviour.calculate(owner, target, world);
+        }
+        if (userControlled) {
+            steeringForce = userControlledBehaviour.calculate(owner, direction);
         }
         return steeringForce;
     }
@@ -64,6 +70,15 @@ public class Steering {
 
     public void setOwner(MovingEntity owner) {
         this.owner = owner;
+    }
+
+    public void directionOn(Direction direction) {
+        this.direction = direction;
+        userControlled = true;
+    }
+
+    public void directionOff() {
+        userControlled = false;
     }
 
 }

@@ -17,10 +17,10 @@ public class Pursuit implements SteeringBehaviour {
         Vector toEvader = evader.position().subtract(pursuer.position());
         double relativeHeading = pursuer.heading().dot(evader.heading());
         if ((toEvader.dot(pursuer.heading()) > 0) && (relativeHeading < 0.95)) {
-            return new Seek(pursuer, evader.position()).calculate();
+            return new SeekBehaviour().calculate(pursuer, evader.position());
         }
         double lookAheadTime = toEvader.length() / (pursuer.getMaxSpeed() + evader.velocity().length());
-        return new Seek(pursuer, evader.position().add((evader.velocity().scale(lookAheadTime)))).calculate();
+        return new SeekBehaviour().calculate(pursuer, evader.position().add((evader.velocity().scale(lookAheadTime))));
     }
 
 }

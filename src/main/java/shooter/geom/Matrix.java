@@ -6,6 +6,17 @@ public class Matrix {
 
     private SimpleMatrix matrix = SimpleMatrix.identity(3);
 
+    public Matrix() {
+    }
+
+    public Matrix(double[][] matrix) {
+        this.matrix = new SimpleMatrix(new double[][] {
+                matrix[0],
+                matrix[1],
+                matrix[2]
+        });
+    }
+
     public void rotate(Vector heading, Vector side) {
         matrix = matrix.mult(new SimpleMatrix(new double[][] {
                 {heading.X(), heading.Y(), 0},

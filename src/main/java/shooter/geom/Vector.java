@@ -95,5 +95,9 @@ public class Vector {
     public double dot(Vector vector) {
         return point.dot(vector.point);
     }
-    
+
+    public double angle(Vector vector) {
+        return point.angle(vector.point);
+    }
+
 }

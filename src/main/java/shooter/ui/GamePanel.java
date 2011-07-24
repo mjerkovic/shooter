@@ -7,9 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -25,23 +22,16 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread animator;
     private Graphics dbg;
     private Image dbImage = null;
-    private final GameMediator mediator;
+    protected final GameMediator mediator;
 
     public GamePanel(GameMediator gameMediator) {
         this.mediator = gameMediator;
         setBackground(WHITE);
-        setSize(GameDisplay.DISPLAY_SIZE);
-        setPreferredSize(GameDisplay.DISPLAY_SIZE);
+        setSize(new Dimension(PWIDTH, PHEIGHT));
+        setPreferredSize(new Dimension(PWIDTH, PHEIGHT));
         setFocusable(true);
         requestFocus();
         readyForTermination();
-        MouseListener mouseListener = new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                mediator.clickRecordedAt(e.getX(), e.getY());
-            }
-        };
-        addMouseListener(mouseListener);
     }
 
     public void addNotify() {

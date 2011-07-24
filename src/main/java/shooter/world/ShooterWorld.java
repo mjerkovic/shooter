@@ -7,6 +7,7 @@ import shooter.geom.Vector;
 import shooter.goals.Roam;
 import shooter.goals.Track;
 import shooter.goals.UserControl;
+import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
 import shooter.unit.Bullet;
@@ -28,7 +29,7 @@ public class ShooterWorld implements GameWorld {
     public ShooterWorld() {
         vehicle = new Vehicle(0, 0, new UserControl(), new Steering(this));
         wanderer = new Vehicle(300, 300, new Roam(), new Steering(this));
-        signpost = new Signpost("Sign", 100, 100);
+        signpost = new Signpost("Sign", 10, 50);
         watchTower = new WatchTower(300, 570, new Track(this), new Steering(this));
     }
 
@@ -56,6 +57,10 @@ public class ShooterWorld implements GameWorld {
         }
     }
 
+    public void moveVehicle(Direction direction) {
+        vehicle.steering().directionOn(direction);
+    }
+
     public Vehicle getWanderer() {
         return wanderer;
     }
@@ -64,4 +69,11 @@ public class ShooterWorld implements GameWorld {
         bullets.add(bullet);
     }
 
+    public Signpost getSignpost() {
+        return signpost;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
 }
