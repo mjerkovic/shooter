@@ -39,7 +39,6 @@ public class CompassPanel extends JPanel {
         Signpost signpost = world.getSignpost();
         Vehicle vehicle = world.getVehicle();
         Vector point = pointToLocalSpace(signpost.position(), vehicle.heading(), vehicle.side(), vehicle.position());
-        System.out.println("signpost.position() , point = " + signpost.position() + ", " + point);
 
         setForeground(RED);
         graphics.fillRect((int) point.X() - 2, (int) point.Y() - 2, 4, 4);

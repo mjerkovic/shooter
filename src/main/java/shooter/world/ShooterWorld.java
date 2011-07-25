@@ -27,10 +27,10 @@ public class ShooterWorld implements GameWorld {
     private List<Bullet> bullets = new ArrayList<Bullet>();
 
     public ShooterWorld() {
-        vehicle = new Vehicle(0, 0, new UserControl(), new Steering(this));
+        vehicle = new Vehicle(100, 100, new UserControl(), new Steering(this));
         wanderer = new Vehicle(300, 300, new Roam(), new Steering(this));
         signpost = new Signpost("Sign", 10, 50);
-        watchTower = new WatchTower(300, 570, new Track(this), new Steering(this));
+        watchTower = new WatchTower(300, 300, new Track(this), new Steering(this));
     }
 
     public void update() {
