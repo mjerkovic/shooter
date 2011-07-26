@@ -41,11 +41,11 @@ public class CompassPanel extends JPanel {
         Vehicle vehicle = world.getVehicle();
         for (Entity entity : world.getEntities()) {
             double distance = entity.position().subtract(vehicle.position()).lengthSquared();
-            //if (distance <= 1000) {
+            if (distance <= 360000) {
                 Vector point = pointToLocalSpace(entity.position(), vehicle.heading(), vehicle.side(), vehicle.position());
                 setForeground(RED);
                 graphics.fillRect((int) point.X() - 20, (int) point.Y() - 20, 40, 40);
-            //}
+            }
         }
 
         setForeground(YELLOW);
