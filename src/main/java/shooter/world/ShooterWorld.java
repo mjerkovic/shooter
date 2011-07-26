@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import shooter.geom.Vector;
+import shooter.goals.Offset;
 import shooter.goals.Roam;
 import shooter.goals.UserControl;
 import shooter.steering.Direction;
@@ -36,11 +38,11 @@ public class ShooterWorld implements GameWorld {
     public ShooterWorld() {
         vehicle = new Vehicle(100, 100, 0.1, new UserControl(), new Steering(this));
         wanderer = new Vehicle(300, 300, 0.3, new Roam(), new Steering(this));
-        vehicles = newArrayList(vehicle, wanderer,
-                new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this)),
-                new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this)),
-                new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this)),
-                new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this)));
+        Vehicle random1 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this));
+        Vehicle random2 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random1, new Vector(20, 20)), new Steering(this));
+        Vehicle random3 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random2, new Vector(20, 20)), new Steering(this));
+        Vehicle random4 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random3, new Vector(20, 20)), new Steering(this));
+        vehicles = newArrayList(vehicle, wanderer, random1, random2, random3, random4);
         signpost = new Signpost("Sign", 10, 50);
         watchTower = new WatchTower(300, 500, this, new Steering(this));
         entities = Lists.<Entity>newArrayList(vehicles);
@@ -71,14 +73,6 @@ public class ShooterWorld implements GameWorld {
 
     public void moveVehicle(Direction direction) {
         vehicle.steering().directionOn(direction);
-    }
-
-    public Vehicle getWanderer() {
-        return wanderer;
-    }
-
-    public Signpost getSignpost() {
-        return signpost;
     }
 
     public Vehicle getVehicle() {

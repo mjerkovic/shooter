@@ -27,6 +27,7 @@ public class WatchTower extends MovingEntity {
     public void update() {
         stateMachine.update();
         Vector steeringForce = steering.calculate();
+        steeringForce = restrictTurnRate(steeringForce);
         if (steeringForce.length() > 0.0001) {
             heading = steeringForce.normalise();
             side = heading.perp();

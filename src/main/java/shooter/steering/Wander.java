@@ -8,8 +8,8 @@ import shooter.unit.MovingEntity;
 
 public class Wander implements SteeringBehaviour {
 
-    private static final double WANDER_RADIUS = 1.2;
-    private static final double WANDER_DISTANCE = 2.0;
+    private static final double WANDER_RADIUS = 2.0;
+    private static final double WANDER_DISTANCE = 4.0;
     private static final double WANDER_JITTER = 80.0;
 
     private final MovingEntity entity;

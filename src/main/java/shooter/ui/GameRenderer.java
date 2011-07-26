@@ -30,7 +30,6 @@ public class GameRenderer {
         int[] yPos = { (int) tip.Y(), (int) left.Y(), (int) right.Y() };
 
         AffineTransform orig = graphics.getTransform();
-
         Vector up = new Vector(0, -1);
         double angle = up.angle(vehicle.heading());
         Rotation rotation = up.rotationTo(vehicle.heading());

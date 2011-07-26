@@ -24,22 +24,20 @@ public abstract class MovingEntity extends Entity {
     public void update() {
         goal.process(this);
         Vector steeringForce = steering.calculate();
-        double angleChange = heading.angle(steeringForce.normalise());
-        if (angleChange > maxTurnRate) {
-            steeringForce = steeringForce.scale(maxTurnRate);
-        }
-        //System.out.print("steeringForce: " + steeringForce + "\t");
+        steeringForce = restrictTurnRate(steeringForce);
         Vector acceleration = steeringForce.dividedBy(mass);//.dividedBy(timeDiff);
-        //System.out.print("acceleration: " + acceleration + "\t");
         velocity = velocity.add(acceleration).truncate(maxSpeed);
-        //System.out.print("velocity: " + velocity + "\t");
         position = position.add(velocity);
-        //System.out.println("position: " + position);
 
         if (velocity.lengthSquared() > 0.00000001) {
             heading = velocity.normalise();
             side = heading.perp();
         }
+    }
+
+    protected final Vector restrictTurnRate(Vector steeringForce) {
+        double angleChange = heading.angle(steeringForce.normalise());
+        return angleChange > maxTurnRate ? steeringForce.scale(maxTurnRate) : steeringForce;
     }
 
     public void stop() {
