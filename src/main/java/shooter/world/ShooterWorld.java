@@ -9,13 +9,13 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import shooter.goals.Roam;
-import shooter.goals.Track;
 import shooter.goals.UserControl;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
 import shooter.unit.Bullet;
 import shooter.unit.Entity;
+import shooter.unit.MovingEntity;
 import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.WatchTower;
@@ -42,7 +42,7 @@ public class ShooterWorld implements GameWorld {
                 new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this)),
                 new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this)));
         signpost = new Signpost("Sign", 10, 50);
-        watchTower = new WatchTower(300, 500, this, new Track(this), new Steering(this));
+        watchTower = new WatchTower(300, 500, this, new Steering(this));
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
@@ -77,10 +77,6 @@ public class ShooterWorld implements GameWorld {
         return wanderer;
     }
 
-    public void addBullet(Bullet bullet) {
-        bullets.add(bullet);
-    }
-
     public Signpost getSignpost() {
         return signpost;
     }
@@ -95,6 +91,14 @@ public class ShooterWorld implements GameWorld {
 
     public Collection<Entity> getEntities() {
         return entities;
+    }
+
+    public void shotFired(MovingEntity shooter, MovingEntity target) {
+        addBullet(new Bullet(shooter.position(), shooter.heading()));
+    }
+
+    private void addBullet(Bullet bullet) {
+        bullets.add(bullet);
     }
 
 }

@@ -7,17 +7,14 @@ import shooter.world.ShooterWorld;
 public class Steering {
 
     private final ShooterWorld world;
-    private final Fire fireBehaviour = new Fire();
     private UserControlledBehaviour userControlledBehaviour = new UserControlledBehaviour();
 
     private boolean wander;
     private boolean pursuit;
-    private boolean fire;
     private boolean userControlled;
 
     private MovingEntity owner;
     private MovingEntity evader;
-    private MovingEntity target;
     private Direction direction;
 
     public Steering(ShooterWorld world) {
@@ -31,9 +28,6 @@ public class Steering {
         }
         if (pursuit) {
             steeringForce = steeringForce.add(new Pursuit(owner, evader).calculate());
-        }
-        if (fire) {
-            fireBehaviour.calculate(owner, target, world);
         }
         if (userControlled) {
             steeringForce = userControlledBehaviour.calculate(owner, direction);
@@ -57,15 +51,6 @@ public class Steering {
     public void pursuitOff() {
         this.evader = null;
         pursuit = false;
-    }
-
-    public void fireOn(MovingEntity target) {
-        this.target = target;
-        fire = true;
-    }
-
-    public void fireOff() {
-        fire = false;
     }
 
     public void setOwner(MovingEntity owner) {
