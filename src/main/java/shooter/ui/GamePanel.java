@@ -103,26 +103,9 @@ public class GamePanel extends JPanel implements Runnable {
         dbg.fillRect(0, 0, PWIDTH, PHEIGHT);
         Graphics2D g = (Graphics2D) dbg;
         g.setColor(Color.BLACK);
-/*
-        AffineTransform currentTransform = g.getTransform();
-        g.translate(getWidth() / 2, getHeight() / 2);
-        g.scale(1.0, -1.0);
-        g.drawLine(0, getHeight()/2, 0, -(getHeight()/2));
-        g.drawLine(-(getWidth()/2), 0, getWidth()/2, 0);
-        for (int i = -300; i <= 300; i+=10) {
-            g.drawLine(-3, i, 3, i);
-            g.drawLine(-3, i, 3, i);
-            g.drawLine(i, -3, i, 3);
-            g.drawLine(i, -3, i, 3);
-        }
-*/
+
         GameRenderer gameRenderer = new GameRenderer(g);
         mediator.renderUsing(gameRenderer);
-/*
-        g.setColor(Color.RED);
-        g.drawOval(45, 105, 10, 10);
-        g.setTransform(currentTransform);
-*/
     }
 
     private void readyForTermination() {

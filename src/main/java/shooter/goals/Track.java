@@ -3,7 +3,7 @@ package shooter.goals;
 import shooter.unit.MovingEntity;
 import shooter.world.ShooterWorld;
 
-public class Track extends BaseGoal {
+public class Track extends BaseGoal<MovingEntity> {
 
     private final ShooterWorld world;
 

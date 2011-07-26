@@ -4,6 +4,7 @@ import shooter.geom.Vector;
 
 public enum Direction {
 
+    NONE(new Vector(0, 0)),
     NORTH(new Vector(0, -1)),
     NORTH_EAST(new Vector(1, -1)),
     EAST(new Vector(1, 0)),

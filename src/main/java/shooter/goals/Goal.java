@@ -1,9 +1,9 @@
 package shooter.goals;
 
-import shooter.unit.MovingEntity;
+public interface Goal<T> {
 
-public interface Goal {
+    void process(T entity);
 
-    void process(MovingEntity entity);
+    void addGoal(Goal<T> goal);
 
 }

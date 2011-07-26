@@ -13,6 +13,7 @@ public class GameDisplay extends JFrame implements WindowListener {
 
     public GameDisplay(GamePanel gamePanel, InfoPanel infoPanel) {
         super("");
+        setLocation(600, 600);
         setPreferredSize(DISPLAY_SIZE);
         setSize(DISPLAY_SIZE);
         addWindowListener(this);

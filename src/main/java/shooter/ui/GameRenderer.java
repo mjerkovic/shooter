@@ -1,7 +1,9 @@
 package shooter.ui;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
+import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.Bullet;
 import shooter.unit.Signpost;
@@ -17,16 +19,26 @@ public class GameRenderer {
     }
 
     public void render(Vehicle vehicle) {
-//        int[][] vehicleShape = vehicle.getShape();
-//        graphics.drawPolygon(vehicleShape[0], vehicleShape[1], 3);
-        Vector pos = vehicle.position();
-        int x1 = (int) pos.X();
-        int y1 = (int) pos.Y();
-        graphics.drawOval(x1 - 5, y1 - 5, 10, 10);
-        Vector heading = vehicle.heading();
-        int x2 = x1 + (int) (heading.X() * 20);
-        int y2 = y1 + (int) (heading.Y() * 20);
-        graphics.drawLine(x1, y1, x2, y2);
+        int x = (int) vehicle.X();
+        int y = (int) vehicle.Y();
+
+        Vector tip = new Vector(x, y -10);
+        Vector left = new Vector(x -5, y+5);
+        Vector right = new Vector(x +5, y+5);
+
+        int[] xPos = { (int) tip.X(), (int) left.X(), (int) right.X() };
+        int[] yPos = { (int) tip.Y(), (int) left.Y(), (int) right.Y() };
+
+        AffineTransform orig = graphics.getTransform();
+
+        Vector up = new Vector(0, -1);
+        double angle = up.angle(vehicle.heading());
+        Rotation rotation = up.rotationTo(vehicle.heading());
+
+        AffineTransform rot = AffineTransform.getRotateInstance(rotation.rotate(angle), x, y);
+        graphics.transform(rot);
+        graphics.drawPolygon(xPos, yPos, 3);
+        graphics.setTransform(orig);
     }
 
     public void render(Signpost signpost) {

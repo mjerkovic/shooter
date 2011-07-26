@@ -6,7 +6,7 @@ import shooter.steering.Steering;
 
 public class Vehicle extends MovingEntity {
 
-    public Vehicle(int x, int y, Goal goal, Steering steering) {
+    public Vehicle(int x, int y, double maxTurnRate, Goal goal, Steering steering) {
         super(goal, steering);
         steering.setOwner(this);
         position = new Vector(x, y);

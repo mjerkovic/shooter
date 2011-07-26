@@ -10,8 +10,9 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 import shooter.geom.Vector;
-import shooter.unit.Signpost;
+import shooter.unit.Entity;
 import shooter.unit.Vehicle;
+import shooter.unit.WatchTower;
 import shooter.world.ShooterWorld;
 
 public class CompassPanel extends JPanel {
@@ -21,6 +22,7 @@ public class CompassPanel extends JPanel {
     public CompassPanel(ShooterWorld world) {
         this.world = world;
         setBackground(BLACK);
+        setForeground(YELLOW);
         setSize(new Dimension(200, 200));
         setPreferredSize(new Dimension(200, 200));
     }
@@ -34,17 +36,25 @@ public class CompassPanel extends JPanel {
         AffineTransform origTransform = graphics.getTransform();
         AffineTransform transform = AffineTransform.getTranslateInstance(100,100);
         transform.rotate(Math.toRadians(-90));
+        transform.scale(0.1, 0.1);
         graphics.transform(transform);
 
-        Signpost signpost = world.getSignpost();
         Vehicle vehicle = world.getVehicle();
-        Vector point = pointToLocalSpace(signpost.position(), vehicle.heading(), vehicle.side(), vehicle.position());
-
-        setForeground(RED);
-        graphics.fillRect((int) point.X() - 2, (int) point.Y() - 2, 4, 4);
+        for (Entity entity : world.getEntities()) {
+            double distance = entity.position().subtract(vehicle.position()).lengthSquared();
+            //if (distance <= 1000) {
+                Vector point = pointToLocalSpace(entity.position(), vehicle.heading(), vehicle.side(), vehicle.position());
+                if (entity instanceof WatchTower) {
+                    System.out.println("distance = " + distance + "," + vehicle.position() + "," + entity.position() +
+                            "," + entity.position().subtract(vehicle.position()).length()+ "," + point);
+                }
+                setForeground(RED);
+                graphics.fillRect((int) point.X() - 20, (int) point.Y() - 20, 40, 40);
+            //}
+        }
 
         setForeground(YELLOW);
-        graphics.fillRect(-2, -2, 4, 4);
+        graphics.fillRect(-20, -20, 40, 40);
 
         graphics.setTransform(origTransform);
     }

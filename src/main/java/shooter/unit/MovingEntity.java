@@ -14,7 +14,7 @@ public abstract class MovingEntity extends Entity {
     double mass = 1;
     double maxSpeed = 3;
     //double maxForce = 2;
-    //double maxTurnRate = 1;
+    double maxTurnRate = 0.2;
 
     public MovingEntity(Goal goal, Steering steering) {
         this.goal = goal;
@@ -24,6 +24,10 @@ public abstract class MovingEntity extends Entity {
     public void update() {
         goal.process(this);
         Vector steeringForce = steering.calculate();
+        double angleChange = heading.angle(steeringForce.normalise());
+        if (angleChange > maxTurnRate) {
+            steeringForce = steeringForce.scale(maxTurnRate);
+        }
         //System.out.print("steeringForce: " + steeringForce + "\t");
         Vector acceleration = steeringForce.dividedBy(mass);//.dividedBy(timeDiff);
         //System.out.print("acceleration: " + acceleration + "\t");

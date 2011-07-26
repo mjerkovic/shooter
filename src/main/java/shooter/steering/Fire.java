@@ -20,9 +20,10 @@ public class Fire {
     }
 
     private void shoot(MovingEntity shooter, ShooterWorld world) {
-        long now = System.currentTimeMillis();
-        if (lastShot == 0 || now - lastShot >= 1000) {
+        long timeDiff = System.currentTimeMillis() - lastShot;
+        if (lastShot == 0 || timeDiff >= 1000) {
             world.addBullet(new Bullet(shooter.position(), shooter.heading()));
+            lastShot += timeDiff;
         }
     }
 
