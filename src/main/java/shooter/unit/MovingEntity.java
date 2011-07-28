@@ -19,6 +19,7 @@ public abstract class MovingEntity extends Entity {
     public MovingEntity(Goal goal, Steering steering) {
         this.goal = goal;
         this.steering = steering;
+        this.boundingRadius = 10;
     }
 
     public void update() {

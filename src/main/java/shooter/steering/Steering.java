@@ -14,6 +14,7 @@ public class Steering {
     private boolean pursuit;
     private boolean userControlled;
     private boolean offsetPursuit;
+    private boolean obstacleAvoidance;
 
     private MovingEntity owner;
     private MovingEntity evader;
@@ -39,6 +40,9 @@ public class Steering {
         }
         if (userControlled) {
             steeringForce = userControlledBehaviour.calculate(owner, direction, rotation);
+        }
+        if (obstacleAvoidance) {
+            steeringForce = steeringForce.add(new ObstacleAvoidance(owner, world.getObstacles()).calculate());
         }
         return steeringForce;
     }
@@ -87,6 +91,16 @@ public class Steering {
         this.leader = null;
         this.offset = null;
         offsetPursuit = false;
+    }
+
+    public void obstacleAvoidanceOn(MovingEntity owner) {
+        this.owner = owner;
+        obstacleAvoidance = true;
+    }
+
+    public void obstacleAvoidanceOff() {
+        this.owner = null;
+        obstacleAvoidance = false;
     }
 
 }
