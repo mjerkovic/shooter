@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.Bullet;
+import shooter.unit.Obstacle;
 import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.WatchTower;
@@ -63,6 +64,12 @@ public class GameRenderer {
         int x2 = x1 + (int) tail.X() * 10;
         int y2 = y1 + (int) tail.Y() * 10;
         graphics.drawLine(x1, y1, x2, y2);
+    }
+
+    public void render(Obstacle obstacle) {
+        graphics.drawOval((int)(obstacle.position().X() - obstacle.boundingRadius()),
+                (int)(obstacle.position().Y() - obstacle.boundingRadius()),
+                (int) (obstacle.boundingRadius() * 2), (int) (obstacle.boundingRadius() * 2));
     }
     
 }

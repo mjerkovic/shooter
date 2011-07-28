@@ -13,7 +13,6 @@ public class ShooterPanel extends GamePanel {
         KeyListener keyListener = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("e.getKeyCode() = " + e.getKeyCode());
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_NUMPAD5: mediator.moveVehicle(Direction.NONE); break;
                     case KeyEvent.VK_NUMPAD8: mediator.moveVehicle(Direction.NORTH); break;

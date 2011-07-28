@@ -20,4 +20,10 @@ public class Transformations {
         return new Matrix(matrix).transform(point);
     }
 
+    public static Vector vectorToWorldSpace(Vector point, Vector heading, Vector side) {
+        Matrix matrix = new Matrix();
+        matrix.rotate(heading, side);
+        return matrix.transform(point);
+    }
+
 }

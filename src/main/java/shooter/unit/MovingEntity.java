@@ -68,4 +68,7 @@ public abstract class MovingEntity extends Entity {
         //steeringBehaviours.move(this, toPosition);
     }
 
+    public double getMaxTurnRate() {
+        return maxTurnRate;
+    }
 }

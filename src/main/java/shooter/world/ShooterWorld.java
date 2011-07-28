@@ -18,6 +18,7 @@ import shooter.ui.GameRenderer;
 import shooter.unit.Bullet;
 import shooter.unit.Entity;
 import shooter.unit.MovingEntity;
+import shooter.unit.Obstacle;
 import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.WatchTower;
@@ -34,20 +35,22 @@ public class ShooterWorld implements GameWorld {
     private List<Bullet> bullets = new ArrayList<Bullet>();
     private final Collection<Vehicle> vehicles;
     private final Collection<Entity> entities;
+    private final Collection<Obstacle> obstacles;
 
     public ShooterWorld() {
         vehicle = new Vehicle(100, 100, 0.1, new UserControl(), new Steering(this));
         wanderer = new Vehicle(300, 300, 0.3, new Roam(), new Steering(this));
         Vehicle random1 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this));
         Vehicle random2 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random1, new Vector(20, 20)), new Steering(this));
-        Vehicle random3 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random2, new Vector(20, 20)), new Steering(this));
-        Vehicle random4 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random3, new Vector(20, 20)), new Steering(this));
-        vehicles = newArrayList(vehicle, wanderer, random1, random2, random3, random4);
+        //Vehicle random3 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random2, new Vector(20, 20)), new Steering(this));
+        //Vehicle random4 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random3, new Vector(20, 20)), new Steering(this));
+        vehicles = newArrayList(vehicle, wanderer, random1, random2); //, random3, random4);
         signpost = new Signpost("Sign", 10, 50);
         watchTower = new WatchTower(300, 500, this, new Steering(this));
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
+        obstacles = Lists.newArrayList(new Obstacle(300, 300, 30));
     }
 
     public void update() {
@@ -68,6 +71,9 @@ public class ShooterWorld implements GameWorld {
         renderer.render(watchTower);
         for (Bullet bullet : bullets) {
             renderer.render(bullet);
+        }
+        for (Obstacle obstacle : obstacles) {
+            renderer.render(obstacle);
         }
     }
 
@@ -93,6 +99,10 @@ public class ShooterWorld implements GameWorld {
 
     private void addBullet(Bullet bullet) {
         bullets.add(bullet);
+    }
+
+    public Collection<Obstacle> getObstacles() {
+        return obstacles;
     }
 
 }

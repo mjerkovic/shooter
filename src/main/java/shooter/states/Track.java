@@ -14,7 +14,6 @@ public class Track implements State<WatchTower> {
     }
 
     public void enter(WatchTower tower) {
-        System.out.println("Entering Track");
         tower.startTracking(target);
     }
 
@@ -26,7 +25,7 @@ public class Track implements State<WatchTower> {
     }
 
     public void terminate(WatchTower tower) {
-        System.out.println("Terminating Track");
         tower.stopTracking();
     }
+
 }

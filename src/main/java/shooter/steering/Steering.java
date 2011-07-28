@@ -1,5 +1,6 @@
 package shooter.steering;
 
+import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.MovingEntity;
 import shooter.world.ShooterWorld;
@@ -17,6 +18,7 @@ public class Steering {
     private MovingEntity owner;
     private MovingEntity evader;
     private Direction direction;
+    private Rotation rotation;
     private MovingEntity leader;
     private Vector offset;
 
@@ -36,7 +38,7 @@ public class Steering {
             steeringForce = steeringForce.add(new OffsetPursuit(owner, leader, offset).calculate());
         }
         if (userControlled) {
-            steeringForce = userControlledBehaviour.calculate(owner, direction);
+            steeringForce = userControlledBehaviour.calculate(owner, direction, rotation);
         }
         return steeringForce;
     }
@@ -65,6 +67,7 @@ public class Steering {
 
     public void directionOn(Direction direction) {
         this.direction = direction;
+        this.rotation = owner.heading().rotationTo(direction.heading());
         userControlled = true;
     }
 

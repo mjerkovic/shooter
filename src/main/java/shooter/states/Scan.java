@@ -13,7 +13,6 @@ public class Scan implements State<WatchTower> {
     }
 
     public void enter(WatchTower tower) {
-        System.out.println("Entering Scan");
     }
 
     public void execute(WatchTower tower) {
@@ -24,7 +23,6 @@ public class Scan implements State<WatchTower> {
     }
 
     public void terminate(WatchTower tower) {
-        System.out.println("Terminating Scan");
     }
 
 }
