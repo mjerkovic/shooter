@@ -2,8 +2,12 @@ package shooter.goals;
 
 public interface Goal<T> {
 
-    void process(T entity);
+    GoalState process(T entity);
 
-    void addGoal(Goal<T> goal);
+    void addSubGoal(Goal<T> goal);
+
+    void terminate(T entity);
+
+    void activate(T entity);
 
 }

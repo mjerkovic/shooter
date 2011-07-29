@@ -1,8 +1,7 @@
 package shooter.unit;
 
 import shooter.geom.Vector;
-import shooter.states.StateMachine;
-import shooter.states.WatchTowerStateMachine;
+import shooter.goals.Scan;
 import shooter.steering.Steering;
 import shooter.world.ShooterWorld;
 
@@ -11,13 +10,12 @@ public class WatchTower extends MovingEntity {
     private static final int RANGE_SQUARED = 40000;
 
     private final ShooterWorld world;
-    private final StateMachine<WatchTower> stateMachine;
-    private long lastShot;
+    private TargetingSystem targetingSystem;
 
     public WatchTower(int x, int y, ShooterWorld world, Steering steering) {
-        super(null, steering);
+        super(new Scan(), steering);
         this.world = world;
-        this.stateMachine = new WatchTowerStateMachine(this);
+        this.targetingSystem = new TargetingSystem(world, this);
         steering.setOwner(this);
         position = new Vector(x, y);
         heading = new Vector(1, 0);
@@ -25,7 +23,7 @@ public class WatchTower extends MovingEntity {
 
     @Override
     public void update() {
-        stateMachine.update();
+        goal.process(this);
         Vector steeringForce = steering.calculate();
         steeringForce = restrictTurnRate(steeringForce);
         if (steeringForce.length() > 0.0001) {
@@ -34,41 +32,28 @@ public class WatchTower extends MovingEntity {
         }
     }
 
-    public Vehicle findTarget() {
-        for (Vehicle vehicle : world.getVehicles()) {
-            if (inRange(vehicle)) {
-                return vehicle;
-            }
-        }
-        return null;
-    }
-
     public boolean inRange(Vehicle target) {
         return target.position().subtract(position).lengthSquared() <= RANGE_SQUARED;
     }
 
-    public void startTracking(Vehicle target) {
-        steering.pursuitOn(target);
+    public void startTracking() {
+        steering.pursuitOn(targetingSystem.getTarget());
     }
 
     public void stopTracking() {
         steering.pursuitOff();
     }
 
-    public void fireAt(Vehicle target) {
-        Vector toTarget = target.position().subtract(position);
-        double relativeHeading = toTarget.normalise().dot(heading);
-        double range = toTarget.length();
-        if (relativeHeading >= 0.99 && range < 200) {
-            shootAt(target);
-        }
+    public void fire() {
+        targetingSystem.fire();
     }
 
-    private void shootAt(Vehicle target) {
-        long timeDiff = System.currentTimeMillis() - lastShot;
-        if (lastShot == 0 || timeDiff >= 1000) {
-            world.shotFired(this, target);
-            lastShot += timeDiff;
-        }
+    public boolean acquireTarget() {
+        return targetingSystem.acquireTarget(RANGE_SQUARED);
     }
+
+    public boolean targetAcquired() {
+        return targetingSystem.getTarget() != null;
+    }
+
 }

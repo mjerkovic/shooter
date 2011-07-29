@@ -10,7 +10,11 @@ public class Roam extends BaseGoal<MovingEntity> {
     }
 
     @Override
-    protected void processGoal(MovingEntity entity) {
+    protected GoalState processGoal(MovingEntity entity) {
+        return null;
     }
 
+    public void terminate(MovingEntity entity) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

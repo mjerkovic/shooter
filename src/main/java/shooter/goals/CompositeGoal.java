@@ -1,19 +1,35 @@
 package shooter.goals;
 
+import static shooter.goals.GoalState.ACTIVE;
+import static shooter.goals.GoalState.COMPLETED;
+import static shooter.goals.GoalState.INACTIVE;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 public abstract class CompositeGoal<T> implements Goal<T> {
 
-    private final Deque<Goal<T>> goals = new ArrayDeque<Goal<T>>();
+    private final Deque<Goal<T>> subGoals = new ArrayDeque<Goal<T>>();
+    protected GoalState state = INACTIVE;
 
-    public void process(T entity) {
+    public GoalState process(T entity) {
+        return processSubGoals(entity);
     }
 
-    public void addGoal(Goal<T> goal) {
-        goals.push(goal);
+    public void addSubGoal(Goal<T> goal) {
+        subGoals.push(goal);
     }
 
-    protected abstract void processGoal(T entity);
+    protected GoalState processSubGoals(T entity) {
+        activate(entity);
+        if (subGoals.isEmpty()) {
+            return COMPLETED;
+        }
+        GoalState subGoalState = subGoals.peek().process(entity);
+        if (subGoalState.equals(COMPLETED)) {
+            subGoals.removeFirst();
+        }
+        return (!subGoals.isEmpty()) ? ACTIVE : subGoalState;
+    }
 
 }
