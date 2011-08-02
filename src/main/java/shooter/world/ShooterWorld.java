@@ -1,15 +1,14 @@
 package shooter.world;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static java.lang.Math.random;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import com.google.common.collect.Lists;
 import shooter.geom.Vector;
-import shooter.goals.Offset;
 import shooter.goals.Roam;
 import shooter.goals.UserControl;
 import shooter.steering.Direction;
@@ -21,6 +20,7 @@ import shooter.unit.MovingEntity;
 import shooter.unit.Obstacle;
 import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
+import shooter.unit.Wall;
 import shooter.unit.WatchTower;
 
 public class ShooterWorld implements GameWorld {
@@ -36,21 +36,59 @@ public class ShooterWorld implements GameWorld {
     private final Collection<Vehicle> vehicles;
     private final Collection<Entity> entities;
     private final Collection<Obstacle> obstacles;
+    private final Collection<Wall> walls = newArrayList();
 
     public ShooterWorld() {
-        vehicle = new Vehicle(100, 100, 0.1, new UserControl(), new Steering(this));
-        wanderer = new Vehicle(300, 300, 0.3, new Roam(), new Steering(this));
-        Vehicle random1 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Roam(), new Steering(this));
-        Vehicle random2 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random1, new Vector(20, 20)), new Steering(this));
-        //Vehicle random3 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random2, new Vector(20, 20)), new Steering(this));
-        //Vehicle random4 = new Vehicle((int) (random() * 300), (int) (random() * 300), 0.3, new Offset(random3, new Vector(20, 20)), new Steering(this));
-        vehicles = newArrayList(vehicle, wanderer, random1, random2); //, random3, random4);
+        vehicle = new Vehicle(new Vector(100, 100), new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
+        vehicle.steering().obstacleAvoidanceOn();
+        vehicle.steering().wallAvoidanceOn();
+        wanderer = new Vehicle(new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
+        vehicles = newArrayList(vehicle, wanderer); //, random3, random4);
         signpost = new Signpost("Sign", 10, 50);
         watchTower = new WatchTower(300, 500, this, new Steering(this));
+        obstacles = newArrayList();
+        addObstacles();
+        addVehicles();
+        addWalls();
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
-        obstacles = Lists.newArrayList(new Obstacle(300, 300, 30));
+    }
+
+    private void addVehicles() {
+        Random rand = new Random();
+        double headingX = rand.nextDouble() - rand.nextDouble();
+        double headingY = rand.nextDouble() - rand.nextDouble();
+        for (int i=0; i < 10; i++) {
+            Vehicle v = new Vehicle(new Vector(rand.nextInt(600), rand.nextInt(600)), new Vector(headingX, headingY), 0.3, new Roam(), new Steering(this));
+            v.steering().obstacleAvoidanceOn();
+            v.steering().wallAvoidanceOn();
+            vehicles.add(v);
+        }
+/*
+        Vehicle random1 = new Vehicle(new Vector(random() * 300, random() * 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
+        random1.steering().obstacleAvoidanceOn(random1);
+        random1.steering().wallAvoidanceOn();
+        Vehicle random2 = new Vehicle(new Vector(random() * 300, random() * 300), new Vector(1, 0), 0.3, new Offset(random1, new Vector(20, 20)), new Steering(this));
+        random2.steering().obstacleAvoidanceOn(random2);
+        random2.steering().wallAvoidanceOn();
+        vehicles.add(random1);
+        vehicles.add(random2);
+*/
+    }
+
+    private void addObstacles() {
+        Random rand = new Random();
+        for (int i=0; i < 5; i++) {
+            obstacles.add(new Obstacle(rand.nextInt(600), rand.nextInt(600), rand.nextDouble() * 50));
+        }
+    }
+
+    private void addWalls() {
+        walls.add(new Wall(new Vector(0, 0), new Vector(600, 0)));
+        walls.add(new Wall(new Vector(600, 0), new Vector(600, 600)));
+        walls.add(new Wall(new Vector(0, 600), new Vector(600, 600)));
+        walls.add(new Wall(new Vector(0, 0), new Vector(0, 600)));
     }
 
     public void update() {
@@ -74,6 +112,9 @@ public class ShooterWorld implements GameWorld {
         }
         for (Obstacle obstacle : obstacles) {
             renderer.render(obstacle);
+        }
+        for (Wall wall : walls) {
+            renderer.render(wall);
         }
     }
 
@@ -105,4 +146,7 @@ public class ShooterWorld implements GameWorld {
         return obstacles;
     }
 
+    public Collection<Wall> getWalls() {
+        return walls;
+    }
 }

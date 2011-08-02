@@ -25,6 +25,17 @@ public class Matrix {
         }));
     }
 
+    public void rotate(double angle) {
+        double sin = Math.sin(angle);
+        double cos = Math.cos(angle);
+
+        matrix = matrix.mult(new SimpleMatrix(new double[][] {
+                {cos, sin, 0},
+                {-sin, cos, 0},
+                {0, 0, 1}
+        }));
+    }
+
     public void translate(double x, double y) {
         matrix = matrix.mult(new SimpleMatrix(new double[][]{
                 {1, 0, 0},

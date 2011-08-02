@@ -15,8 +15,8 @@ public class Offset extends BaseGoal<MovingEntity> {
 
     @Override
     protected void activateGoal(MovingEntity entity) {
-        entity.steering().offsetPursuitOn(entity, leader, offset);
-        entity.steering().obstacleAvoidanceOn(entity);
+        entity.steering().offsetPursuitOn(leader, offset);
+        entity.steering().obstacleAvoidanceOn();
     }
 
     @Override

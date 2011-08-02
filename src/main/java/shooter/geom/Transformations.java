@@ -26,4 +26,9 @@ public class Transformations {
         return matrix.transform(point);
     }
 
+    public static Vector rotateAroundOrigin(Vector origin, double angle) {
+        Matrix matrix = new Matrix();
+        matrix.rotate(angle);
+        return matrix.transform(origin);
+    }
 }

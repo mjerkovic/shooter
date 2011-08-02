@@ -15,6 +15,7 @@ public class Steering {
     private boolean userControlled;
     private boolean offsetPursuit;
     private boolean obstacleAvoidance;
+    private boolean wallAvoidance;
 
     private MovingEntity owner;
     private MovingEntity evader;
@@ -44,63 +45,82 @@ public class Steering {
         if (obstacleAvoidance) {
             steeringForce = steeringForce.add(new ObstacleAvoidance(owner, world.getObstacles()).calculate());
         }
+        if (wallAvoidance) {
+            steeringForce = steeringForce.add(new WallAvoidance(owner, world.getWalls()).calculate());
+        }
         return steeringForce;
     }
 
-    public void wanderOn() {
+    public Steering wanderOn() {
         wander = true;
+        return this;
     }
 
-    public void wanderOff() {
+    public Steering wanderOff() {
         wander = false;
+        return this;
     }
 
-    public void pursuitOn(MovingEntity evader) {
+    public Steering pursuitOn(MovingEntity evader) {
         this.evader = evader;
         pursuit = true;
+        return this;
     }
 
-    public void pursuitOff() {
+    public Steering pursuitOff() {
         this.evader = null;
         pursuit = false;
+        return this;
     }
 
     public void setOwner(MovingEntity owner) {
         this.owner = owner;
     }
 
-    public void directionOn(Direction direction) {
+    public Steering directionOn(Direction direction) {
         this.direction = direction;
         this.rotation = owner.heading().rotationTo(direction.heading());
         userControlled = true;
+        return this;
     }
 
-    public void directionOff() {
+    public Steering directionOff() {
         userControlled = false;
+        return this;
     }
 
-    public void offsetPursuitOn(MovingEntity owner, MovingEntity leader, Vector offset) {
-        this.owner = owner;
+    public Steering offsetPursuitOn(MovingEntity leader, Vector offset) {
         this.leader = leader;
         this.offset = offset;
         offsetPursuit = true;
+        return this;
     }
 
-    public void offsetPursuitOff() {
-        this.owner = null;
+    public Steering offsetPursuitOff() {
         this.leader = null;
         this.offset = null;
         offsetPursuit = false;
+        return this;
     }
 
-    public void obstacleAvoidanceOn(MovingEntity owner) {
-        this.owner = owner;
+    public Steering obstacleAvoidanceOn() {
         obstacleAvoidance = true;
+        return this;
     }
 
-    public void obstacleAvoidanceOff() {
-        this.owner = null;
+    public Steering obstacleAvoidanceOff() {
         obstacleAvoidance = false;
+        return this;
+    }
+
+    public Steering wallAvoidanceOn() {
+        wallAvoidance = true;
+        return this;
+    }
+
+    public Steering wallAvoidanceOff() {
+        wallAvoidance = false;
+        return this;
     }
 
 }

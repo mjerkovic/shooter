@@ -9,6 +9,7 @@ import shooter.unit.Bullet;
 import shooter.unit.Obstacle;
 import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
+import shooter.unit.Wall;
 import shooter.unit.WatchTower;
 
 public class GameRenderer {
@@ -71,5 +72,11 @@ public class GameRenderer {
                 (int)(obstacle.position().Y() - obstacle.boundingRadius()),
                 (int) (obstacle.boundingRadius() * 2), (int) (obstacle.boundingRadius() * 2));
     }
-    
+
+    public void render(Wall wall) {
+        Stroke stroke = graphics.getStroke();
+        graphics.setStroke(new BasicStroke(10));
+        graphics.drawLine((int) wall.from().X(), (int) wall.from().Y(), (int) wall.to().X(), (int) wall.to().Y());
+        graphics.setStroke(stroke);
+    }
 }
