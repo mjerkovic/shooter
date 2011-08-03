@@ -122,6 +122,12 @@ public class ShooterWorld implements GameWorld {
         vehicle.steering().directionOn(direction);
     }
 
+    public void moveTo(Vector position) {
+        vehicle.steering().directionOff();
+        vehicle.stop();
+        vehicle.steering().arriveOn(position);
+    }
+
     public Vehicle getVehicle() {
         return vehicle;
     }

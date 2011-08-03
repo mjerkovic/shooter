@@ -12,7 +12,7 @@ public abstract class MovingEntity extends Entity {
     protected Vector heading = new Vector(1, 0);
     protected Vector side = new Vector(1, 0);
     double mass = 1;
-    double maxSpeed = 3;
+    double maxSpeed = 3.5;
     //double maxForce = 2;
     double maxTurnRate = 0.2;
 

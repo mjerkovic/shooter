@@ -3,7 +3,10 @@ package shooter.ui;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import shooter.geom.Vector;
 import shooter.steering.Direction;
 
 public class ShooterPanel extends GamePanel {
@@ -30,6 +33,12 @@ public class ShooterPanel extends GamePanel {
             }
         };
         addKeyListener(keyListener);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mediator.moveTo(new Vector(e.getX(), e.getY()));
+            }
+        });
 
     }
     

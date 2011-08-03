@@ -2,6 +2,7 @@ package shooter.ui;
 
 import java.awt.*;
 
+import shooter.geom.Vector;
 import shooter.steering.Direction;
 import shooter.world.GameWorld;
 
@@ -26,6 +27,10 @@ public class GameMediator {
 
     public void moveVehicle(Direction direction) {
         gameWorld.moveVehicle(direction);
+    }
+
+    public void moveTo(Vector position) {
+        gameWorld.moveTo(position);
     }
 
     public void toggleFeelers() {

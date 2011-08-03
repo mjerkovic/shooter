@@ -16,6 +16,7 @@ public class Steering {
     private boolean offsetPursuit;
     private boolean obstacleAvoidance;
     private boolean wallAvoidance;
+    private boolean arrive;
 
     private MovingEntity owner;
     private MovingEntity evader;
@@ -23,6 +24,7 @@ public class Steering {
     private Rotation rotation;
     private MovingEntity leader;
     private Vector offset;
+    private Vector arrivalPosition;
 
     public Steering(ShooterWorld world) {
         this.world = world;
@@ -30,6 +32,9 @@ public class Steering {
 
     public Vector calculate() {
         Vector steeringForce = Vector.ZERO;
+        if (arrive) {
+            steeringForce = steeringForce.add(new Arrive(owner, arrivalPosition).calculate());
+        }
         if (wander) {
             steeringForce = steeringForce.add(new Wander(owner).calculate());
         }
@@ -123,4 +128,12 @@ public class Steering {
         return this;
     }
 
+    public void arriveOn(Vector position) {
+        arrivalPosition = position;
+        arrive  = true;
+    }
+
+    public void arriveOff() {
+        arrive = false;
+    }
 }
