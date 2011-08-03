@@ -1,5 +1,7 @@
 package shooter.ui;
 
+import static shooter.geom.Geometry.createFeelersFor;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
@@ -40,6 +42,11 @@ public class GameRenderer {
         graphics.transform(rot);
         graphics.drawPolygon(xPos, yPos, 3);
         graphics.setTransform(orig);
+
+        Vector[] feelers = createFeelersFor(vehicle);
+        for (Vector feeler : feelers) {
+            graphics.drawLine(x, y, (int) feeler.X(), (int) feeler.Y());
+        }
     }
 
     public void render(Signpost signpost) {
@@ -78,5 +85,14 @@ public class GameRenderer {
         graphics.setStroke(new BasicStroke(10));
         graphics.drawLine((int) wall.from().X(), (int) wall.from().Y(), (int) wall.to().X(), (int) wall.to().Y());
         graphics.setStroke(stroke);
+
+        Vector centre = wall.centre();
+        Vector normal = wall.normal();
+        //System.out.println(String.format("from %s, to %s, normal %s, centre %s", wall.from(), wall.to(), normal, centre));
+        int x = (int) centre.X();
+        int y = (int) centre.Y();
+        int toX = x + (int) normal.X() * 10;
+        int toY = y + (int) normal.Y() * 10;
+        graphics.drawLine(x, y, toX, toY);
     }
 }

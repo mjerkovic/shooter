@@ -1,5 +1,9 @@
 package shooter.geom;
 
+import static shooter.geom.Transformations.rotateAroundOrigin;
+
+import shooter.unit.MovingEntity;
+
 public class Geometry {
     
     public static LineIntersection lineIntersects(Vector position, Vector feeler, Vector from, Vector to) {
@@ -32,6 +36,20 @@ public class Geometry {
         }
 
         return new LineIntersection(false, 0, Vector.ZERO);
+    }
+
+    public static Vector[] createFeelersFor(MovingEntity entity) {
+        Vector[] feelers = new Vector[3];
+
+        feelers[0] = entity.position().add(entity.heading().scale(30));
+
+        Vector temp = rotateAroundOrigin(entity.heading(), ((Math.PI / 2) * 3.5));
+        feelers[1] = entity.position().add(temp.scale(30));
+
+        temp = rotateAroundOrigin(entity.heading(), ((Math.PI / 2) * 0.5));
+        feelers[2] = entity.position().add(temp.scale(30));
+
+        return feelers;
     }
 
 }

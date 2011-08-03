@@ -87,8 +87,8 @@ public class ShooterWorld implements GameWorld {
     private void addWalls() {
         walls.add(new Wall(new Vector(0, 0), new Vector(600, 0)));
         walls.add(new Wall(new Vector(600, 0), new Vector(600, 600)));
-        walls.add(new Wall(new Vector(0, 600), new Vector(600, 600)));
-        walls.add(new Wall(new Vector(0, 0), new Vector(0, 600)));
+        walls.add(new Wall(new Vector(600, 600), new Vector(0, 600)));
+        walls.add(new Wall(new Vector(0, 600), new Vector(0, 0)));
     }
 
     public void update() {

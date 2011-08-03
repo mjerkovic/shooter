@@ -1,5 +1,8 @@
 package shooter.geom;
 
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+
 public class Transformations {
 
     public static Vector pointToWorldSpace(Vector point, Vector heading, Vector side, Vector position) {
@@ -27,8 +30,10 @@ public class Transformations {
     }
 
     public static Vector rotateAroundOrigin(Vector origin, double angle) {
-        Matrix matrix = new Matrix();
-        matrix.rotate(angle);
-        return matrix.transform(origin);
+        AffineTransform t = AffineTransform.getRotateInstance(angle);
+        Point2D result = new Point2D.Double();
+        t.transform(new Point2D.Double(origin.X(), origin.Y()), result);
+        return new Vector(result.getX(), result.getY());
     }
+
 }

@@ -1,7 +1,7 @@
 package shooter.steering;
 
+import static shooter.geom.Geometry.createFeelersFor;
 import static shooter.geom.Geometry.lineIntersects;
-import static shooter.geom.Transformations.rotateAroundOrigin;
 
 import java.util.Collection;
 
@@ -19,7 +19,7 @@ public class WallAvoidance implements SteeringBehaviour {
     public WallAvoidance(MovingEntity entity, Collection<Wall> walls) {
         this.entity = entity;
         this.walls = walls;
-        createFeelers();
+        feelers = createFeelersFor(entity);
     }
 
     public Vector calculate() {
@@ -47,16 +47,6 @@ public class WallAvoidance implements SteeringBehaviour {
         }
 
         return steeringForce;
-    }
-
-    private void createFeelers() {
-        feelers[0] = entity.position().add(entity.heading().scale(30));
-
-        Vector temp = rotateAroundOrigin(entity.heading(), ((Math.PI / 2) * 3.5));
-        feelers[1] = entity.position().add(temp.scale(15));
-
-        temp = rotateAroundOrigin(entity.heading(), ((Math.PI / 2) * 0.5));
-        feelers[2] = entity.position().add(temp.scale(15));
     }
 
 }

@@ -37,8 +37,8 @@ public class Wall {
     }
 
     private void calculateNormal() {
-        Vector temp = from.subtract(to).normalise();
-        normal = temp.normalise();
+        Vector temp = to.subtract(from).normalise();
+        normal = temp.normalise().perp();
     }
 
 }
