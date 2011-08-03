@@ -17,9 +17,13 @@ import shooter.unit.WatchTower;
 public class GameRenderer {
 
     private final Graphics2D graphics;
+    private final boolean showFeelers;
+    private final boolean showWallNormals;
 
-    public GameRenderer(Graphics2D graphics) {
+    public GameRenderer(Graphics2D graphics, boolean showFeelers, boolean showWallNormals) {
         this.graphics = graphics;
+        this.showFeelers = showFeelers;
+        this.showWallNormals = showWallNormals;
     }
 
     public void render(Vehicle vehicle) {
@@ -43,9 +47,11 @@ public class GameRenderer {
         graphics.drawPolygon(xPos, yPos, 3);
         graphics.setTransform(orig);
 
-        Vector[] feelers = createFeelersFor(vehicle);
-        for (Vector feeler : feelers) {
-            graphics.drawLine(x, y, (int) feeler.X(), (int) feeler.Y());
+        if (showFeelers) {
+            Vector[] feelers = createFeelersFor(vehicle);
+            for (Vector feeler : feelers) {
+                graphics.drawLine(x, y, (int) feeler.X(), (int) feeler.Y());
+            }
         }
     }
 
@@ -86,13 +92,15 @@ public class GameRenderer {
         graphics.drawLine((int) wall.from().X(), (int) wall.from().Y(), (int) wall.to().X(), (int) wall.to().Y());
         graphics.setStroke(stroke);
 
-        Vector centre = wall.centre();
-        Vector normal = wall.normal();
-        //System.out.println(String.format("from %s, to %s, normal %s, centre %s", wall.from(), wall.to(), normal, centre));
-        int x = (int) centre.X();
-        int y = (int) centre.Y();
-        int toX = x + (int) normal.X() * 10;
-        int toY = y + (int) normal.Y() * 10;
-        graphics.drawLine(x, y, toX, toY);
+        if (showWallNormals) {
+            Vector centre = wall.centre();
+            Vector normal = wall.normal();
+            int x = (int) centre.X();
+            int y = (int) centre.Y();
+            int toX = x + (int) normal.X() * 10;
+            int toY = y + (int) normal.Y() * 10;
+            graphics.drawLine(x, y, toX, toY);
+        }
     }
+    
 }

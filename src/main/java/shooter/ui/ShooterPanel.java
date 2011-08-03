@@ -23,6 +23,8 @@ public class ShooterPanel extends GamePanel {
                     case KeyEvent.VK_NUMPAD3: mediator.moveVehicle(Direction.SOUTH_EAST); break;
                     case KeyEvent.VK_NUMPAD1: mediator.moveVehicle(Direction.SOUTH_WEST); break;
                     case KeyEvent.VK_NUMPAD7: mediator.moveVehicle(Direction.NORTH_WEST); break;
+                    case KeyEvent.VK_F: mediator.toggleFeelers(); break;
+                    case KeyEvent.VK_W: mediator.toggleWallNormals(); break;
                     default : ;
                 }
             }

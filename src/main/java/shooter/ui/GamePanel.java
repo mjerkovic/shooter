@@ -104,8 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g = (Graphics2D) dbg;
         g.setColor(Color.BLACK);
 
-        GameRenderer gameRenderer = new GameRenderer(g);
-        mediator.renderUsing(gameRenderer);
+        mediator.renderUsing(g);
     }
 
     private void readyForTermination() {
