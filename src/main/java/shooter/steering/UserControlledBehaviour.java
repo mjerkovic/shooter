@@ -1,15 +1,14 @@
 package shooter.steering;
 
-import static shooter.geom.Transformations.vectorToWorldSpace;
-
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
+import static shooter.geom.Transformations.rotateAroundOrigin;
 
 import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.MovingEntity;
 
 public class UserControlledBehaviour {
+
+    private static final double FOURTY_FIVE_DEGREES = Math.PI / 2.0 * 0.5;
 
     public Vector calculate(MovingEntity entity, Direction direction, Rotation rotation) {
         if (Direction.NONE.equals(direction)) {
@@ -27,13 +26,7 @@ public class UserControlledBehaviour {
     }
 
     private Vector restrictTurnRate(MovingEntity entity, Rotation rotation) {
-        AffineTransform t = AffineTransform.getRotateInstance(rotation.rotate(entity.getMaxTurnRate()));
-        t.translate(entity.position().X(), entity.position().Y());
-        t.scale(1, -1);
-        Point2D result = new Point2D.Double();
-        t.transform(new Point2D.Double(entity.position().X() + entity.heading().X(),
-                entity.position().Y() + entity.heading().Y()), result);
-        return vectorToWorldSpace(new Vector(result.getX(), result.getY()), entity.heading(), entity.side());
+        return rotateAroundOrigin(entity.heading(), rotation.rotate(FOURTY_FIVE_DEGREES));
     }
 
 }
