@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -99,6 +100,13 @@ public class ShooterWorld implements GameWorld {
         for (Bullet bullet : bullets) {
             bullet.update();
         }
+        Iterator<Bullet> bulletIterator = bullets.iterator();
+        while (bulletIterator.hasNext()) {
+            if (bulletIterator.next().outOfRange()) {
+                bulletIterator.remove();
+            }
+        }
+
     }
 
     public void renderWith(GameRenderer renderer) {

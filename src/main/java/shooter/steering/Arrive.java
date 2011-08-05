@@ -37,10 +37,10 @@ public class Arrive implements SteeringBehaviour {
         Vector toTarget = targetPosition.subtract(entity.position());
         //System.out.print("toTarget: " + toTarget + "\t");
         double dist = toTarget.length();
-        System.out.print("dist: " + dist + "\n");
+        //System.out.print("dist: " + dist + "\n");
         if (dist > 0) {
-            double tweaker = 0.3;
-            double speed = dist / ((Arrival.SLOW.getDeceleration() * tweaker));
+            double tweaker = 20;
+            double speed = dist / ((Arrival.FAST.getDeceleration() * tweaker));
             //System.out.print("speed: " + speed + "\t");
             speed = min(speed, entity.getMaxSpeed());
             //System.out.print("adjustedSpeed: " + speed + "\t");
