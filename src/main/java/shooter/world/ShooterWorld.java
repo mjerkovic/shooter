@@ -163,4 +163,5 @@ public class ShooterWorld implements GameWorld {
     public Collection<Wall> getWalls() {
         return walls;
     }
+
 }

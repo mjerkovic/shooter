@@ -20,7 +20,9 @@ public class GameDisplay extends JFrame implements WindowListener {
         this.gamePanel = gamePanel;
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
-        c.add(infoPanel, BorderLayout.EAST);
+        if (infoPanel != null) {
+            c.add(infoPanel, BorderLayout.EAST);
+        }
         c.add(gamePanel, BorderLayout.CENTER);
         pack();
         setVisible(true);
