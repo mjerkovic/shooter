@@ -53,6 +53,11 @@ public class GameRenderer {
                 graphics.drawLine(x, y, (int) feeler.X(), (int) feeler.Y());
             }
         }
+        renderHealthBar(x, y);
+    }
+
+    private void renderHealthBar(int x, int y) {
+        graphics.drawRect(x - 15, y - 20, 30, 7);
     }
 
     public void render(Signpost signpost) {

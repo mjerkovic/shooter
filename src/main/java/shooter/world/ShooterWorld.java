@@ -60,7 +60,7 @@ public class ShooterWorld implements GameWorld {
         Random rand = new Random();
         double headingX = rand.nextDouble() - rand.nextDouble();
         double headingY = rand.nextDouble() - rand.nextDouble();
-        for (int i=0; i < 10; i++) {
+        for (int i=0; i < 1; i++) {
             Vehicle v = new Vehicle(new Vector(rand.nextInt(600), rand.nextInt(600)), new Vector(headingX, headingY), 0.3, new Roam(), new Steering(this));
             v.steering().obstacleAvoidanceOn();
             v.steering().wallAvoidanceOn();
