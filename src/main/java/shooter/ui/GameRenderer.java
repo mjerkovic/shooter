@@ -57,12 +57,20 @@ public class GameRenderer {
     }
 
     private void renderHealthBar(int x, int y) {
+        Color originalColor = graphics.getColor();
+        Stroke originalStroke = graphics.getStroke();
+        graphics.setStroke(new BasicStroke(2.0f));
         graphics.drawRect(x - 15, y - 20, 30, 7);
+        graphics.setStroke(originalStroke);
+        graphics.setColor(Color.green);
+        graphics.fillRect(x - 15, y - 20, 30, 7);
+        graphics.setColor(originalColor);
     }
 
     public void render(Signpost signpost) {
         Vector pos = signpost.position();
         graphics.drawString(signpost.getLabel(), (int)pos.X(), (int)pos.Y());
+        graphics.fillRect(10, 10, 10, 10);
     }
 
     public void render(WatchTower watchTower) {
