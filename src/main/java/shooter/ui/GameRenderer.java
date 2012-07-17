@@ -70,7 +70,6 @@ public class GameRenderer {
     public void render(Signpost signpost) {
         Vector pos = signpost.position();
         graphics.drawString(signpost.getLabel(), (int)pos.X(), (int)pos.Y());
-        graphics.fillRect(10, 10, 10, 10);
     }
 
     public void render(WatchTower watchTower) {
