@@ -11,6 +11,7 @@ public class GameMediator {
     private final GameWorld gameWorld;
     private boolean showFeelers;
     private boolean showWallNormals;
+    private Vector viewPoint = Vector.ZERO;
 
     public GameMediator(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
@@ -21,7 +22,7 @@ public class GameMediator {
     }
 
     public void renderUsing(Graphics2D graphics) {
-        GameRenderer renderer = new GameRenderer(graphics, showFeelers, showWallNormals);
+        GameRenderer renderer = new GameRenderer(graphics, viewPoint, showFeelers, showWallNormals);
         gameWorld.renderWith(renderer);
     }
 
@@ -40,4 +41,9 @@ public class GameMediator {
     public void toggleWallNormals() {
         showWallNormals = !showWallNormals;
     }
+
+    public void scrollView(Vector distance) {
+        viewPoint = viewPoint.add(distance);
+    }
+
 }

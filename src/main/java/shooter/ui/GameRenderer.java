@@ -18,25 +18,28 @@ import shooter.unit.WatchTower;
 public class GameRenderer {
 
     private final Graphics2D graphics;
+    private final Vector viewPoint;
     private final boolean showFeelers;
     private final boolean showWallNormals;
 
-    public GameRenderer(Graphics2D graphics, boolean showFeelers, boolean showWallNormals) {
+    public GameRenderer(Graphics2D graphics, Vector viewPoint, boolean showFeelers, boolean showWallNormals) {
         this.graphics = graphics;
+        this.viewPoint = viewPoint;
         this.showFeelers = showFeelers;
         this.showWallNormals = showWallNormals;
     }
 
     public void render(Vehicle vehicle) {
-        int x = (int) vehicle.X();
-        int y = (int) vehicle.Y();
+        Vector adjustedPosition = vehicle.position().add(viewPoint);
+        int x = (int) adjustedPosition.X();
+        int y = (int) adjustedPosition.Y();
 
-        Vector tip = new Vector(x, y -10);
-        Vector left = new Vector(x -5, y+5);
-        Vector right = new Vector(x +5, y+5);
+        Vector tip = new Vector(x, y - 10);
+        Vector left = new Vector(x - 5, y + 5);
+        Vector right = new Vector(x + 5, y + 5);
 
-        int[] xPos = { (int) tip.X(), (int) left.X(), (int) right.X() };
-        int[] yPos = { (int) tip.Y(), (int) left.Y(), (int) right.Y() };
+        int[] xPos = {(int) tip.X(), (int) left.X(), (int) right.X()};
+        int[] yPos = {(int) tip.Y(), (int) left.Y(), (int) right.Y()};
 
         AffineTransform orig = graphics.getTransform();
         Vector up = new Vector(0, -1);
@@ -75,12 +78,12 @@ public class GameRenderer {
     }
 
     public void render(Signpost signpost) {
-        Vector pos = signpost.position();
+        Vector pos = signpost.position().add(viewPoint);
         graphics.drawString(signpost.getLabel(), (int)pos.X(), (int)pos.Y());
     }
 
     public void render(WatchTower watchTower) {
-        Vector pos = watchTower.position();
+        Vector pos = watchTower.position().add(viewPoint);
         int x1 = (int) pos.X();
         int y1 = (int) pos.Y();
         graphics.drawOval(x1 - 5, y1 - 5, 10, 10);
@@ -100,8 +103,9 @@ public class GameRenderer {
     }
 
     public void render(Obstacle obstacle) {
-        graphics.drawOval((int)(obstacle.position().X() - obstacle.boundingRadius()),
-                (int)(obstacle.position().Y() - obstacle.boundingRadius()),
+        Vector adjustedPosition = obstacle.position().add(viewPoint);
+        graphics.drawOval((int) (adjustedPosition.X() - obstacle.boundingRadius()),
+                (int) (adjustedPosition.Y() - obstacle.boundingRadius()),
                 (int) (obstacle.boundingRadius() * 2), (int) (obstacle.boundingRadius() * 2));
     }
 

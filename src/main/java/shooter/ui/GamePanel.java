@@ -10,12 +10,13 @@ import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    private static final int PWIDTH = 600;
-    private static final int PHEIGHT = 600;
+    private static final long NANOS_PER_SECOND = 1000000000L;
     private static final int FRAMES_PER_SECOND = 80;
     private static final long DELAY = 41000000L;
 
-    private static final long NANOS_PER_SECOND = 1000000000L;
+    protected static final int PWIDTH = 600;
+    protected static final int PHEIGHT = 600;
+
     private volatile boolean running = false;
 
     private volatile boolean gameOver = false;

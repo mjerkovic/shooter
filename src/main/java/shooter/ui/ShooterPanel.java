@@ -36,7 +36,8 @@ public class ShooterPanel extends GamePanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                mediator.moveTo(new Vector(e.getX(), e.getY()));
+                //mediator.moveTo(new Vector(e.getX(), e.getY()));
+                mediator.scrollView(new Vector((PWIDTH / 2) - e.getX(), (PHEIGHT / 2) - e.getY()));
             }
         });
 
