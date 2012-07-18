@@ -94,8 +94,9 @@ public class GameRenderer {
     }
 
     public void render(Bullet bullet) {
-        int x1 = (int) bullet.position().X();
-        int y1 = (int) bullet.position().Y();
+        Vector adjustedPosition = bullet.position().add(viewPoint);
+        int x1 = (int) adjustedPosition.X();
+        int y1 = (int) adjustedPosition.Y();
         Vector tail = bullet.heading().reverse();
         int x2 = x1 + (int) tail.X() * 10;
         int y2 = y1 + (int) tail.Y() * 10;
