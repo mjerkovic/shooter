@@ -26,11 +26,7 @@ import shooter.unit.WatchTower;
 
 public class ShooterWorld implements GameWorld {
 
-    private int x =  0;
-    private int y = 0;
-
     private Vehicle vehicle;
-    private Vehicle wanderer;
     private Signpost signpost;
     private WatchTower watchTower;
     private List<Bullet> bullets = new ArrayList<Bullet>();
@@ -42,9 +38,8 @@ public class ShooterWorld implements GameWorld {
     public ShooterWorld() {
         vehicle = new Vehicle(new Vector(100, 100), new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
         vehicle.steering().obstacleAvoidanceOn();
-        vehicle.steering().wallAvoidanceOn();
-        wanderer = new Vehicle(new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
-        vehicles = newArrayList(vehicle, wanderer); //, random3, random4);
+        Vehicle wanderer = new Vehicle(new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
+        vehicles = newArrayList(vehicle, wanderer);
         signpost = new Signpost("Sign", 10, 50);
         watchTower = new WatchTower(300, 500, this, new Steering(this));
         obstacles = newArrayList();
@@ -63,19 +58,8 @@ public class ShooterWorld implements GameWorld {
         for (int i=0; i < 1; i++) {
             Vehicle v = new Vehicle(new Vector(rand.nextInt(600), rand.nextInt(600)), new Vector(headingX, headingY), 0.3, new Roam(), new Steering(this));
             v.steering().obstacleAvoidanceOn();
-            v.steering().wallAvoidanceOn();
             vehicles.add(v);
         }
-/*
-        Vehicle random1 = new Vehicle(new Vector(random() * 300, random() * 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
-        random1.steering().obstacleAvoidanceOn(random1);
-        random1.steering().wallAvoidanceOn();
-        Vehicle random2 = new Vehicle(new Vector(random() * 300, random() * 300), new Vector(1, 0), 0.3, new Offset(random1, new Vector(20, 20)), new Steering(this));
-        random2.steering().obstacleAvoidanceOn(random2);
-        random2.steering().wallAvoidanceOn();
-        vehicles.add(random1);
-        vehicles.add(random2);
-*/
     }
 
     private void addObstacles() {
@@ -86,10 +70,6 @@ public class ShooterWorld implements GameWorld {
     }
 
     private void addWalls() {
-        walls.add(new Wall(new Vector(0, 0), new Vector(600, 0)));
-        walls.add(new Wall(new Vector(600, 0), new Vector(600, 600)));
-        walls.add(new Wall(new Vector(600, 600), new Vector(0, 600)));
-        walls.add(new Wall(new Vector(0, 600), new Vector(0, 0)));
     }
 
     public void update() {
