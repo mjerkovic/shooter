@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.Bullet;
+import shooter.unit.Health;
 import shooter.unit.Obstacle;
 import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
@@ -53,18 +54,24 @@ public class GameRenderer {
                 graphics.drawLine(x, y, (int) feeler.X(), (int) feeler.Y());
             }
         }
-        renderHealthBar(x, y);
+        renderHealthBar(x, y, vehicle.getHealth());
     }
 
-    private void renderHealthBar(int x, int y) {
-        Color originalColor = graphics.getColor();
-        Stroke originalStroke = graphics.getStroke();
-        graphics.setStroke(new BasicStroke(2.0f));
+    private void renderHealthBar(int x, int y, int health) {
         graphics.drawRect(x - 15, y - 20, 30, 7);
-        graphics.setStroke(originalStroke);
-        graphics.setColor(Color.green);
-        graphics.fillRect(x - 15, y - 20, 30, 7);
+        Color originalColor = graphics.getColor();
+        graphics.setColor(getColorFor(health));
+        double healthBarLength = 29.0 * ((double) health / 100.0);
+        graphics.fillRect(x - 14, y - 19, (int) healthBarLength, 6);
         graphics.setColor(originalColor);
+    }
+
+    private Color getColorFor(int health) {
+        switch (Health.getHealthFor(health)) {
+            case POOR: return Color.RED;
+            case AVERAGE: return Color.YELLOW;
+            default: return Color.GREEN;
+        }
     }
 
     public void render(Signpost signpost) {
