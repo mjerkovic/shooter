@@ -16,7 +16,7 @@ public class Vector {
     }
 
     public Vector(Vector vec) {
-        point = new Vector2d(vec.X(),  vec.Y());
+        point = new Vector2d(vec.x(),  vec.y());
     }
 
     private Vector(Vector2d vec) {
@@ -35,11 +35,11 @@ public class Vector {
         return new Vector(v);
     }
 
-    public double X() {
+    public double x() {
         return point.x;
     }
 
-    public double Y() {
+    public double y() {
         return point.y;
     }
 
@@ -81,7 +81,7 @@ public class Vector {
     }
 
     public boolean isZero() {
-        return point.x == ZERO.X() && point.y == ZERO.Y();
+        return point.x == ZERO.x() && point.y == ZERO.y();
     }
 
     public Vector reverse() {

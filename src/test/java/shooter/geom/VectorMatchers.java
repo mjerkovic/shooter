@@ -28,7 +28,7 @@ public class VectorMatchers {
 
         @Override
         public boolean matchesSafely(Vector vector) {
-            return vector.X() == x && vector.Y() == y;
+            return vector.x() == x && vector.y() == y;
         }
 
         public void describeTo(Description description) {
@@ -53,8 +53,8 @@ public class VectorMatchers {
 
         @Override
         public boolean matchesSafely(Vector vector) {
-            return new IsCloseTo(x, errorMargin).matchesSafely(vector.X()) &&
-                    new IsCloseTo(y, errorMargin).matchesSafely(vector.Y());
+            return new IsCloseTo(x, errorMargin).matchesSafely(vector.x()) &&
+                    new IsCloseTo(y, errorMargin).matchesSafely(vector.y());
         }
 
         public void describeTo(Description description) {

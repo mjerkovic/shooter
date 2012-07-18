@@ -5,10 +5,13 @@ import static java.awt.Color.RED;
 import static java.awt.Color.YELLOW;
 import static shooter.geom.Transformations.pointToLocalSpace;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import javax.swing.JPanel;
 
+import org.apache.commons.math3.util.FastMath;
 import shooter.geom.Vector;
 import shooter.unit.Entity;
 import shooter.unit.Vehicle;
@@ -34,7 +37,7 @@ public class CompassPanel extends JPanel {
 
         AffineTransform origTransform = graphics.getTransform();
         AffineTransform transform = AffineTransform.getTranslateInstance(100,100);
-        transform.rotate(Math.toRadians(-90));
+        transform.rotate(FastMath.toRadians(-90));
         transform.scale(0.1, 0.1);
         graphics.transform(transform);
 
@@ -44,7 +47,7 @@ public class CompassPanel extends JPanel {
             if (distance <= 360000) {
                 Vector point = pointToLocalSpace(entity.position(), vehicle.heading(), vehicle.side(), vehicle.position());
                 setForeground(RED);
-                graphics.fillRect((int) point.X() - 20, (int) point.Y() - 20, 40, 40);
+                graphics.fillRect((int) point.x() - 20, (int) point.y() - 20, 40, 40);
             }
         }
 

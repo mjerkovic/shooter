@@ -24,22 +24,22 @@ public class GameRenderer {
 
     public GameRenderer(Graphics2D graphics, Vector viewPoint, boolean showFeelers, boolean showWallNormals) {
         this.graphics = graphics;
-        this.viewPoint = viewPoint;
+        this.viewPoint = new Vector(viewPoint);
         this.showFeelers = showFeelers;
         this.showWallNormals = showWallNormals;
     }
 
     public void render(Vehicle vehicle) {
         Vector adjustedPosition = vehicle.position().add(viewPoint);
-        int x = (int) adjustedPosition.X();
-        int y = (int) adjustedPosition.Y();
+        int x = (int) adjustedPosition.x();
+        int y = (int) adjustedPosition.y();
 
         Vector tip = new Vector(x, y - 10);
         Vector left = new Vector(x - 5, y + 5);
         Vector right = new Vector(x + 5, y + 5);
 
-        int[] xPos = {(int) tip.X(), (int) left.X(), (int) right.X()};
-        int[] yPos = {(int) tip.Y(), (int) left.Y(), (int) right.Y()};
+        int[] xPos = {(int) tip.x(), (int) left.x(), (int) right.x()};
+        int[] yPos = {(int) tip.y(), (int) left.y(), (int) right.y()};
 
         AffineTransform orig = graphics.getTransform();
         Vector up = new Vector(0, -1);
@@ -54,7 +54,7 @@ public class GameRenderer {
         if (showFeelers) {
             Vector[] feelers = createFeelersFor(vehicle);
             for (Vector feeler : feelers) {
-                graphics.drawLine(x, y, (int) feeler.X(), (int) feeler.Y());
+                graphics.drawLine(x, y, (int) feeler.x(), (int) feeler.y());
             }
         }
         renderHealthBar(x, y, vehicle.getHealth());
@@ -79,50 +79,50 @@ public class GameRenderer {
 
     public void render(Signpost signpost) {
         Vector pos = signpost.position().add(viewPoint);
-        graphics.drawString(signpost.getLabel(), (int)pos.X(), (int)pos.Y());
+        graphics.drawString(signpost.getLabel(), (int)pos.x(), (int)pos.y());
     }
 
     public void render(WatchTower watchTower) {
         Vector pos = watchTower.position().add(viewPoint);
-        int x1 = (int) pos.X();
-        int y1 = (int) pos.Y();
+        int x1 = (int) pos.x();
+        int y1 = (int) pos.y();
         graphics.drawOval(x1 - 5, y1 - 5, 10, 10);
         Vector heading = watchTower.heading();
-        int x2 = x1 + (int) (heading.X() * 20);
-        int y2 = y1 + (int) (heading.Y() * 20);
+        int x2 = x1 + (int) (heading.x() * 20);
+        int y2 = y1 + (int) (heading.y() * 20);
         graphics.drawLine(x1, y1, x2, y2);
     }
 
     public void render(Bullet bullet) {
         Vector adjustedPosition = bullet.position().add(viewPoint);
-        int x1 = (int) adjustedPosition.X();
-        int y1 = (int) adjustedPosition.Y();
+        int x1 = (int) adjustedPosition.x();
+        int y1 = (int) adjustedPosition.y();
         Vector tail = bullet.heading().reverse();
-        int x2 = x1 + (int) tail.X() * 10;
-        int y2 = y1 + (int) tail.Y() * 10;
+        int x2 = x1 + (int) tail.x() * 10;
+        int y2 = y1 + (int) tail.y() * 10;
         graphics.drawLine(x1, y1, x2, y2);
     }
 
     public void render(Obstacle obstacle) {
         Vector adjustedPosition = obstacle.position().add(viewPoint);
-        graphics.drawOval((int) (adjustedPosition.X() - obstacle.boundingRadius()),
-                (int) (adjustedPosition.Y() - obstacle.boundingRadius()),
+        graphics.drawOval((int) (adjustedPosition.x() - obstacle.boundingRadius()),
+                (int) (adjustedPosition.y() - obstacle.boundingRadius()),
                 (int) (obstacle.boundingRadius() * 2), (int) (obstacle.boundingRadius() * 2));
     }
 
     public void render(Wall wall) {
         Stroke stroke = graphics.getStroke();
         graphics.setStroke(new BasicStroke(10));
-        graphics.drawLine((int) wall.from().X(), (int) wall.from().Y(), (int) wall.to().X(), (int) wall.to().Y());
+        graphics.drawLine((int) wall.from().x(), (int) wall.from().y(), (int) wall.to().x(), (int) wall.to().y());
         graphics.setStroke(stroke);
 
         if (showWallNormals) {
             Vector centre = wall.centre();
             Vector normal = wall.normal();
-            int x = (int) centre.X();
-            int y = (int) centre.Y();
-            int toX = x + (int) normal.X() * 10;
-            int toY = y + (int) normal.Y() * 10;
+            int x = (int) centre.x();
+            int y = (int) centre.y();
+            int toX = x + (int) normal.x() * 10;
+            int toY = y + (int) normal.y() * 10;
             graphics.drawLine(x, y, toX, toY);
         }
     }

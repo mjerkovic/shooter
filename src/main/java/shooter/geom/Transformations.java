@@ -8,7 +8,7 @@ public class Transformations {
     public static Vector pointToWorldSpace(Vector point, Vector heading, Vector side, Vector position) {
         Matrix matrix = new Matrix();
         matrix.rotate(heading, side);
-        matrix.translate(position.X(), position.Y());
+        matrix.translate(position.x(), position.y());
         return matrix.transform(point);
     }
 
@@ -16,8 +16,8 @@ public class Transformations {
         double Tx = -position.dot(heading);
         double Ty = -position.dot(side);
         double[][] matrix = new double[][] {
-                { heading.X(), side.X(), 0 },
-                { heading.Y(), side.Y(), 0 },
+                { heading.x(), side.x(), 0 },
+                { heading.y(), side.y(), 0 },
                 { Tx, Ty, 1}
         };
         return new Matrix(matrix).transform(point);
@@ -32,7 +32,7 @@ public class Transformations {
     public static Vector rotateAroundOrigin(Vector origin, double angle) {
         AffineTransform t = AffineTransform.getRotateInstance(angle);
         Point2D result = new Point2D.Double();
-        t.transform(new Point2D.Double(origin.X(), origin.Y()), result);
+        t.transform(new Point2D.Double(origin.x(), origin.y()), result);
         return new Vector(result.getX(), result.getY());
     }
 

@@ -14,11 +14,11 @@ public class Vehicle extends MovingEntity {
     }
 
     public double X() {
-        return position.X();
+        return position.x();
     }
 
     public double Y() {
-        return position.Y();
+        return position.y();
     }
 
     public void wander() {

@@ -1,5 +1,8 @@
 package shooter.geom;
 
+import static org.apache.commons.math3.util.FastMath.cos;
+import static org.apache.commons.math3.util.FastMath.sin;
+
 import org.ejml.simple.SimpleMatrix;
 
 public class Matrix {
@@ -19,15 +22,15 @@ public class Matrix {
 
     public void rotate(Vector heading, Vector side) {
         matrix = matrix.mult(new SimpleMatrix(new double[][] {
-                {heading.X(), heading.Y(), 0},
-                {side.X(), side.Y(), 0},
+                {heading.x(), heading.y(), 0},
+                {side.x(), side.y(), 0},
                 {0, 0, 1}
         }));
     }
 
     public void rotate(double angle) {
-        double sin = Math.sin(angle);
-        double cos = Math.cos(angle);
+        double sin = sin(angle);
+        double cos = cos(angle);
 
         matrix = matrix.mult(new SimpleMatrix(new double[][] {
                 {cos, sin, 0},
@@ -45,8 +48,8 @@ public class Matrix {
     }
 
     public Vector transform(Vector point) {
-        double tempX = (matrix.get(0, 0) * point.X()) + (matrix.get(1, 0) * point.Y() + matrix.get(2, 0));
-        double tempY = (matrix.get(0, 1) * point.X()) + (matrix.get(1, 1) * point.Y() + matrix.get(2, 1));
+        double tempX = (matrix.get(0, 0) * point.x()) + (matrix.get(1, 0) * point.y() + matrix.get(2, 0));
+        double tempY = (matrix.get(0, 1) * point.x()) + (matrix.get(1, 1) * point.y() + matrix.get(2, 1));
         return new Vector(tempX, tempY);
     }
 

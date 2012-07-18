@@ -1,12 +1,17 @@
 package shooter.ui;
 
 import static java.awt.Color.WHITE;
-import static java.lang.Math.max;
+import static org.apache.commons.math3.util.FastMath.max;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -55,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
             timeDiff = (startTime + DELAY) - System.nanoTime();
             try {
                 //System.out.println("timeDiff/1000000L = " + timeDiff / 1000000L);
-                Thread.sleep(max(0, (timeDiff/1000000L)));
+                Thread.sleep(max(0, (timeDiff / 1000000L)));
             } catch (InterruptedException e) {
             }
             startTime = System.nanoTime();

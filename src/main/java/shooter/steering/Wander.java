@@ -1,6 +1,6 @@
 package shooter.steering;
 
-import static java.lang.Math.random;
+import static org.apache.commons.math3.util.FastMath.random;
 import static shooter.geom.Transformations.pointToWorldSpace;
 
 import shooter.geom.Vector;

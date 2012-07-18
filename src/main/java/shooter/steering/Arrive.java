@@ -1,6 +1,7 @@
 package shooter.steering;
 
-import static java.lang.Math.min;
+
+import static org.apache.commons.math3.util.FastMath.min;
 
 import shooter.geom.Vector;
 import shooter.unit.MovingEntity;

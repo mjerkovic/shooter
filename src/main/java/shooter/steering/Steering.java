@@ -3,6 +3,7 @@ package shooter.steering;
 import java.util.Collection;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.math3.util.FastMath;
 import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.MovingEntity;
@@ -204,7 +205,7 @@ public class Steering {
             }
             Vector to = vehicle.position().subtract(owner.position());
             double range = 50 + vehicle.boundingRadius();
-            if (to.lengthSquared() < Math.pow(range, 2)) {
+            if (to.lengthSquared() < FastMath.pow(range, 2)) {
                 neighbours.add(vehicle);
             }
         }

@@ -5,6 +5,7 @@ import static shooter.geom.Transformations.vectorToWorldSpace;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.commons.math3.util.FastMath;
 import shooter.geom.Transformations;
 import shooter.geom.Vector;
 import shooter.unit.Entity;
@@ -29,14 +30,14 @@ public class ObstacleAvoidance {
 
         for (Obstacle obstacle : tagObstaclesWithinViewRange(boxLength)) {
             Vector localPos = Transformations.pointToLocalSpace(obstacle.position(), entity.heading(), entity.side(), entity.position());
-            if (localPos.X() <  0) {
+            if (localPos.x() <  0) {
                 continue;
             }
             double expandedRadius = obstacle.boundingRadius() + entity.boundingRadius();
-            if (Math.abs(localPos.Y()) < expandedRadius) {
-                double cX = localPos.X();
-                double cY = localPos.Y();
-                double sqrtPart = Math.sqrt(expandedRadius * expandedRadius - cY*cY);
+            if (FastMath.abs(localPos.y()) < expandedRadius) {
+                double cX = localPos.x();
+                double cY = localPos.y();
+                double sqrtPart = FastMath.sqrt(expandedRadius * expandedRadius - cY*cY);
                 double ip = cX - sqrtPart;
                 if (ip <= 0) {
                     ip = cX + sqrtPart;
@@ -48,10 +49,10 @@ public class ObstacleAvoidance {
         }
         Vector steeringForce = Vector.ZERO;
         if (closestObstacle != null) {
-            double multiplier = 1.0 + (boxLength - localPositionOfClosestObstacle.X()) / boxLength;
-            double sY = (closestObstacle.boundingRadius()-localPositionOfClosestObstacle.Y()) * multiplier;
+            double multiplier = 1.0 + (boxLength - localPositionOfClosestObstacle.x()) / boxLength;
+            double sY = (closestObstacle.boundingRadius()-localPositionOfClosestObstacle.y()) * multiplier;
             double brakingWeight = 0.2;
-            double sX = (closestObstacle.boundingRadius() - localPositionOfClosestObstacle.X()) * brakingWeight;
+            double sX = (closestObstacle.boundingRadius() - localPositionOfClosestObstacle.x()) * brakingWeight;
             steeringForce = new Vector(sX, sY);
         }
         return vectorToWorldSpace(steeringForce, entity.heading(), entity.side());

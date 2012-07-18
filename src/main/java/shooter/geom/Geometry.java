@@ -7,15 +7,15 @@ import shooter.unit.MovingEntity;
 public class Geometry {
     
     public static LineIntersection lineIntersects(Vector position, Vector feeler, Vector from, Vector to) {
-        double AyCy = position.Y() - from.Y();
-        double DxCx = to.X() - from.X();
-        double AxCx = position.X() - from.X();
-        double DyCy = to.Y() - from.Y();
+        double AyCy = position.y() - from.y();
+        double DxCx = to.x() - from.x();
+        double AxCx = position.x() - from.x();
+        double DyCy = to.y() - from.y();
 
         double rTop = (AyCy * DxCx) - (AxCx * DyCy);
 
-        double BxAx = feeler.X() - position.X();
-        double ByAy = feeler.Y() - position.Y();
+        double BxAx = feeler.x() - position.x();
+        double ByAy = feeler.y() - position.y();
 
         double rBot = BxAx * DyCy - ByAy * DxCx;
         double sTop = AyCy * BxAx - AxCx * ByAy;
