@@ -26,11 +26,11 @@ public class HideWorld implements GameWorld {
         Army army = new Army();
         addObstacles();
         addWalls();
-        hunter = new Vehicle(army, new Vector(500, 500), new Vector(0, -1), 0.3, new Roam(), new Steering(this));
+        hunter = new Vehicle(new Vector(500, 500), 10, army,  new Vector(0, -1), 0.3, new Roam(), new Steering(this));
         hunter.steering().wallAvoidanceOn();
         hunter.steering().obstacleAvoidanceOn();
         hunter.steering().wanderOn();
-        prey = new Vehicle(army, new Vector(100, 300), new Vector(-1, 0), 0.3, new UserControl(), new Steering(this));
+        prey = new Vehicle(new Vector(100, 300), 10, army, new Vector(-1, 0), 0.3, new UserControl(), new Steering(this));
         prey.steering().wallAvoidanceOn();
         hunter.steering().obstacleAvoidanceOn();
         prey.steering().hideOn(hunter);
@@ -74,8 +74,8 @@ public class HideWorld implements GameWorld {
     }
 
     private void addObstacles() {
-        obstacles.add(new Obstacle(200, 200, 50));
-        obstacles.add(new Obstacle(400, 400, 50));
+        obstacles.add(new Obstacle(new Vector(200, 200), 50));
+        obstacles.add(new Obstacle(new Vector(400, 400), 50));
     }
 
     private void addWalls() {

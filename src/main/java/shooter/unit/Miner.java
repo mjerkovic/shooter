@@ -16,15 +16,14 @@ public class Miner extends MovingEntity {
     private int cycles;
     private int load;
 
-    public Miner(Army army, Vector position, Vector heading, Steering steering, int capacity,
+    public Miner(Vector position, double radius, Army army, Vector heading, Steering steering, int capacity,
                  StateMachine<Miner> stateMachine) {
-        super(army, null, steering);
+        super(position, radius, army, null, steering);
         this.capacity = capacity;
         this.stateMachine = stateMachine;
         army.add(this);
         steering.setOwner(this);
-        this.position = position;
-        this.heading = heading;
+        this.heading = new Vector(heading);
     }
 
     public double x() {

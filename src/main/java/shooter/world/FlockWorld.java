@@ -74,7 +74,8 @@ public class FlockWorld implements GameWorld {
         for (int i=0; i < 10; i++) {
             double headingX = rand.nextDouble() - rand.nextDouble();
             double headingY = rand.nextDouble() - rand.nextDouble();
-            Vehicle v = new Vehicle(army, new Vector(rand.nextInt(600), rand.nextInt(600)), new Vector(headingX, headingY), 0.3, new Roam(), new Steering(this));
+            Vehicle v = new Vehicle(new Vector(rand.nextInt(600), rand.nextInt(600)), 10, army,
+                    new Vector(headingX, headingY), 0.3, new Roam(), new Steering(this));
             v.steering().separationOn();
             v.steering().cohesionOn();
             v.steering().alignmentOn();

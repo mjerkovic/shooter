@@ -16,11 +16,10 @@ public abstract class MovingEntity extends Unit {
     //double maxForce = 2;
     double maxTurnRate = 0.2;
 
-    public MovingEntity(Army army, Goal goal, Steering steering) {
-        super(army);
+    public MovingEntity(Vector position, double radius, Army army, Goal goal, Steering steering) {
+        super(position, radius, army);
         this.goal = goal;
         this.steering = steering;
-        this.boundingRadius = 10;
     }
 
     public void update() {
@@ -39,6 +38,7 @@ public abstract class MovingEntity extends Unit {
             heading = velocity.normalise();
             side = heading.perp();
         }
+        updateLocation();
     }
 
     protected final Vector restrictTurnRate(Vector steeringForce) {

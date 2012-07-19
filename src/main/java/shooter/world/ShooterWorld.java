@@ -42,12 +42,12 @@ public class ShooterWorld implements GameWorld {
 
     public ShooterWorld() {
         army = new Army();
-        vehicle = new Vehicle(army, new Vector(100, 100), new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
+        vehicle = new Vehicle(new Vector(100, 100), 10, army, new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
         vehicle.steering().obstacleAvoidanceOn();
         //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
         vehicles = newArrayList(vehicle); //, wanderer);
-        signpost = new Signpost("Sign", 10, 250);
-        watchTower = new WatchTower(army, 300, 500, this, new Steering(this));
+        signpost = new Signpost(new Vector(10, 250), 10, "Sign");
+        watchTower = new WatchTower(new Vector(300, 500), 10, army, this, new Steering(this));
         obstacles = newArrayList();
         addObstacles();
         addVehicles();
@@ -55,9 +55,9 @@ public class ShooterWorld implements GameWorld {
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
-        new Miner(army, new Vector(20, 50), new Vector(1, 0), new Steering(this), 100,
+        new Miner(new Vector(20, 50), 10, army, new Vector(1, 0), new Steering(this), 100,
                 new StateMachine<Miner>(new GoToMine(new WorkInMine())));
-        new Mine(army, new Vector(450, 60), 50.0, 3000);
+        new Mine(new Vector(450, 60), 50, army, 3000);
     }
 
     private void addVehicles() {
@@ -138,7 +138,7 @@ public class ShooterWorld implements GameWorld {
     }
 
     public void shotFired(MovingEntity shooter, MovingEntity target) {
-        addBullet(new Bullet(shooter.army(), shooter.position(), shooter.heading()));
+        addBullet(new Bullet(shooter.position(), shooter.army(), shooter.heading()));
     }
 
     private void addBullet(Bullet bullet) {

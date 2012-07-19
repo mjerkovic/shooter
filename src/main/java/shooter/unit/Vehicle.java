@@ -7,11 +7,10 @@ import shooter.ui.GameRenderer;
 
 public class Vehicle extends MovingEntity {
 
-    public Vehicle(Army army, Vector position, Vector heading, double maxTurnRate, Goal goal, Steering steering) {
-        super(army, goal, steering);
+    public Vehicle(Vector position, double radius, Army army, Vector heading, double maxTurnRate, Goal goal, Steering steering) {
+        super(position, radius, army, goal, steering);
         army.add(this);
         steering.setOwner(this);
-        this.position = position;
         this.heading = heading;
     }
 

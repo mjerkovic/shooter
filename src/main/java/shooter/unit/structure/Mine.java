@@ -12,11 +12,9 @@ public class Mine extends Unit {
 
     private final AtomicInteger yield;
 
-    public Mine(Army army, Vector position, double radius, int yield) {
-        super(army);
+    public Mine(Vector position, double radius, Army army, int yield) {
+        super(position, radius, army);
         army.add(this);
-        this.position = new Vector(position);
-        this.boundingRadius = radius;
         this.yield = new AtomicInteger(yield);
     }
 

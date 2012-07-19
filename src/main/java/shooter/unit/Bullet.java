@@ -9,12 +9,10 @@ public class Bullet extends MovingEntity {
 
     private final Vector initialPosition;
 
-    public Bullet(Army army, Vector position, Vector heading) {
-        super(army, null, null);
-        this.position = position;
+    public Bullet(Vector position, Army army,  Vector heading) {
+        super(position, 5, army, null, null);
         this.heading = heading;
         this.initialPosition = position;
-        this.boundingRadius = 5;
     }
 
     @Override
