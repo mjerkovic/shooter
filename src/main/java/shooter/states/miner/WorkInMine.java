@@ -3,16 +3,17 @@ package shooter.states.miner;
 import shooter.states.State;
 import shooter.unit.Miner;
 
-public class Collect implements State<Miner> {
+public class WorkInMine implements State<Miner> {
     
     public void enter(Miner miner) {
     }
 
     public State<Miner> execute(Miner miner) {
-        if (!miner.work() || miner.isFull()) {
+        miner.work();
+        if (miner.finishedWork()) {
             // go to next state
         }
-        return null;
+        return this;
     }
 
     public void terminate(Miner miner) {

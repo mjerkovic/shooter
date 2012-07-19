@@ -5,9 +5,9 @@ import shooter.unit.Miner;
 
 public class GoToMine implements State<Miner> {
 
-    private final Collect nextState;
+    private final WorkInMine nextState;
 
-    public GoToMine(Collect nextState) {
+    public GoToMine(WorkInMine nextState) {
         this.nextState = nextState;
     }
 
@@ -16,7 +16,7 @@ public class GoToMine implements State<Miner> {
     }
 
     public State<Miner> execute(Miner miner) {
-        return miner.atMine() ? nextState : null;
+        return miner.atMine() ? nextState : this;
     }
 
     public void terminate(Miner entity) {

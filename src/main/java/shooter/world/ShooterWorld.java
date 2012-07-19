@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 import shooter.geom.Vector;
 import shooter.goals.UserControl;
 import shooter.states.StateMachine;
-import shooter.states.miner.Collect;
+import shooter.states.miner.WorkInMine;
 import shooter.states.miner.GoToMine;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
@@ -56,7 +56,7 @@ public class ShooterWorld implements GameWorld {
         entities.add(signpost);
         entities.add(watchTower);
         new Miner(army, new Vector(20, 50), new Vector(1, 0), new Steering(this), 100,
-                new StateMachine<Miner>(new GoToMine(new Collect())));
+                new StateMachine<Miner>(new GoToMine(new WorkInMine())));
         new Mine(army, new Vector(450, 60), 50.0, 3000);
     }
 

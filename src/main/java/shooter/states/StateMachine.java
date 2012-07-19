@@ -15,7 +15,7 @@ public class StateMachine<T> {
             currentState.enter(entity);
         }
         State<T> nextState = currentState.execute(entity);
-        if (nextState != null) {
+        if (nextState != currentState) {
             changeStateTo(entity, nextState);
         }
     }

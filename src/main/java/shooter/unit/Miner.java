@@ -50,22 +50,25 @@ public class Miner extends MovingEntity {
         steering().arriveOn(workingMine.position());
     }
 
-    public boolean work() {
+    public void work() {
         if (++cycles % LOAD_EVERY == 0) {
             workingMine.mine(this);
         }
-        return workingMine.isEmpty();
+    }
+
+    public boolean finishedWork() {
+        return isFull() || workingMine.isEmpty();
     }
 
     public void load() {
         load++;
     }
 
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         return load == 0;
     }
 
-    public boolean isFull() {
+    private boolean isFull() {
         return load == capacity;
     }
 
