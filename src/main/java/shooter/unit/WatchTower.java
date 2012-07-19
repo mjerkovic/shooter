@@ -12,8 +12,8 @@ public class WatchTower extends MovingEntity {
     private final ShooterWorld world;
     private TargetingSystem targetingSystem;
 
-    public WatchTower(int x, int y, ShooterWorld world, Steering steering) {
-        super(new Scan(), steering);
+    public WatchTower(Army army, int x, int y, ShooterWorld world, Steering steering) {
+        super(army, new Scan(), steering);
         this.world = world;
         this.targetingSystem = new TargetingSystem(world, this);
         steering.setOwner(this);

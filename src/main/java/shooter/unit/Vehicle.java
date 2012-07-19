@@ -6,18 +6,19 @@ import shooter.steering.Steering;
 
 public class Vehicle extends MovingEntity {
 
-    public Vehicle(Vector position, Vector heading, double maxTurnRate, Goal goal, Steering steering) {
-        super(goal, steering);
+    public Vehicle(Army army, Vector position, Vector heading, double maxTurnRate, Goal goal, Steering steering) {
+        super(army, goal, steering);
+        army.add(this);
         steering.setOwner(this);
         this.position = position;
         this.heading = heading;
     }
 
-    public double X() {
+    public double x() {
         return position.x();
     }
 
-    public double Y() {
+    public double y() {
         return position.y();
     }
 

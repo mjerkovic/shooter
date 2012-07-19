@@ -8,12 +8,15 @@ import java.awt.geom.AffineTransform;
 import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.Bullet;
+import shooter.unit.Entity;
 import shooter.unit.Health;
+import shooter.unit.Miner;
 import shooter.unit.Obstacle;
 import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
 import shooter.unit.WatchTower;
+import shooter.unit.structure.Mine;
 
 public class GameRenderer {
 
@@ -34,7 +37,7 @@ public class GameRenderer {
         int x = (int) adjustedPosition.x();
         int y = (int) adjustedPosition.y();
 
-        Vector tip = new Vector(x, y - 10);
+        Vector tip = new Vector(x, y - vehicle.boundingRadius());
         Vector left = new Vector(x - 5, y + 5);
         Vector right = new Vector(x + 5, y + 5);
 
@@ -57,15 +60,35 @@ public class GameRenderer {
                 graphics.drawLine(x, y, (int) feeler.x(), (int) feeler.y());
             }
         }
-        renderHealthBar(x, y, vehicle.getHealth());
+        renderHealthBar(vehicle, x, y);
     }
 
-    private void renderHealthBar(int x, int y, int health) {
-        graphics.drawRect(x - 15, y - 20, 30, 7);
+    public void render(Miner miner) {
+        Vector adjustedPosition = miner.position().add(viewPoint);
+        int x = (int) adjustedPosition.x();
+        int y = (int) adjustedPosition.y();
+
+        AffineTransform orig = graphics.getTransform();
+        Vector up = new Vector(0, -1);
+        double angle = up.angle(miner.heading());
+        Rotation rotation = up.rotationTo(miner.heading());
+
+        AffineTransform rot = AffineTransform.getRotateInstance(rotation.rotate(angle), x, y);
+        graphics.transform(rot);
+        graphics.drawRect(x - ((int) miner.boundingRadius() / 2), y - ((int) miner.boundingRadius() / 2),
+                (int) miner.boundingRadius(), (int) miner.boundingRadius() * 2);
+        graphics.setTransform(orig);
+        renderHealthBar(miner, x, y);
+    }
+
+    private void renderHealthBar(Entity entity, int x, int y) {
+        int yPos = y - ((int) entity.boundingRadius() + 10);
+        graphics.drawRect(x - 15, yPos, 30, 7);
         Color originalColor = graphics.getColor();
+        int health = entity.getHealth();
         graphics.setColor(getColorFor(health));
         double healthBarLength = 29.0 * ((double) health / 100.0);
-        graphics.fillRect(x - 14, y - 19, (int) healthBarLength, 6);
+        graphics.fillRect(x - 14, yPos + 1, (int) healthBarLength, 6);
         graphics.setColor(originalColor);
     }
 
@@ -126,5 +149,12 @@ public class GameRenderer {
             graphics.drawLine(x, y, toX, toY);
         }
     }
-    
+
+    public void render(Mine mine) {
+        Vector pos = mine.position().add(viewPoint);
+        int radius = (int) mine.boundingRadius();
+        int length = radius * 2;
+        graphics.drawRect((int) pos.x() - radius, (int) pos.y() - radius, length, length);
+        graphics.drawString(String.valueOf(mine.yield()), (int)pos.x() - 10, (int)pos.y());
+    }
 }

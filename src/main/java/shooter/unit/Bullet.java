@@ -8,8 +8,8 @@ public class Bullet extends MovingEntity {
 
     private final Vector initialPosition;
 
-    public Bullet(Vector position, Vector heading) {
-        super(null, null);
+    public Bullet(Army army, Vector position, Vector heading) {
+        super(army, null, null);
         this.position = position;
         this.heading = heading;
         this.initialPosition = position;

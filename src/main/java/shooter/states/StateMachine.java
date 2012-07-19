@@ -1,22 +1,29 @@
 package shooter.states;
 
-public abstract class StateMachine<T> {
+public class StateMachine<T> {
 
-    private final T entity;
+    private final State<T> initialState;
     protected State<T> currentState;
 
-    public StateMachine(T entity) {
-        this.entity = entity;
+    public StateMachine(State<T> initialState) {
+        this.initialState = initialState;
     }
 
-    public void update() {
-        currentState.execute(entity);
+    public void update(T entity) {
+        if (currentState == null) {
+            currentState = initialState;
+            currentState.enter(entity);
+        }
+        State<T> nextState = currentState.execute(entity);
+        if (nextState != null) {
+            changeStateTo(entity, nextState);
+        }
     }
 
-    public void changeStateTo(State<T> state) {
+    public void changeStateTo(T entity, State<T> nextState) {
         currentState.terminate(entity);
-        currentState = state;
-        state.enter(entity);
+        currentState = nextState;
+        nextState.enter(entity);
     }
 
 }

@@ -6,23 +6,27 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import com.google.common.collect.Lists;
 import shooter.geom.Vector;
-import shooter.goals.Roam;
 import shooter.goals.UserControl;
+import shooter.states.StateMachine;
+import shooter.states.miner.Collect;
+import shooter.states.miner.GoToMine;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
+import shooter.unit.Army;
 import shooter.unit.Bullet;
 import shooter.unit.Entity;
+import shooter.unit.Miner;
 import shooter.unit.MovingEntity;
 import shooter.unit.Obstacle;
 import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
 import shooter.unit.WatchTower;
+import shooter.unit.structure.Mine;
 
 public class ShooterWorld implements GameWorld {
 
@@ -34,14 +38,16 @@ public class ShooterWorld implements GameWorld {
     private final Collection<Entity> entities;
     private final Collection<Obstacle> obstacles;
     private final Collection<Wall> walls = newArrayList();
+    private Army army;
 
     public ShooterWorld() {
-        vehicle = new Vehicle(new Vector(100, 100), new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
+        army = new Army();
+        vehicle = new Vehicle(army, new Vector(100, 100), new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
         vehicle.steering().obstacleAvoidanceOn();
-        Vehicle wanderer = new Vehicle(new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
-        vehicles = newArrayList(vehicle, wanderer);
-        signpost = new Signpost("Sign", 10, 50);
-        watchTower = new WatchTower(300, 500, this, new Steering(this));
+        //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
+        vehicles = newArrayList(vehicle); //, wanderer);
+        signpost = new Signpost("Sign", 10, 250);
+        watchTower = new WatchTower(army, 300, 500, this, new Steering(this));
         obstacles = newArrayList();
         addObstacles();
         addVehicles();
@@ -49,9 +55,13 @@ public class ShooterWorld implements GameWorld {
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
+        new Miner(army, new Vector(20, 50), new Vector(1, 0), new Steering(this), 100,
+                new StateMachine<Miner>(new GoToMine(new Collect())));
+        new Mine(army, new Vector(450, 60), 50.0, 3000);
     }
 
     private void addVehicles() {
+/*
         Random rand = new Random();
         double headingX = rand.nextDouble() - rand.nextDouble();
         double headingY = rand.nextDouble() - rand.nextDouble();
@@ -60,22 +70,23 @@ public class ShooterWorld implements GameWorld {
             v.steering().obstacleAvoidanceOn();
             vehicles.add(v);
         }
+*/
     }
 
     private void addObstacles() {
+/*
         Random rand = new Random();
         for (int i=0; i < 5; i++) {
             obstacles.add(new Obstacle(rand.nextInt(600), rand.nextInt(600), rand.nextDouble() * 50));
         }
+*/
     }
 
     private void addWalls() {
     }
 
     public void update() {
-        for (Vehicle vehicle : vehicles) {
-            vehicle.update();
-        }
+        army.update();
         watchTower.update();
         for (Bullet bullet : bullets) {
             bullet.update();
@@ -90,9 +101,7 @@ public class ShooterWorld implements GameWorld {
     }
 
     public void renderWith(GameRenderer renderer) {
-        for (Vehicle vehicle : vehicles) {
-            renderer.render(vehicle);
-        }
+        army.renderWith(renderer);
         renderer.render(signpost);
         renderer.render(watchTower);
         for (Bullet bullet : bullets) {
@@ -129,7 +138,7 @@ public class ShooterWorld implements GameWorld {
     }
 
     public void shotFired(MovingEntity shooter, MovingEntity target) {
-        addBullet(new Bullet(shooter.position(), shooter.heading()));
+        addBullet(new Bullet(shooter.army(), shooter.position(), shooter.heading()));
     }
 
     private void addBullet(Bullet bullet) {

@@ -4,7 +4,7 @@ public interface State<T> {
 
     void enter(T entity);
 
-    void execute(T entity);
+    State<T> execute(T entity);
 
     void terminate(T entity);
 
