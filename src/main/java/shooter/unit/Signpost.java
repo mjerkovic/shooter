@@ -1,6 +1,7 @@
 package shooter.unit;
 
 import shooter.geom.Vector;
+import shooter.ui.GameRenderer;
 
 public class Signpost extends Entity {
 
@@ -14,5 +15,9 @@ public class Signpost extends Entity {
     public String getLabel() {
         return label;
     }
-    
+
+    @Override
+    public void renderWith(GameRenderer renderer) {
+        renderer.render(this);
+    }
 }

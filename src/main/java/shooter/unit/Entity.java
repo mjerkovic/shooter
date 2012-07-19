@@ -1,6 +1,7 @@
 package shooter.unit;
 
 import shooter.geom.Vector;
+import shooter.ui.GameRenderer;
 
 public abstract class Entity {
 
@@ -19,5 +20,7 @@ public abstract class Entity {
     public int getHealth() {
         return health;
     }
+
+    public abstract void renderWith(GameRenderer renderer);
 
 }

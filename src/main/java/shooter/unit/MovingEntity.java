@@ -77,4 +77,5 @@ public abstract class MovingEntity extends Unit {
     public double getMaxTurnRate() {
         return maxTurnRate;
     }
+
 }

@@ -1,6 +1,6 @@
 package shooter.unit;
 
-public class Unit extends Entity {
+public abstract class Unit extends Entity {
 
     protected Army army;
 

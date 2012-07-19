@@ -17,6 +17,7 @@ import shooter.unit.Vehicle;
 import shooter.unit.Wall;
 import shooter.unit.WatchTower;
 import shooter.unit.structure.Mine;
+import shooter.unit.structure.StorageTank;
 
 public class GameRenderer {
 
@@ -157,4 +158,9 @@ public class GameRenderer {
         graphics.drawRect((int) pos.x() - radius, (int) pos.y() - radius, length, length);
         graphics.drawString(String.valueOf(mine.yield()), (int)pos.x() - 10, (int)pos.y());
     }
+
+    public void render(StorageTank storageTank) {
+
+    }
+    
 }

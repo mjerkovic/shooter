@@ -3,6 +3,7 @@ package shooter.unit;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.steering.Steering;
+import shooter.ui.GameRenderer;
 
 public class Vehicle extends MovingEntity {
 
@@ -24,6 +25,11 @@ public class Vehicle extends MovingEntity {
 
     public void wander() {
         steering.wanderOn();
+    }
+
+    @Override
+    public void renderWith(GameRenderer renderer) {
+        renderer.render(this);
     }
 
 }

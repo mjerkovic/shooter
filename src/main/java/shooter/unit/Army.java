@@ -36,13 +36,13 @@ public class Army {
 
     public void renderWith(GameRenderer renderer) {
         for (Mine mine : mines) {
-            renderer.render(mine);
+            mine.renderWith(renderer);
         }
         for (Miner miner : miners) {
-            renderer.render(miner);
+            miner.renderWith(renderer);
         }
         for (Vehicle vehicle : vehicles) {
-            renderer.render(vehicle);
+            vehicle.renderWith(renderer);
         }
     }
 

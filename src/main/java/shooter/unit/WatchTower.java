@@ -3,6 +3,7 @@ package shooter.unit;
 import shooter.geom.Vector;
 import shooter.goals.Scan;
 import shooter.steering.Steering;
+import shooter.ui.GameRenderer;
 import shooter.world.ShooterWorld;
 
 public class WatchTower extends MovingEntity {
@@ -54,6 +55,11 @@ public class WatchTower extends MovingEntity {
 
     public boolean targetAcquired() {
         return targetingSystem.getTarget() != null;
+    }
+
+    @Override
+    public void renderWith(GameRenderer renderer) {
+        renderer.render(this);
     }
 
 }

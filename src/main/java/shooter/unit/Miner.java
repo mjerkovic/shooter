@@ -3,6 +3,7 @@ package shooter.unit;
 import shooter.geom.Vector;
 import shooter.states.StateMachine;
 import shooter.steering.Steering;
+import shooter.ui.GameRenderer;
 import shooter.unit.structure.Mine;
 
 public class Miner extends MovingEntity {
@@ -70,6 +71,11 @@ public class Miner extends MovingEntity {
 
     public void leaveMine() {
         workingMine = null;
+    }
+
+    @Override
+    public void renderWith(GameRenderer renderer) {
+        renderer.render(this);
     }
 
 }

@@ -3,6 +3,7 @@ package shooter.unit.structure;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import shooter.geom.Vector;
+import shooter.ui.GameRenderer;
 import shooter.unit.Army;
 import shooter.unit.Miner;
 import shooter.unit.Unit;
@@ -30,6 +31,11 @@ public class Mine extends Unit {
 
     public boolean isEmpty() {
         return yield.get() == 0;
+    }
+
+    @Override
+    public void renderWith(GameRenderer renderer) {
+        renderer.render(this);
     }
 
 }
