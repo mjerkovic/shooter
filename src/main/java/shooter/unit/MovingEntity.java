@@ -38,7 +38,6 @@ public abstract class MovingEntity extends Unit {
             heading = velocity.normalise();
             side = heading.perp();
         }
-        updateLocation();
     }
 
     protected final Vector restrictTurnRate(Vector steeringForce) {
