@@ -41,7 +41,7 @@ public class Miner extends MovingEntity {
     }
 
     public boolean atMine() {
-        return workingMine.position.subtract(this.position()).length() <= workingMine.boundingRadius();
+        return intersects(workingMine);
     }
 
     public void moveToClosestMine() {
