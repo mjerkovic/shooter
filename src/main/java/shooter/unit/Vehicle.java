@@ -14,14 +14,6 @@ public class Vehicle extends MovingEntity {
         this.heading = heading;
     }
 
-    public double x() {
-        return position.x();
-    }
-
-    public double y() {
-        return position.y();
-    }
-
     public void wander() {
         steering.wanderOn();
     }

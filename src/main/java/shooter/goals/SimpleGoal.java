@@ -17,5 +17,14 @@ public abstract class SimpleGoal<T> implements Goal<T> {
         }
     }
 
+    @Override
+    public GoalState process(T entity) {
+        activate(entity);
+        return doProcess(entity);
+    }
+
     protected abstract void doActivation(T entity);
+
+    protected abstract GoalState doProcess(T entity);
+
 }

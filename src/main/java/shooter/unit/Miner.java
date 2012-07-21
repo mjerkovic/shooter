@@ -1,43 +1,25 @@
 package shooter.unit;
 
 import shooter.geom.Vector;
+import shooter.goals.Goal;
 import shooter.states.StateMachine;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
 import shooter.unit.structure.Mine;
 
-public class Miner extends MovingEntity {
+public class Miner extends Vehicle {
 
     private static final int LOAD_EVERY = 100;
 
     private final int capacity;
-    private final StateMachine<Miner> stateMachine;
     private Mine workingMine;
     private int cycles;
     private int load;
 
-    public Miner(Vector position, double radius, Army army, Vector heading, Steering steering, int capacity,
-                 StateMachine<Miner> stateMachine) {
-        super(position, radius, army, null, steering);
+    public Miner(Vector position, double radius, Army army, Vector heading, double maxTurnRate, Goal<Miner> goal,
+                 Steering steering, int capacity) {
+        super(position, radius, army, heading, maxTurnRate, goal, steering);
         this.capacity = capacity;
-        this.stateMachine = stateMachine;
-        army.add(this);
-        steering.setOwner(this);
-        this.heading = new Vector(heading);
-    }
-
-    public double x() {
-        return position.x();
-    }
-
-    public double y() {
-        return position.y();
-    }
-
-    @Override
-    public void update() {
-        stateMachine.update(this);
-        calculateSteering();
     }
 
     public boolean atMine() {

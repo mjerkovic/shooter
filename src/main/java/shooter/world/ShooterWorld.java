@@ -10,9 +10,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import shooter.geom.Vector;
 import shooter.goals.UserControl;
-import shooter.states.StateMachine;
-import shooter.states.miner.WorkInMine;
-import shooter.states.miner.GoToMine;
+import shooter.goals.miner.MineForEnergy;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
@@ -55,8 +53,8 @@ public class ShooterWorld implements GameWorld {
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
-        new Miner(new Vector(20, 50), 10, army, new Vector(1, 0), new Steering(this), 100,
-                new StateMachine<Miner>(new GoToMine(new WorkInMine())));
+        new Miner(new Vector(20, 50), 10, army, new Vector(1, 0), 0.1, new MineForEnergy(), new Steering(this),
+                100);
         new Mine(new Vector(450, 60), 50, army, 3000);
     }
 

@@ -12,7 +12,15 @@ public abstract class CompositeGoal<T> implements Goal<T> {
     private final Deque<Goal<T>> subGoals = new ArrayDeque<Goal<T>>();
     protected GoalState state = INACTIVE;
 
+    @Override
+    public void activate(T entity) {
+        state = ACTIVE;
+    }
+
     public GoalState process(T entity) {
+        if (state == INACTIVE) {
+            activate(entity);
+        }
         return processSubGoals(entity);
     }
 
@@ -21,13 +29,13 @@ public abstract class CompositeGoal<T> implements Goal<T> {
     }
 
     protected GoalState processSubGoals(T entity) {
-        activate(entity);
         if (subGoals.isEmpty()) {
             return COMPLETED;
         }
         GoalState subGoalState = subGoals.peek().process(entity);
         if (subGoalState.equals(COMPLETED)) {
-            subGoals.removeFirst();
+            Goal<T> subGoal = subGoals.removeFirst();
+            subGoal.terminate(entity);
         }
         return (!subGoals.isEmpty()) ? ACTIVE : subGoalState;
     }

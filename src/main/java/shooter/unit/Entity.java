@@ -18,6 +18,14 @@ public abstract class Entity {
         return position;
     }
 
+    public double x() {
+        return position.x();
+    }
+
+    public double y() {
+        return position.y();
+    }
+
     public double boundingRadius() {
         return boundingRadius;
     }

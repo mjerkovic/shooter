@@ -11,8 +11,8 @@ public class Track extends SimpleGoal<WatchTower> {
         tower.startTracking();
     }
 
-    public GoalState process(WatchTower tower) {
-        activate(tower);
+    @Override
+    protected GoalState doProcess(WatchTower tower) {
         if (tower.targetAcquired()) {
             tower.fire();
             return GoalState.ACTIVE;

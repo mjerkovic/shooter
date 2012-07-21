@@ -8,6 +8,7 @@ public class Scan extends CompositeGoal<WatchTower> {
         if (!tower.targetAcquired() && tower.acquireTarget()) {
             addSubGoal(new Track());
         }
+        super.activate(tower);
     }
 
     public void terminate(WatchTower entity) {
