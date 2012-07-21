@@ -1,8 +1,7 @@
 package shooter.unit;
 
 import shooter.geom.Vector;
-import shooter.goals.Scan;
-import shooter.goals.WatchtowerDuty;
+import shooter.goals.watchtower.WatchtowerDuty;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
 import shooter.world.ShooterWorld;

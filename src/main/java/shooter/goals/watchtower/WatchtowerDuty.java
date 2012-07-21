@@ -1,5 +1,7 @@
-package shooter.goals;
+package shooter.goals.watchtower;
 
+import shooter.goals.CompositeGoal;
+import shooter.goals.GoalState;
 import shooter.unit.WatchTower;
 
 import static shooter.goals.GoalState.ACTIVE;
