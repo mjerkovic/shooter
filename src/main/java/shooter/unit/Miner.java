@@ -22,13 +22,8 @@ public class Miner extends Vehicle {
         this.capacity = capacity;
     }
 
-    public boolean atMine() {
-        return intersects(workingMine);
-    }
-
     public void goToMine(Mine mine) {
-        workingMine = mine;
-        steering().arriveOn(workingMine.position());
+        steering().arriveOn(mine.position());
     }
 
     public void work() {
@@ -45,7 +40,7 @@ public class Miner extends Vehicle {
         load++;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return load == 0;
     }
 
@@ -60,6 +55,12 @@ public class Miner extends Vehicle {
     @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
+    }
+
+    public void arrivedAt(Mine mine) {
+        workingMine = mine;
+        steering.arriveOff();
+        stop();
     }
 
 }

@@ -1,15 +1,14 @@
 package shooter.goals.miner;
 
 import shooter.goals.CompositeGoal;
-import shooter.goals.GoalState;
 import shooter.unit.Miner;
+import shooter.unit.structure.Mine;
 import shooter.world.ShooterWorld;
-
-import static shooter.goals.GoalState.ACTIVE;
 
 public class MineForEnergy extends CompositeGoal<Miner> {
 
     private final ShooterWorld world;
+    private Mine mine;
 
     public MineForEnergy(ShooterWorld world) {
         this.world = world;
@@ -17,9 +16,17 @@ public class MineForEnergy extends CompositeGoal<Miner> {
 
     @Override
     public void activate(Miner miner) {
-        addSubGoal(new WorkInMine());
-        addSubGoal(new GoToMine(world));
+        if (mine == null && miner.isEmpty()) {
+            findAMineToWork();
+        }
         super.activate(miner);
+    }
+
+    private void findAMineToWork() {
+        clearSubGoals();
+        mine = world.getClosestMine();
+        addSubGoal(new WorkInMine(mine));
+        addSubGoal(new GoToMine(mine));
     }
 
     @Override

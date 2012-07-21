@@ -40,4 +40,8 @@ public abstract class CompositeGoal<T> implements Goal<T> {
         return (!subGoals.isEmpty()) ? ACTIVE : subGoalState;
     }
 
+    protected void clearSubGoals() {
+        subGoals.clear();
+    }
+
 }
