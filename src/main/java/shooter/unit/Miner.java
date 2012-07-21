@@ -16,9 +16,9 @@ public class Miner extends Vehicle {
     private int cycles;
     private int load;
 
-    public Miner(Vector position, double radius, Army army, Vector heading, double maxTurnRate, Goal<Miner> goal,
+    public Miner(Vector position, double radius, Vector heading, double maxTurnRate, Goal<Miner> goal,
                  Steering steering, int capacity) {
-        super(position, radius, army, heading, maxTurnRate, goal, steering);
+        super(position, radius, heading, maxTurnRate, goal, steering);
         this.capacity = capacity;
     }
 
@@ -26,8 +26,8 @@ public class Miner extends Vehicle {
         return intersects(workingMine);
     }
 
-    public void moveToClosestMine() {
-        workingMine = army.getClosestMine();
+    public void goToMine(Mine mine) {
+        workingMine = mine;
         steering().arriveOn(workingMine.position());
     }
 

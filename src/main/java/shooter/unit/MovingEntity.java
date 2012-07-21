@@ -4,7 +4,7 @@ import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.steering.Steering;
 
-public abstract class MovingEntity extends Unit {
+public abstract class MovingEntity extends Entity {
 
     protected final Goal goal;
     protected final Steering steering;
@@ -16,8 +16,8 @@ public abstract class MovingEntity extends Unit {
     //double maxForce = 2;
     double maxTurnRate = 0.2;
 
-    public MovingEntity(Vector position, double radius, Army army, Goal goal, Steering steering) {
-        super(position, radius, army);
+    public MovingEntity(Vector position, double radius, Goal goal, Steering steering) {
+        super(position, radius);
         this.goal = goal;
         this.steering = steering;
     }

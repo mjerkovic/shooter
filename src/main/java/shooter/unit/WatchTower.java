@@ -2,6 +2,7 @@ package shooter.unit;
 
 import shooter.geom.Vector;
 import shooter.goals.Scan;
+import shooter.goals.WatchtowerDuty;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
 import shooter.world.ShooterWorld;
@@ -13,8 +14,8 @@ public class WatchTower extends MovingEntity {
     private final ShooterWorld world;
     private TargetingSystem targetingSystem;
 
-    public WatchTower(Vector position, double radius, Army army, ShooterWorld world, Steering steering) {
-        super(position, radius, army, new Scan(), steering);
+    public WatchTower(Vector position, double radius, ShooterWorld world, Steering steering) {
+        super(position, radius, new WatchtowerDuty(), steering);
         this.world = world;
         this.targetingSystem = new TargetingSystem(world, this);
         steering.setOwner(this);
@@ -42,6 +43,7 @@ public class WatchTower extends MovingEntity {
 
     public void stopTracking() {
         steering.pursuitOff();
+        targetingSystem.stopTracking();
     }
 
     public void fire() {
@@ -61,4 +63,7 @@ public class WatchTower extends MovingEntity {
         renderer.render(this);
     }
 
+    public boolean targetInRange() {
+        return targetAcquired() && targetingSystem.isInRange(RANGE_SQUARED);
+    }
 }

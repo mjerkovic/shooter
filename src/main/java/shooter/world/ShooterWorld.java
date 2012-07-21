@@ -14,7 +14,6 @@ import shooter.goals.miner.MineForEnergy;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
-import shooter.unit.Army;
 import shooter.unit.Bullet;
 import shooter.unit.Entity;
 import shooter.unit.Miner;
@@ -32,20 +31,20 @@ public class ShooterWorld implements GameWorld {
     private Signpost signpost;
     private WatchTower watchTower;
     private List<Bullet> bullets = new ArrayList<Bullet>();
-    private final Collection<Vehicle> vehicles;
     private final Collection<Entity> entities;
     private final Collection<Obstacle> obstacles;
     private final Collection<Wall> walls = newArrayList();
-    private Army army;
+    private final Collection<Vehicle> vehicles;
+    private final Collection<Miner> miners;
+    private final Collection<Mine> mines;
 
     public ShooterWorld() {
-        army = new Army();
-        vehicle = new Vehicle(new Vector(100, 100), 10, army, new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
+        vehicle = new Vehicle(new Vector(100, 100), 10, new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
         vehicle.steering().obstacleAvoidanceOn();
         //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
         vehicles = newArrayList(vehicle); //, wanderer);
         signpost = new Signpost(new Vector(10, 250), 10, "Sign");
-        watchTower = new WatchTower(new Vector(300, 500), 10, army, this, new Steering(this));
+        watchTower = new WatchTower(new Vector(300, 500), 10, this, new Steering(this));
         obstacles = newArrayList();
         addObstacles();
         addVehicles();
@@ -53,9 +52,9 @@ public class ShooterWorld implements GameWorld {
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
-        new Miner(new Vector(20, 50), 10, army, new Vector(1, 0), 0.1, new MineForEnergy(), new Steering(this),
-                100);
-        new Mine(new Vector(450, 60), 50, army, 3000);
+        miners = newArrayList(new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, new MineForEnergy(this),
+                new Steering(this), 100));
+        mines = newArrayList(new Mine(new Vector(450, 60), 50, 3000));
     }
 
     private void addVehicles() {
@@ -84,7 +83,12 @@ public class ShooterWorld implements GameWorld {
     }
 
     public void update() {
-        army.update();
+        for (Vehicle vehicle : vehicles) {
+            vehicle.update();
+        }
+        for (Miner miner : miners) {
+            miner.update();
+        }
         watchTower.update();
         for (Bullet bullet : bullets) {
             bullet.update();
@@ -99,7 +103,15 @@ public class ShooterWorld implements GameWorld {
     }
 
     public void renderWith(GameRenderer renderer) {
-        army.renderWith(renderer);
+        for (Mine mine : mines) {
+            mine.renderWith(renderer);
+        }
+        for (Miner miner : miners) {
+            miner.renderWith(renderer);
+        }
+        for (Vehicle vehicle : vehicles) {
+            vehicle.renderWith(renderer);
+        }
         renderer.render(signpost);
         renderer.render(watchTower);
         for (Bullet bullet : bullets) {
@@ -136,7 +148,7 @@ public class ShooterWorld implements GameWorld {
     }
 
     public void shotFired(MovingEntity shooter, MovingEntity target) {
-        addBullet(new Bullet(shooter.position(), shooter.army(), shooter.heading()));
+        addBullet(new Bullet(shooter, target));
     }
 
     private void addBullet(Bullet bullet) {
@@ -149,6 +161,10 @@ public class ShooterWorld implements GameWorld {
 
     public Collection<Wall> getWalls() {
         return walls;
+    }
+
+    public Mine getClosestMine() {
+        return mines.iterator().next();
     }
 
 }

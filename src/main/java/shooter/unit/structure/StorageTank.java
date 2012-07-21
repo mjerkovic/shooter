@@ -2,13 +2,12 @@ package shooter.unit.structure;
 
 import shooter.geom.Vector;
 import shooter.ui.GameRenderer;
-import shooter.unit.Army;
-import shooter.unit.Unit;
+import shooter.unit.Entity;
 
-public class StorageTank extends Unit {
+public class StorageTank extends Entity {
 
-    public StorageTank(Vector position, double radius, Army army) {
-        super(position, radius, army);
+    public StorageTank(Vector position, double radius) {
+        super(position, radius);
     }
 
     @Override

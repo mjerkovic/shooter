@@ -10,7 +10,6 @@ import shooter.goals.Roam;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
-import shooter.unit.Army;
 import shooter.unit.Obstacle;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
@@ -22,9 +21,8 @@ public class FlockWorld implements GameWorld {
     private final Collection<Obstacle> obstacles = newArrayList();
 
     public FlockWorld() {
-        Army army = new Army();
         addWalls();
-        addVehicles(army);
+        addVehicles();
     }
 
     public void update() {
@@ -69,12 +67,12 @@ public class FlockWorld implements GameWorld {
         walls.add(new Wall(new Vector(0, 600), new Vector(0, 0)));
     }
 
-    private void addVehicles(Army army) {
+    private void addVehicles() {
         Random rand = new Random();
         for (int i=0; i < 10; i++) {
             double headingX = rand.nextDouble() - rand.nextDouble();
             double headingY = rand.nextDouble() - rand.nextDouble();
-            Vehicle v = new Vehicle(new Vector(rand.nextInt(600), rand.nextInt(600)), 10, army,
+            Vehicle v = new Vehicle(new Vector(rand.nextInt(600), rand.nextInt(600)), 10,
                     new Vector(headingX, headingY), 0.3, new Roam(), new Steering(this));
             v.steering().separationOn();
             v.steering().cohesionOn();

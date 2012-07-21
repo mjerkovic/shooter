@@ -10,7 +10,6 @@ import shooter.goals.UserControl;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
-import shooter.unit.Army;
 import shooter.unit.Obstacle;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
@@ -23,14 +22,13 @@ public class HideWorld implements GameWorld {
     private final Collection<Wall> walls = newArrayList();
 
     public HideWorld() {
-        Army army = new Army();
         addObstacles();
         addWalls();
-        hunter = new Vehicle(new Vector(500, 500), 10, army,  new Vector(0, -1), 0.3, new Roam(), new Steering(this));
+        hunter = new Vehicle(new Vector(500, 500), 10, new Vector(0, -1), 0.3, new Roam(), new Steering(this));
         hunter.steering().wallAvoidanceOn();
         hunter.steering().obstacleAvoidanceOn();
         hunter.steering().wanderOn();
-        prey = new Vehicle(new Vector(100, 300), 10, army, new Vector(-1, 0), 0.3, new UserControl(), new Steering(this));
+        prey = new Vehicle(new Vector(100, 300), 10, new Vector(-1, 0), 0.3, new UserControl(), new Steering(this));
         prey.steering().wallAvoidanceOn();
         hunter.steering().obstacleAvoidanceOn();
         prey.steering().hideOn(hunter);

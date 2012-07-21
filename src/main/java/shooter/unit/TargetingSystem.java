@@ -5,7 +5,7 @@ import shooter.world.ShooterWorld;
 
 public class TargetingSystem {
 
-    private MovingEntity target = null;
+    private Vehicle target = null;
     private final ShooterWorld world;
     private final WatchTower watchTower;
     private long lastShot;
@@ -23,11 +23,14 @@ public class TargetingSystem {
             }
         }
         return false;
-
     }
 
     private boolean inRange(Vehicle target, double range) {
         return target.position().subtract(watchTower.position()).lengthSquared() <= range;
+    }
+
+    public boolean isInRange(double range) {
+        return target != null && inRange(target, range);
     }
 
     public MovingEntity getTarget() {
@@ -40,8 +43,6 @@ public class TargetingSystem {
         double range = toTarget.length();
         if (relativeHeading >= 0.99 && range < 200) {
             shoot();
-        } else {
-            target = null;
         }
     }
 
@@ -53,4 +54,7 @@ public class TargetingSystem {
         }
     }
 
+    public void stopTracking() {
+        target = null;
+    }
 }

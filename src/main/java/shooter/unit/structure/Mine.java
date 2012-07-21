@@ -1,20 +1,18 @@
 package shooter.unit.structure;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import shooter.geom.Vector;
 import shooter.ui.GameRenderer;
-import shooter.unit.Army;
+import shooter.unit.Entity;
 import shooter.unit.Miner;
-import shooter.unit.Unit;
 
-public class Mine extends Unit {
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Mine extends Entity {
 
     private final AtomicInteger yield;
 
-    public Mine(Vector position, double radius, Army army, int yield) {
-        super(position, radius, army);
-        army.add(this);
+    public Mine(Vector position, double radius, int yield) {
+        super(position, radius);
         this.yield = new AtomicInteger(yield);
     }
 

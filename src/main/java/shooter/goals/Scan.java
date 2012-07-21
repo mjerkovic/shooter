@@ -2,14 +2,17 @@ package shooter.goals;
 
 import shooter.unit.WatchTower;
 
-public class Scan extends CompositeGoal<WatchTower> {
+public class Scan extends SimpleGoal<WatchTower> {
 
-    public void activate(WatchTower tower) {
-        if (!tower.targetAcquired() && tower.acquireTarget()) {
-            addSubGoal(new Track());
-        }
-        super.activate(tower);
+    @Override
+    protected void doActivation(WatchTower tower) {
     }
+
+    @Override
+    protected GoalState doProcess(WatchTower tower) {
+         return (tower.targetAcquired() || tower.acquireTarget()) ? GoalState.COMPLETED : GoalState.ACTIVE;
+    }
+
 
     public void terminate(WatchTower entity) {
         //To change body of implemented methods use File | Settings | File Templates.
