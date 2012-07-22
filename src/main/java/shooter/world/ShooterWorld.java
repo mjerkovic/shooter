@@ -23,6 +23,7 @@ import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
 import shooter.unit.WatchTower;
+import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 
 public class ShooterWorld implements GameWorld {
@@ -37,6 +38,7 @@ public class ShooterWorld implements GameWorld {
     private final Collection<Vehicle> vehicles;
     private final Collection<Miner> miners;
     private final Collection<Mine> mines;
+    private final BaseCamp baseCamp;
 
     public ShooterWorld() {
         vehicle = new Vehicle(new Vector(100, 100), 10, new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
@@ -55,6 +57,7 @@ public class ShooterWorld implements GameWorld {
         miners = newArrayList(new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, new MineForEnergy(this),
                 new Steering(this), 100));
         mines = newArrayList(new Mine(new Vector(450, 60), 50, 3000));
+        baseCamp = new BaseCamp(new Vector(30, 30), 15);
     }
 
     private void addVehicles() {
@@ -112,6 +115,7 @@ public class ShooterWorld implements GameWorld {
         for (Vehicle vehicle : vehicles) {
             vehicle.renderWith(renderer);
         }
+        baseCamp.renderWith(renderer);
         renderer.render(signpost);
         renderer.render(watchTower);
         for (Bullet bullet : bullets) {
@@ -165,6 +169,10 @@ public class ShooterWorld implements GameWorld {
 
     public Mine getClosestMine() {
         return mines.iterator().next();
+    }
+
+    public BaseCamp getBase() {
+        return baseCamp;
     }
 
 }

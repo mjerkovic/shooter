@@ -16,6 +16,7 @@ import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
 import shooter.unit.WatchTower;
+import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 import shooter.unit.structure.StorageTank;
 
@@ -162,5 +163,13 @@ public class GameRenderer {
     public void render(StorageTank storageTank) {
 
     }
-    
+
+    public void render(BaseCamp baseCamp) {
+        Vector pos = baseCamp.position().add(viewPoint);
+        int radius = (int) baseCamp.boundingRadius();
+        int length = radius * 2;
+        graphics.drawRect((int) pos.x() - radius, (int) pos.y() - radius, length, length);
+        graphics.drawString("Base", (int)pos.x() - 10, (int)pos.y());
+    }
+
 }

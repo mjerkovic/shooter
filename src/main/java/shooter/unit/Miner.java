@@ -23,7 +23,12 @@ public class Miner extends Vehicle {
     }
 
     public void goToMine(Mine mine) {
-        steering().arriveOn(mine.position());
+        this.workingMine = mine;
+        steering.arriveOn(mine.position());
+    }
+
+    public void returnToBase(Vector position) {
+        steering.arriveOn(position);
     }
 
     public void work() {
@@ -33,15 +38,23 @@ public class Miner extends Vehicle {
     }
 
     public boolean finishedWork() {
-        return isFull() || workingMine.isEmpty();
+        return isFull() || nothingToMine();
     }
 
     public void load() {
-        load++;
+        ++load;
     }
 
     public boolean isEmpty() {
         return load == 0;
+    }
+
+    public boolean unload(long elapsed) {
+        if (elapsed >= 2000) {
+            --load;
+            return true;
+        }
+        return false;
     }
 
     private boolean isFull() {
@@ -49,6 +62,7 @@ public class Miner extends Vehicle {
     }
 
     public void leaveMine() {
+        cycles = 0;
         workingMine = null;
     }
 
@@ -57,10 +71,20 @@ public class Miner extends Vehicle {
         renderer.render(this);
     }
 
-    public void arrivedAt(Mine mine) {
-        workingMine = mine;
+    public void arrivedAtMine() {
         steering.arriveOff();
         stop();
     }
 
+    public boolean atMine() {
+        return intersects(workingMine);
+    }
+
+    public boolean assignedToMine() {
+        return workingMine != null;
+    }
+
+    public boolean nothingToMine() {
+        return workingMine.isEmpty();
+    }
 }
