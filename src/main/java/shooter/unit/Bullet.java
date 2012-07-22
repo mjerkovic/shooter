@@ -12,7 +12,7 @@ public class Bullet extends MovingEntity {
     private final MovingEntity target;
 
     public Bullet(MovingEntity shooter, MovingEntity target) {
-        super(shooter.position(), 5, null, null);
+        super(shooter.position(), 5, null, null, null);
         this.heading = new Vector(shooter.heading());
         this.initialPosition = new Vector(shooter.position());
         this.shooter = shooter;

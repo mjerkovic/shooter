@@ -1,5 +1,7 @@
 package shooter.unit.structure;
 
+import shooter.comms.MessageDispatcher;
+import shooter.comms.MessageListener;
 import shooter.geom.Vector;
 import shooter.ui.GameRenderer;
 import shooter.unit.Entity;
@@ -14,8 +16,8 @@ public class BaseCamp extends Entity {
     Map<Miner, Long> minersUnloading = new ConcurrentHashMap<Miner, Long>();
     AtomicInteger energy = new AtomicInteger(0);
 
-    public BaseCamp(Vector position, double boundingRadius) {
-        super(position, boundingRadius);
+    public BaseCamp(Vector position, double boundingRadius, MessageDispatcher radio) {
+        super(position, boundingRadius, radio);
     }
 
     @Override

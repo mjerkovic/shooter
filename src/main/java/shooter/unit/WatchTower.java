@@ -1,5 +1,6 @@
 package shooter.unit;
 
+import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.watchtower.WatchtowerDuty;
 import shooter.steering.Steering;
@@ -13,8 +14,8 @@ public class WatchTower extends MovingEntity {
     private final ShooterWorld world;
     private TargetingSystem targetingSystem;
 
-    public WatchTower(Vector position, double radius, ShooterWorld world, Steering steering) {
-        super(position, radius, new WatchtowerDuty(), steering);
+    public WatchTower(Vector position, double radius, MessageDispatcher radio, ShooterWorld world, Steering steering) {
+        super(position, radius, radio, new WatchtowerDuty(), steering);
         this.world = world;
         this.targetingSystem = new TargetingSystem(world, this);
         steering.setOwner(this);

@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import shooter.comms.ConsoleListener;
+import shooter.comms.MessageDispatcher;
+import shooter.comms.MessageListener;
 import shooter.geom.Vector;
 import shooter.goals.UserControl;
 import shooter.goals.miner.MineForEnergy;
@@ -41,12 +44,13 @@ public class ShooterWorld implements GameWorld {
     private final BaseCamp baseCamp;
 
     public ShooterWorld() {
-        vehicle = new Vehicle(new Vector(100, 100), 10, new Vector(1, 0), 0.1, new UserControl(), new Steering(this));
+        MessageDispatcher radio = new MessageDispatcher(Lists.<MessageListener>newArrayList(new ConsoleListener()));
+        vehicle = new Vehicle(new Vector(100, 100), 10, new Vector(1, 0), 0.1, radio, new UserControl(), new Steering(this));
         vehicle.steering().obstacleAvoidanceOn();
         //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
         vehicles = newArrayList(vehicle); //, wanderer);
-        signpost = new Signpost(new Vector(10, 250), 10, "Sign");
-        watchTower = new WatchTower(new Vector(300, 500), 10, this, new Steering(this));
+        signpost = new Signpost(new Vector(10, 250), 10, radio, "Sign");
+        watchTower = new WatchTower(new Vector(300, 500), 10, radio, this, new Steering(this));
         obstacles = newArrayList();
         addObstacles();
         addVehicles();
@@ -54,10 +58,10 @@ public class ShooterWorld implements GameWorld {
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
-        miners = newArrayList(new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, new MineForEnergy(this),
+        miners = newArrayList(new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, radio, new MineForEnergy(this),
                 new Steering(this), 100));
-        mines = newArrayList(new Mine(new Vector(450, 60), 50, 3000));
-        baseCamp = new BaseCamp(new Vector(30, 30), 15);
+        mines = newArrayList(new Mine(new Vector(450, 60), 50, radio, 3000));
+        baseCamp = new BaseCamp(new Vector(30, 30), 15, radio);
     }
 
     private void addVehicles() {

@@ -1,5 +1,6 @@
 package shooter.unit;
 
+import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.steering.Steering;
@@ -16,8 +17,8 @@ public abstract class MovingEntity extends Entity {
     //double maxForce = 2;
     double maxTurnRate = 0.2;
 
-    public MovingEntity(Vector position, double radius, Goal goal, Steering steering) {
-        super(position, radius);
+    public MovingEntity(Vector position, double radius, MessageDispatcher radio, Goal goal, Steering steering) {
+        super(position, radius, radio);
         this.goal = goal;
         this.steering = steering;
     }

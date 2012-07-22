@@ -1,5 +1,6 @@
 package shooter.unit.structure;
 
+import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.ui.GameRenderer;
 import shooter.unit.Entity;
@@ -11,8 +12,8 @@ public class Mine extends Entity {
 
     private final AtomicInteger yield;
 
-    public Mine(Vector position, double radius, int yield) {
-        super(position, radius);
+    public Mine(Vector position, double radius, MessageDispatcher radio, int yield) {
+        super(position, radius, radio);
         this.yield = new AtomicInteger(yield);
     }
 

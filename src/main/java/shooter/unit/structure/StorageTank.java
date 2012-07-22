@@ -1,13 +1,14 @@
 package shooter.unit.structure;
 
+import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.ui.GameRenderer;
 import shooter.unit.Entity;
 
 public class StorageTank extends Entity {
 
-    public StorageTank(Vector position, double radius) {
-        super(position, radius);
+    public StorageTank(Vector position, double radius, MessageDispatcher radio) {
+        super(position, radius, radio);
     }
 
     @Override

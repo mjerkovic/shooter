@@ -1,17 +1,20 @@
 package shooter.unit;
 
+import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.ui.GameRenderer;
 
 public abstract class Entity {
 
     protected final double boundingRadius;
+    protected final MessageDispatcher radio;
     protected Vector position = new Vector(2, 2);
     protected int health = 100;
 
-    protected Entity(Vector position, double boundingRadius) {
+    protected Entity(Vector position, double boundingRadius, MessageDispatcher radio) {
         this.position = position;
         this.boundingRadius = boundingRadius;
+        this.radio = radio;
     }
 
     public Vector position() {
