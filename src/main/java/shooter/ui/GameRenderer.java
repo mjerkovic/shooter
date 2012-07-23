@@ -87,14 +87,14 @@ public class GameRenderer {
         int yPos = y - ((int) entity.boundingRadius() + 10);
         graphics.drawRect(x - 15, yPos, 30, 7);
         Color originalColor = graphics.getColor();
-        int health = entity.getHealth();
+        double health = entity.getHealth();
         graphics.setColor(getColorFor(health));
-        double healthBarLength = 29.0 * ((double) health / 100.0);
+        double healthBarLength = 29.0 * health;
         graphics.fillRect(x - 14, yPos + 1, (int) healthBarLength, 6);
         graphics.setColor(originalColor);
     }
 
-    private Color getColorFor(int health) {
+    private Color getColorFor(double health) {
         switch (Health.getHealthFor(health)) {
             case POOR: return Color.RED;
             case AVERAGE: return Color.YELLOW;

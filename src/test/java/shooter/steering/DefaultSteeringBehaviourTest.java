@@ -20,5 +20,9 @@ public class DefaultSteeringBehaviourTest {
         Vector vector = Transformations.vectorToWorldSpace(new Vector(-0.70713, -0.70713), new Vector(0.70713, 0.70713), new Vector(-0.70713, 0.70713));
         System.out.println("vector = " + vector);
     }
+
+    public void testThis() {
+        System.out.println("new Vector(0.70713, -0.70713)x = " + new Vector(-0.70713, 0.70713).dot(new Vector(0, 1)));
+    }
     
 }

@@ -9,7 +9,7 @@ public abstract class Entity {
     protected final double boundingRadius;
     protected final MessageDispatcher radio;
     protected Vector position = new Vector(2, 2);
-    protected int health = 100;
+    protected double health = 1.0;
 
     protected Entity(Vector position, double boundingRadius, MessageDispatcher radio) {
         this.position = position;
@@ -33,7 +33,7 @@ public abstract class Entity {
         return boundingRadius;
     }
 
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 

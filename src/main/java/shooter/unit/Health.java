@@ -6,11 +6,11 @@ public enum Health {
     AVERAGE,
     POOR;
 
-    public static Health getHealthFor(int health) {
-        if (health <= 33) {
+    public static Health getHealthFor(double health) {
+        if (health <= 0.33) {
             return POOR;
         }
-        else if (health <= 66) {
+        else if (health <= 0.66) {
             return AVERAGE;
         } else {
             return GOOD;
