@@ -43,8 +43,8 @@ public class ShooterWorld implements GameWorld {
     private final Collection<Mine> mines;
     private final BaseCamp baseCamp;
 
-    public ShooterWorld() {
-        MessageDispatcher radio = new MessageDispatcher(Lists.<MessageListener>newArrayList(new ConsoleListener()));
+    public ShooterWorld(MessageListener messageListener) {
+        MessageDispatcher radio = new MessageDispatcher(Lists.<MessageListener>newArrayList(messageListener));
         vehicle = new Vehicle(new Vector(100, 100), 10, new Vector(1, 0), 0.1, radio, new UserControl(), new Steering(this));
         vehicle.steering().obstacleAvoidanceOn();
         //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
