@@ -1,0 +1,44 @@
+Anything that extends BaseGoal needs to extend SimpleGoal.
+Introduce BaseGoal and push state up.  Add state accessors.
+
+Goals
+	- Think goal.  if (subGoals.isEmpty()) add mining.
+        - status = subgoals.first.process()
+        - if (status = completed or fail) subgoals.first.remove();
+
+Move existing goal selection logic into each goals activation code.
+Is it possible that a unit could spin updates doing nothing until it cycles to a goal that matches criteria?
+Or does the main mining goal handle failure by clearing all sub-goals and re-planning on the next update?
+========================================================================================================================
+Mining has a planning phase that should be called by any subgoal that fails.
+Add MinerThink goal that adds Mining goal if sub-list is empty.
+General ThinkGoal that takes a strategy... It could pick a general goal based on health for example
+and then delegate to specific think (i.e. MinerThink) if none of the general strategies apply.
+
+CompositeGoal needs to remove any completed or failed goals at the first step of process().
+
+========================================================================================================================
+
+e.g. git config --global alias.st status
+
+alias.st=status
+alias.ci=commit
+alias.co=checkout
+alias.br=branch
+
+color.ui=auto
+color.diff=auto
+color.status=auto
+color.branch=auto
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+xterm-color)
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 "[%s] ")\$ '
+    ;;
+*)
+#    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1 "[%s] ")\$ '
+    ;;
+esac
