@@ -14,8 +14,8 @@ public class WorldMap extends JFrame {
         Dimension preferredSize = new Dimension(600, 600);
         setSize(preferredSize);
         setPreferredSize(preferredSize);
-        setVisible(true);
-        validate();
         pack();
+        setVisible(true);
     }
+
 }

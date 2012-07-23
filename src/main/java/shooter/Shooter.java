@@ -20,10 +20,10 @@ public class Shooter {
         messageArea.setEditable(false);
         MessageListener battleFieldMessageListener = new BattlefieldMessageListener(messageArea);
 
-        new MessageDisplay(messageArea);
-        new WorldMap(new MapDisplay());
-
         ShooterWorld world = new ShooterWorld(battleFieldMessageListener);
+
+        new MessageDisplay(messageArea);
+        new WorldMap(new MapDisplay(world));
         new GameDisplay(new ShooterPanel(new GameMediator(world)), new InfoPanel(world));
     }
 
