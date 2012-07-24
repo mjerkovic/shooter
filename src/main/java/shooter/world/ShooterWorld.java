@@ -41,6 +41,8 @@ public class ShooterWorld implements GameWorld {
     private final Collection<Miner> miners;
     private final Collection<Mine> mines;
     private final BaseCamp baseCamp;
+    private final Miner miner;
+    private final Mine mine;
 
     public ShooterWorld(MessageListener messageListener) {
         MessageDispatcher radio = new MessageDispatcher(Lists.<MessageListener>newArrayList(messageListener));
@@ -54,10 +56,10 @@ public class ShooterWorld implements GameWorld {
         addObstacles();
         addVehicles();
         addWalls();
-        Miner miner = (new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, radio, new MineForEnergy(this),
+        miner = (new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, radio, new MineForEnergy(this),
                   new Steering(this), 100));
         miners = newArrayList(miner);
-        Mine mine = new Mine(new Vector(450, 60), 50, radio, 3000);
+        mine = new Mine(new Vector(450, 60), 50, radio, 3000);
         mines = newArrayList(mine);
         baseCamp = new BaseCamp(new Vector(30, 30), 15, radio);
         entities = Lists.<Entity>newArrayList(vehicles);

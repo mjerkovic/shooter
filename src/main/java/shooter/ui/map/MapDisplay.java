@@ -1,4 +1,4 @@
-package shooter.ui;
+package shooter.ui.map;
 
 import static java.awt.Color.WHITE;
 
@@ -36,6 +36,7 @@ public class MapDisplay extends JPanel {
         }
 
         g2d.setTransform(origTransform);
+        repaint();
     }
 
 }

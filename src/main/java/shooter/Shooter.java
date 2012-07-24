@@ -7,10 +7,10 @@ import shooter.comms.MessageListener;
 import shooter.ui.GameDisplay;
 import shooter.ui.GameMediator;
 import shooter.ui.InfoPanel;
-import shooter.ui.MapDisplay;
+import shooter.ui.map.MapDisplay;
 import shooter.ui.MessageDisplay;
 import shooter.ui.ShooterPanel;
-import shooter.ui.WorldMap;
+import shooter.ui.map.WorldMap;
 import shooter.world.ShooterWorld;
 
 public class Shooter {

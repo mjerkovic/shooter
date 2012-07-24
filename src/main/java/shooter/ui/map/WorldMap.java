@@ -1,4 +1,4 @@
-package shooter.ui;
+package shooter.ui.map;
 
 import java.awt.Dimension;
 import java.awt.HeadlessException;
@@ -16,6 +16,7 @@ public class WorldMap extends JFrame {
         setPreferredSize(preferredSize);
         pack();
         setVisible(true);
+        validate();
     }
 
 }
