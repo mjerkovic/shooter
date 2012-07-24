@@ -3,7 +3,7 @@ package shooter.goals;
 import shooter.geom.Vector;
 import shooter.unit.MovingEntity;
 
-public class Offset extends BaseGoal<MovingEntity> {
+public class Offset extends SimpleGoal<MovingEntity> {
 
     private final MovingEntity leader;
     private final Vector offset;
@@ -14,17 +14,19 @@ public class Offset extends BaseGoal<MovingEntity> {
     }
 
     @Override
-    protected void activateGoal(MovingEntity entity) {
+    protected void doActivation(MovingEntity entity) {
         entity.steering().offsetPursuitOn(leader, offset);
         entity.steering().obstacleAvoidanceOn();
     }
 
     @Override
-    protected GoalState processGoal(MovingEntity entity) {
+    protected GoalState doProcess(MovingEntity entity) {
         return null;
     }
 
+    @Override
     public void terminate(MovingEntity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
 }

@@ -8,12 +8,12 @@ public class Bullet extends MovingEntity {
     private static final double MAX_RANGE_SQUARED = 10000;
 
     private final Vector initialPosition;
-    private final MovingEntity shooter;
-    private final MovingEntity target;
+    private final Entity shooter;
+    private final Entity target;
 
-    public Bullet(MovingEntity shooter, MovingEntity target) {
+    public Bullet(Entity shooter, Vector shooterHeading, Entity target) {
         super(shooter.position(), 5, null, null, null);
-        this.heading = new Vector(shooter.heading());
+        this.heading = new Vector(shooterHeading);
         this.initialPosition = new Vector(shooter.position());
         this.shooter = shooter;
         this.target = target;

@@ -169,7 +169,7 @@ public class ShooterWorld implements GameWorld {
     }
 
     public void shotFired(MovingEntity shooter, MovingEntity target) {
-        addBullet(new Bullet(shooter, target));
+        addBullet(new Bullet(shooter, shooter.heading(), target));
     }
 
     private void addBullet(Bullet bullet) {
