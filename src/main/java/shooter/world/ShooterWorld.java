@@ -1,32 +1,25 @@
 package shooter.world;
 
-import static com.google.common.collect.Lists.newArrayList;
+import com.google.common.collect.Lists;
+import shooter.comms.MessageDispatcher;
+import shooter.comms.MessageListener;
+import shooter.geom.Vector;
+import shooter.goals.Scouting;
+import shooter.goals.UserControl;
+import shooter.goals.miner.MineForEnergy;
+import shooter.steering.Direction;
+import shooter.steering.Steering;
+import shooter.ui.GameRenderer;
+import shooter.unit.*;
+import shooter.unit.structure.BaseCamp;
+import shooter.unit.structure.Mine;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-import shooter.comms.MessageDispatcher;
-import shooter.comms.MessageListener;
-import shooter.geom.Vector;
-import shooter.goals.UserControl;
-import shooter.goals.miner.MineForEnergy;
-import shooter.steering.Direction;
-import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
-import shooter.unit.Bullet;
-import shooter.unit.Entity;
-import shooter.unit.Miner;
-import shooter.unit.MovingEntity;
-import shooter.unit.Obstacle;
-import shooter.unit.Signpost;
-import shooter.unit.Vehicle;
-import shooter.unit.Wall;
-import shooter.unit.WatchTower;
-import shooter.unit.structure.BaseCamp;
-import shooter.unit.structure.Mine;
+import static com.google.common.collect.Lists.newArrayList;
 
 public class ShooterWorld implements GameWorld {
 
@@ -36,15 +29,18 @@ public class ShooterWorld implements GameWorld {
     private List<Bullet> bullets = new ArrayList<Bullet>();
     private final Collection<Entity> entities;
     private final Collection<Obstacle> obstacles;
-    private final Collection<Wall> walls = newArrayList();
+    private final Collection<Wall> displayableWalls = newArrayList();
+    private final Collection<Wall> allWalls = newArrayList();
     private final Collection<Vehicle> vehicles;
     private final Collection<Miner> miners;
     private final Collection<Mine> mines;
     private final BaseCamp baseCamp;
     private final Miner miner;
     private final Mine mine;
+    private final Vector worldArea;
 
-    public ShooterWorld(MessageListener messageListener) {
+    public ShooterWorld(Vector worldArea, MessageListener messageListener) {
+        this.worldArea = worldArea;
         MessageDispatcher radio = new MessageDispatcher(Lists.<MessageListener>newArrayList(messageListener));
         vehicle = new Vehicle(new Vector(100, 100), 10, new Vector(1, 0), 0.1, radio, new UserControl(), new Steering(this));
         vehicle.steering().obstacleAvoidanceOn();
@@ -67,6 +63,12 @@ public class ShooterWorld implements GameWorld {
         entities.add(watchTower);
         entities.add(miner);
         entities.add(mine);
+        Scout scout = new Scout(new Vector(Math.random() * worldArea.x(), Math.random() * worldArea.y()),
+                10, new Vector(0, -1), 0.1, radio, new Steering(this));
+        scout.steering().obstacleAvoidanceOn();
+        vehicles.add(scout);
+        entities.add(scout);
+
     }
 
     private void addVehicles() {
@@ -92,6 +94,12 @@ public class ShooterWorld implements GameWorld {
     }
 
     private void addWalls() {
+        double maxX = worldArea.x();
+        double maxY = worldArea.y();
+        allWalls.add(new Wall(new Vector(0, 0), new Vector(maxX, 0)));
+        allWalls.add(new Wall(new Vector(maxX, 0), new Vector(maxX, maxY)));
+        allWalls.add(new Wall(new Vector(maxX, maxY), new Vector(0, maxY)));
+        allWalls.add(new Wall(new Vector(0, maxY), new Vector(0, 0)));
     }
 
     public void update() {
@@ -133,7 +141,7 @@ public class ShooterWorld implements GameWorld {
         for (Obstacle obstacle : obstacles) {
             renderer.render(obstacle);
         }
-        for (Wall wall : walls) {
+        for (Wall wall : displayableWalls) {
             renderer.render(wall);
         }
     }
@@ -173,7 +181,7 @@ public class ShooterWorld implements GameWorld {
     }
 
     public Collection<Wall> getWalls() {
-        return walls;
+        return allWalls;
     }
 
     public Mine getClosestMine() {
@@ -182,6 +190,10 @@ public class ShooterWorld implements GameWorld {
 
     public BaseCamp getBase() {
         return baseCamp;
+    }
+
+    public Vector getWorldArea() {
+        return worldArea;
     }
 
 }

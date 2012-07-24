@@ -28,11 +28,13 @@ public class MapDisplay extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform origTransform = g2d.getTransform();
-        AffineTransform transform = AffineTransform.getScaleInstance(0.333, 0.333);
+        double scaleX = 600 / world.getWorldArea().x();
+        double scaleY = 600 / world.getWorldArea().y();
+        AffineTransform transform = AffineTransform.getScaleInstance(scaleX, scaleY);
         g2d.setTransform(transform);
 
         for (Entity entity : world.getEntities()) {
-            g2d.fillRect((int) entity.position().x() - 2, (int) entity.position().y() - 2, 4, 4);
+            g2d.fillRect((int) entity.position().x() - 6, (int) entity.position().y() - 6, 12, 12);
         }
 
         g2d.setTransform(origTransform);

@@ -4,6 +4,7 @@ import javax.swing.JTextArea;
 
 import shooter.comms.BattlefieldMessageListener;
 import shooter.comms.MessageListener;
+import shooter.geom.Vector;
 import shooter.ui.GameDisplay;
 import shooter.ui.GameMediator;
 import shooter.ui.InfoPanel;
@@ -20,7 +21,8 @@ public class Shooter {
         messageArea.setEditable(false);
         MessageListener battleFieldMessageListener = new BattlefieldMessageListener(messageArea);
 
-        ShooterWorld world = new ShooterWorld(battleFieldMessageListener);
+        Vector worldArea = new Vector(1800, 1800);
+        ShooterWorld world = new ShooterWorld(worldArea, battleFieldMessageListener);
 
         new MessageDisplay(messageArea);
         new WorldMap(new MapDisplay(world));

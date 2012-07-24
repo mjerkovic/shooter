@@ -2,19 +2,21 @@ package shooter.goals;
 
 import shooter.unit.MovingEntity;
 
-public class Roam extends BaseGoal<MovingEntity> {
+public class Roam extends SimpleGoal<MovingEntity> {
 
     @Override
-    protected void activateGoal(MovingEntity entity) {
+    protected void doActivation(MovingEntity entity) {
         entity.steering().wanderOn();
     }
 
     @Override
-    protected GoalState processGoal(MovingEntity entity) {
-        return null;
+    protected GoalState doProcess(MovingEntity entity) {
+        return state;
     }
 
+    @Override
     public void terminate(MovingEntity entity) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        entity.steering().wanderOff();
     }
+
 }

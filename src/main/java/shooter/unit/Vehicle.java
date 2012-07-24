@@ -15,10 +15,6 @@ public class Vehicle extends MovingEntity {
         this.heading = heading;
     }
 
-    public void wander() {
-        steering.wanderOn();
-    }
-
     @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
