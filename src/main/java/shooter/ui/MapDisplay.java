@@ -1,8 +1,11 @@
 package shooter.ui;
 
+import static java.awt.Color.WHITE;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
 import shooter.unit.Entity;
@@ -17,16 +20,22 @@ public class MapDisplay extends JPanel {
         Dimension size = new Dimension(600, 600);
         setSize(size);
         setPreferredSize(size);
+        setBackground(WHITE);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponents(g);
+        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.scale(0.333, 0.333);
+        AffineTransform origTransform = g2d.getTransform();
+        AffineTransform transform = AffineTransform.getScaleInstance(0.333, 0.333);
+        g2d.setTransform(transform);
+
         for (Entity entity : world.getEntities()) {
-            g2d.drawRect((int) entity.position().x() - 5, (int) entity.position().y() - 5, 10, 10);
+            g2d.fillRect((int) entity.position().x() - 2, (int) entity.position().y() - 2, 4, 4);
         }
+
+        g2d.setTransform(origTransform);
     }
 
 }

@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import shooter.comms.ConsoleListener;
 import shooter.comms.MessageDispatcher;
 import shooter.comms.MessageListener;
 import shooter.geom.Vector;
@@ -55,13 +54,17 @@ public class ShooterWorld implements GameWorld {
         addObstacles();
         addVehicles();
         addWalls();
+        Miner miner = (new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, radio, new MineForEnergy(this),
+                  new Steering(this), 100));
+        miners = newArrayList(miner);
+        Mine mine = new Mine(new Vector(450, 60), 50, radio, 3000);
+        mines = newArrayList(mine);
+        baseCamp = new BaseCamp(new Vector(30, 30), 15, radio);
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
-        miners = newArrayList(new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, radio, new MineForEnergy(this),
-                new Steering(this), 100));
-        mines = newArrayList(new Mine(new Vector(450, 60), 50, radio, 3000));
-        baseCamp = new BaseCamp(new Vector(30, 30), 15, radio);
+        entities.add(miner);
+        entities.add(mine);
     }
 
     private void addVehicles() {
