@@ -5,19 +5,20 @@ import shooter.world.ShooterWorld;
 
 public class TargetingSystem {
 
-    private Vehicle target = null;
     private final ShooterWorld world;
-    private final WatchTower watchTower;
-    private long lastShot;
+    private final Entity owner;
+    private final Weapon weapon;
+    private MovingEntity target = null;
 
-    public TargetingSystem(ShooterWorld world, WatchTower watchTower) {
+    public TargetingSystem(ShooterWorld world, Entity owner, Weapon weapon) {
         this.world = world;
-        this.watchTower = watchTower;
+        this.owner = owner;
+        this.weapon = weapon;
     }
 
-    public boolean acquireTarget(double range) {
+    public boolean acquireTarget() {
         for (Vehicle vehicle : world.getVehicles()) {
-            if (inRange(vehicle, range)) {
+            if (inRange(vehicle)) {
                 target = vehicle;
                 return true;
             }
@@ -25,12 +26,13 @@ public class TargetingSystem {
         return false;
     }
 
-    private boolean inRange(Vehicle target, double range) {
-        return target.position().subtract(watchTower.position()).lengthSquared() <= range;
+    private boolean inRange(Entity target) {
+        double rangeToTarget = target.position().subtract(owner.position()).lengthSquared();
+        return weapon.inRange(rangeToTarget); //target.position().subtract(watchTower.position()).lengthSquared() <= range;
     }
 
-    public boolean isInRange(double range) {
-        return target != null && inRange(target, range);
+    public boolean isInRange() {
+        return target != null && inRange(target);
     }
 
     public MovingEntity getTarget() {
@@ -38,23 +40,16 @@ public class TargetingSystem {
     }
 
     public void fire() {
-        Vector toTarget = target.position().subtract(watchTower.position);
-        double relativeHeading = toTarget.normalise().dot(watchTower.heading);
+        Vector toTarget = target.position().subtract(owner.position());
+        double relativeHeading = toTarget.normalise().dot(owner.position());
         double range = toTarget.length();
-        if (relativeHeading >= 0.99 && range < 200) {
-            shoot();
-        }
-    }
-
-    private void shoot() {
-        long timeDiff = System.currentTimeMillis() - lastShot;
-        if (lastShot == 0 || timeDiff >= 1000) {
-            world.shotFired(watchTower, target);
-            lastShot += timeDiff;
+        if (relativeHeading >= 0.99 && range < 200 && weapon.fire()) {
+            world.shotFired(owner, target);
         }
     }
 
     public void stopTracking() {
         target = null;
     }
+
 }

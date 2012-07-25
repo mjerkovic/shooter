@@ -11,12 +11,12 @@ public class Bullet extends MovingEntity {
     private final Entity shooter;
     private final Entity target;
 
-    public Bullet(Entity shooter, Vector shooterHeading, Entity target) {
-        super(shooter.position(), 5, null, null, null);
-        this.heading = new Vector(shooterHeading);
-        this.initialPosition = new Vector(shooter.position());
+    public Bullet(Entity shooter, Entity target) {
+        super(shooter.position(), 8, null, null, null);
         this.shooter = shooter;
         this.target = target;
+        this.heading = shooter.heading();
+        this.initialPosition = shooter.position();
     }
 
     @Override

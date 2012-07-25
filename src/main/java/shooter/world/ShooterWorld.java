@@ -1,25 +1,34 @@
 package shooter.world;
 
-import com.google.common.collect.Lists;
-import shooter.comms.MessageDispatcher;
-import shooter.comms.MessageListener;
-import shooter.geom.Vector;
-import shooter.goals.Scouting;
-import shooter.goals.UserControl;
-import shooter.goals.miner.MineForEnergy;
-import shooter.steering.Direction;
-import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
-import shooter.unit.*;
-import shooter.unit.structure.BaseCamp;
-import shooter.unit.structure.Mine;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
+import com.google.common.collect.Lists;
+import shooter.comms.MessageDispatcher;
+import shooter.comms.MessageListener;
+import shooter.geom.Vector;
+import shooter.goals.UserControl;
+import shooter.goals.miner.MineForEnergy;
+import shooter.steering.Direction;
+import shooter.steering.Steering;
+import shooter.ui.GameRenderer;
+import shooter.unit.Bullet;
+import shooter.unit.Entity;
+import shooter.unit.Gun;
+import shooter.unit.Miner;
+import shooter.unit.Obstacle;
+import shooter.unit.Scout;
+import shooter.unit.Signpost;
+import shooter.unit.Vehicle;
+import shooter.unit.Wall;
+import shooter.unit.WatchTower;
+import shooter.unit.Weapon;
+import shooter.unit.structure.BaseCamp;
+import shooter.unit.structure.Mine;
 
 public class ShooterWorld implements GameWorld {
 
@@ -47,7 +56,8 @@ public class ShooterWorld implements GameWorld {
         //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
         vehicles = newArrayList(vehicle); //, wanderer);
         signpost = new Signpost(new Vector(10, 250), 10, radio, "Sign");
-        watchTower = new WatchTower(new Vector(300, 500), 10, radio, this, new Steering(this));
+        Weapon gun = new Gun();
+        watchTower = new WatchTower(new Vector(300, 500), 10, radio, this, new Steering(this), gun);
         obstacles = newArrayList();
         addObstacles();
         addVehicles();
@@ -64,7 +74,7 @@ public class ShooterWorld implements GameWorld {
         entities.add(miner);
         entities.add(mine);
         Scout scout = new Scout(new Vector(Math.random() * worldArea.x(), Math.random() * worldArea.y()),
-                10, new Vector(0, -1), 0.1, radio, new Steering(this));
+                10, new Vector(0, -1), 0.1, radio, new Steering(this), this, gun);
         scout.steering().obstacleAvoidanceOn();
         vehicles.add(scout);
         entities.add(scout);
@@ -168,8 +178,8 @@ public class ShooterWorld implements GameWorld {
         return entities;
     }
 
-    public void shotFired(MovingEntity shooter, MovingEntity target) {
-        addBullet(new Bullet(shooter, shooter.heading(), target));
+    public void shotFired(Entity shooter, Entity target) {
+        addBullet(new Bullet(shooter, target));
     }
 
     private void addBullet(Bullet bullet) {

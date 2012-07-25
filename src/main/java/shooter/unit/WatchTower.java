@@ -9,13 +9,12 @@ import shooter.world.ShooterWorld;
 
 public class WatchTower extends MovingEntity {
 
-    private static final int RANGE_SQUARED = 40000;
-
     private final TargetingSystem targetingSystem;
 
-    public WatchTower(Vector position, double radius, MessageDispatcher radio, ShooterWorld world, Steering steering) {
+    public WatchTower(Vector position, double radius, MessageDispatcher radio, ShooterWorld world, Steering steering,
+                      Weapon weapon) {
         super(position, radius, radio, new WatchtowerDuty(), steering);
-        this.targetingSystem = new TargetingSystem(world, this);
+        this.targetingSystem = new TargetingSystem(world, this, weapon);
         steering.setOwner(this);
         heading = new Vector(1, 0);
     }
@@ -29,10 +28,6 @@ public class WatchTower extends MovingEntity {
             heading = steeringForce.normalise();
             side = heading.perp();
         }
-    }
-
-    public boolean inRange(Vehicle target) {
-        return target.position().subtract(position).lengthSquared() <= RANGE_SQUARED;
     }
 
     public void startTracking() {
@@ -49,7 +44,7 @@ public class WatchTower extends MovingEntity {
     }
 
     public boolean acquireTarget() {
-        return targetingSystem.acquireTarget(RANGE_SQUARED);
+        return targetingSystem.acquireTarget();
     }
 
     public boolean targetAcquired() {
@@ -62,6 +57,6 @@ public class WatchTower extends MovingEntity {
     }
 
     public boolean targetInRange() {
-        return targetAcquired() && targetingSystem.isInRange(RANGE_SQUARED);
+        return targetAcquired() && targetingSystem.isInRange();
     }
 }
