@@ -16,7 +16,7 @@ import shooter.goals.miner.MineForEnergy;
 import shooter.goals.watchtower.WatchtowerDuty;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.unit.Bullet;
 import shooter.unit.Entity;
 import shooter.unit.Gun;
@@ -134,7 +134,7 @@ public class ShooterWorld implements GameWorld {
 
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         for (Entity entity : entities) {
             entity.renderWith(renderer);
         }

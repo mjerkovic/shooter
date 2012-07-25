@@ -4,7 +4,7 @@ import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Scouting;
 import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.world.ShooterWorld;
 
 public class Scout extends Vehicle implements Armed {
@@ -27,12 +27,12 @@ public class Scout extends Vehicle implements Armed {
     }
 
     @Override
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         super.renderWith(renderer);
         renderWeaponWith(renderer);
     }
 
-    private void renderWeaponWith(GameRenderer renderer) {
+    private void renderWeaponWith(Renderer renderer) {
         if (weapon != null) {
             weapon.renderWith(renderer);
         }

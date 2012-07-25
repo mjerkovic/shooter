@@ -2,7 +2,7 @@ package shooter.unit;
 
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 
 public class Obstacle extends Entity {
 
@@ -10,7 +10,7 @@ public class Obstacle extends Entity {
         super(position, boundingRadius, radio);
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
 

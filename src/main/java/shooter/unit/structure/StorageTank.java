@@ -2,7 +2,7 @@ package shooter.unit.structure;
 
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.unit.Entity;
 
 public class StorageTank extends Entity {
@@ -11,7 +11,7 @@ public class StorageTank extends Entity {
         super(position, radius, radio);
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
 

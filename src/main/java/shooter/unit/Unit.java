@@ -1,7 +1,7 @@
 package shooter.unit;
 
 import shooter.geom.Vector;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 
 public interface Unit {
 
@@ -11,6 +11,6 @@ public interface Unit {
 
     void update();
 
-    void renderWith(GameRenderer renderer);
+    void renderWith(Renderer renderer);
 
 }

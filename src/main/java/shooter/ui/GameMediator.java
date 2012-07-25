@@ -9,12 +9,14 @@ import shooter.world.GameWorld;
 public class GameMediator {
 
     private final GameWorld gameWorld;
+    private final GameRenderer renderer;
     private boolean showFeelers;
     private boolean showWallNormals;
     private Vector viewPoint = Vector.ZERO;
 
-    public GameMediator(GameWorld gameWorld) {
+    public GameMediator(GameWorld gameWorld, GameRenderer renderer) {
         this.gameWorld = gameWorld;
+        this.renderer = renderer;
     }
 
     public void update() {
@@ -22,8 +24,9 @@ public class GameMediator {
     }
 
     public void renderUsing(Graphics2D graphics) {
-        GameRenderer renderer = new GameRenderer(graphics, viewPoint, showFeelers, showWallNormals);
-        gameWorld.renderWith(renderer);
+        renderer.renderWith(graphics);
+        //GameRenderer renderer = new GameRenderer(graphics, viewPoint, showFeelers, showWallNormals);
+        //gameWorld.renderWith(renderer);
     }
 
     public void moveVehicle(Direction direction) {
@@ -35,15 +38,15 @@ public class GameMediator {
     }
 
     public void toggleFeelers() {
-        showFeelers = !showFeelers;
+        renderer.toggleFeelers(); showFeelers = !showFeelers;
     }
 
     public void toggleWallNormals() {
-        showWallNormals = !showWallNormals;
+        renderer.toggleWallNormals();showWallNormals = !showWallNormals;
     }
 
-    public void scrollView(Vector distance) {
-        viewPoint = viewPoint.add(distance);
+    public void scrollView(Vector viewPoint) {
+        renderer.updateView(viewPoint);
     }
 
 }

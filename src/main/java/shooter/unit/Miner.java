@@ -3,9 +3,8 @@ package shooter.unit;
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
-import shooter.states.StateMachine;
 import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.unit.structure.Mine;
 
 public class Miner extends Vehicle {
@@ -69,7 +68,7 @@ public class Miner extends Vehicle {
         radio.broadcast(this, "Leaving mine");
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
 

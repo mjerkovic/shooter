@@ -3,7 +3,7 @@ package shooter.unit;
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.world.ShooterWorld;
 
 public class WatchTower extends Entity implements Armed {
@@ -25,7 +25,7 @@ public class WatchTower extends Entity implements Armed {
         }
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
         if (weapon != null) {
             weapon.renderWith(renderer);

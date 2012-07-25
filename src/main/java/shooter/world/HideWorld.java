@@ -9,7 +9,7 @@ import shooter.goals.Roam;
 import shooter.goals.UserControl;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.unit.Obstacle;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
@@ -40,7 +40,7 @@ public class HideWorld implements GameWorld {
         hunter.update();
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         for (Wall wall : walls) {
             renderer.render(wall);
         }

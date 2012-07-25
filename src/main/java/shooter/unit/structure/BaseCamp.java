@@ -1,9 +1,8 @@
 package shooter.unit.structure;
 
 import shooter.comms.MessageDispatcher;
-import shooter.comms.MessageListener;
 import shooter.geom.Vector;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.unit.Entity;
 import shooter.unit.Miner;
 
@@ -20,7 +19,7 @@ public class BaseCamp extends Entity {
         super(position, boundingRadius, radio);
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
     public void startUnloading(Miner miner) {

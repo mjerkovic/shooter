@@ -2,7 +2,7 @@ package shooter.unit;
 
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 
 public class Signpost extends Entity {
 
@@ -17,7 +17,7 @@ public class Signpost extends Entity {
         return label;
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
 }

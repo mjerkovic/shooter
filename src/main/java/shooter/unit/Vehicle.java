@@ -4,7 +4,7 @@ import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 
 public class Vehicle extends MovingEntity {
 
@@ -15,7 +15,7 @@ public class Vehicle extends MovingEntity {
         this.heading = heading;
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
 

@@ -4,7 +4,7 @@ import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.steering.Steering;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.world.ShooterWorld;
 
 public class Gun<T extends Entity & Armed> extends MovingEntity implements Weapon {
@@ -34,7 +34,7 @@ public class Gun<T extends Entity & Armed> extends MovingEntity implements Weapo
         targetingSystem = new TargetingSystem();
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
 

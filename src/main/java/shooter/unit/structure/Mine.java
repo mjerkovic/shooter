@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 import shooter.unit.Entity;
 import shooter.unit.Miner;
 
@@ -30,7 +30,7 @@ public class Mine extends Entity {
         return yield.get() == 0;
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
 

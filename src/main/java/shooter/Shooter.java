@@ -7,6 +7,7 @@ import shooter.comms.MessageListener;
 import shooter.geom.Vector;
 import shooter.ui.GameDisplay;
 import shooter.ui.GameMediator;
+import shooter.ui.GameRenderer;
 import shooter.ui.InfoPanel;
 import shooter.ui.map.MapDisplay;
 import shooter.ui.MessageDisplay;
@@ -26,7 +27,7 @@ public class Shooter {
 
         new MessageDisplay(messageArea);
         new WorldMap(new MapDisplay(world));
-        new GameDisplay(new ShooterPanel(new GameMediator(world)), new InfoPanel(world));
+        new GameDisplay(new ShooterPanel(new GameMediator(world, new GameRenderer(world))), new InfoPanel(world));
     }
 
 }

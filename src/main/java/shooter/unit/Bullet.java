@@ -1,7 +1,7 @@
 package shooter.unit;
 
 import shooter.geom.Vector;
-import shooter.ui.GameRenderer;
+import shooter.ui.Renderer;
 
 public class Bullet extends MovingEntity {
 
@@ -28,7 +28,7 @@ public class Bullet extends MovingEntity {
         return position.subtract(initialPosition).lengthSquared() > MAX_RANGE_SQUARED;
     }
 
-    public void renderWith(GameRenderer renderer) {
+    public void renderWith(Renderer renderer) {
         renderer.render(this);
     }
 

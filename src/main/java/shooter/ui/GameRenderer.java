@@ -23,19 +23,35 @@ import shooter.unit.Weapon;
 import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 import shooter.unit.structure.StorageTank;
+import shooter.world.GameWorld;
 
-public class GameRenderer {
+public class GameRenderer implements Renderer {
 
-    private final Graphics2D graphics;
-    private final Vector viewPoint;
-    private final boolean showFeelers;
-    private final boolean showWallNormals;
+    private final GameWorld world;
+    private Vector viewPoint = Vector.ZERO;
+    private boolean showFeelers;
+    private boolean showWallNormals;
+    private Graphics2D graphics;
 
-    public GameRenderer(Graphics2D graphics, Vector viewPoint, boolean showFeelers, boolean showWallNormals) {
+    public GameRenderer(GameWorld world) {
+        this.world = world;
+    }
+
+    public void renderWith(Graphics2D graphics) {
         this.graphics = graphics;
-        this.viewPoint = new Vector(viewPoint);
-        this.showFeelers = showFeelers;
-        this.showWallNormals = showWallNormals;
+        world.renderWith(this);
+    }
+
+    public void toggleFeelers() {
+        showFeelers = !showFeelers;
+    }
+
+    public void toggleWallNormals() {
+        showWallNormals = !showWallNormals;
+    }
+
+    public void updateView(Vector viewPoint) {
+        this.viewPoint = viewPoint.add(viewPoint);
     }
 
     public void render(Vehicle vehicle) {
@@ -195,4 +211,5 @@ public class GameRenderer {
                 x + (int) (weapon.heading().x() * 20),
                 y + (int) (weapon.heading().y() * 20));
     }
+
 }
