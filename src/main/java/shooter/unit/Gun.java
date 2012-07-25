@@ -51,7 +51,7 @@ public class Gun<T extends Entity & Armed> extends MovingEntity implements Weapo
         if (lastShot == 0 || timeDiff >= rateOfFireInMilliseconds &&
                 targetingSystem.canFire(owner.position())) {
             lastShot += timeDiff;
-            world.shotFired(owner, targetingSystem.getTarget());
+            world.shotFired(owner, targetingSystem.getTarget(), heading());
         }
     }
 

@@ -185,8 +185,8 @@ public class ShooterWorld implements GameWorld {
         return entities;
     }
 
-    public void shotFired(Entity shooter, Entity target) {
-        addBullet(new Bullet(shooter, target));
+    public void shotFired(Entity shooter, Entity target, Vector heading) {
+        addBullet(new Bullet(shooter, target, heading));
     }
 
     private void addBullet(Bullet bullet) {
