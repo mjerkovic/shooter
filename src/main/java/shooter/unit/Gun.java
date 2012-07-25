@@ -7,7 +7,7 @@ import shooter.steering.Steering;
 import shooter.ui.GameRenderer;
 import shooter.world.ShooterWorld;
 
-public class Gun extends MovingEntity implements Weapon {
+public class Gun<T extends Entity & Armed> extends MovingEntity implements Weapon {
 
     private static final int RANGE_SQUARED = 40000;
 
@@ -19,10 +19,12 @@ public class Gun extends MovingEntity implements Weapon {
     private final TargetingSystem targetingSystem;
     private long lastShot;
 
-    public Gun(Entity owner, double maxTurnRate, MessageDispatcher radio, Goal brain, int rangeSquared,
+    public Gun(T owner, double maxTurnRate, MessageDispatcher radio, Goal brain, int rangeSquared,
                int rateOfFireInMilliseconds, ShooterWorld world, Steering steering) {
         super(owner.position(), 0, radio, brain, steering);
+
         steering.setOwner(this);
+        owner.armWith(this);
         this.owner = owner;
         heading = owner.heading();
         this.maxTurnRate = maxTurnRate;
@@ -32,7 +34,6 @@ public class Gun extends MovingEntity implements Weapon {
         targetingSystem = new TargetingSystem();
     }
 
-    @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
     }
@@ -61,6 +62,10 @@ public class Gun extends MovingEntity implements Weapon {
     @Override
     public Vector position() {
         return owner.position();
+    }
+
+    public Entity owner() {
+        return owner;
     }
 
     //---------------------------------------------------

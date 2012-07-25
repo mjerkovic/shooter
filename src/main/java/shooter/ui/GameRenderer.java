@@ -2,14 +2,16 @@ package shooter.ui;
 
 import static shooter.geom.Geometry.createFeelersFor;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 
 import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.Bullet;
 import shooter.unit.Entity;
-import shooter.unit.Gun;
 import shooter.unit.Health;
 import shooter.unit.Miner;
 import shooter.unit.Obstacle;
@@ -17,6 +19,7 @@ import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
 import shooter.unit.WatchTower;
+import shooter.unit.Weapon;
 import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 import shooter.unit.structure.StorageTank;
@@ -113,10 +116,12 @@ public class GameRenderer {
         int x1 = (int) pos.x();
         int y1 = (int) pos.y();
         graphics.drawOval(x1 - 5, y1 - 5, 10, 10);
+/*
         Vector heading = watchTower.heading();
         int x2 = x1 + (int) (heading.x() * 20);
         int y2 = y1 + (int) (heading.y() * 20);
         graphics.drawLine(x1 + (int) (heading.x() * 5), y1 + (int) (heading.y() * 5), x2, y2);
+*/
     }
 
     public void render(Bullet bullet) {
@@ -173,8 +178,21 @@ public class GameRenderer {
         graphics.drawString("Base", (int)pos.x() - 10, (int)pos.y());
     }
 
-    public void render(Gun gun) {
-        Vector pos = gun.position().add(viewPoint);
-        graphics.drawLine((int) pos.x(), (int) pos.y(), (int) (gun.heading().x() * 5), (int) (gun.heading().y()  * 5));
+    public void render(Weapon weapon) {
+        Vector pos = weapon.position().add(viewPoint);
+        int x = (int) pos.x();
+        int y = (int) pos.y();
+        double radius = weapon.owner().boundingRadius();
+/*
+        Vector heading = watchTower.heading();
+        int x2 = x1 + (int) (heading.x() * 20);
+        int y2 = y1 + (int) (heading.y() * 20);
+        graphics.drawLine(x1 + (int) (heading.x() * 5), y1 + (int) (heading.y() * 5), x2, y2);
+*/
+        graphics.drawLine(
+                x + (int) (weapon.heading().x() * radius),
+                y + (int) (weapon.heading().y() * radius),
+                x + (int) (weapon.heading().x() * 20),
+                y + (int) (weapon.heading().y() * 20));
     }
 }

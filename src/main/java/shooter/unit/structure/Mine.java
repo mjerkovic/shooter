@@ -1,12 +1,12 @@
 package shooter.unit.structure;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.ui.GameRenderer;
 import shooter.unit.Entity;
 import shooter.unit.Miner;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Mine extends Entity {
 
@@ -30,7 +30,6 @@ public class Mine extends Entity {
         return yield.get() == 0;
     }
 
-    @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
     }

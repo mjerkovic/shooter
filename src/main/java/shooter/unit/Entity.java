@@ -4,9 +4,8 @@ import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.DoNothing;
 import shooter.goals.Goal;
-import shooter.ui.GameRenderer;
 
-public abstract class Entity {
+public abstract class Entity implements Unit {
 
     protected Vector position = new Vector(2, 2);
     protected Vector heading = new Vector(1, 0);
@@ -57,7 +56,5 @@ public abstract class Entity {
     public void update() {
         brain.process(this);
     }
-
-    public abstract void renderWith(GameRenderer renderer);
 
 }

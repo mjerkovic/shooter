@@ -11,7 +11,6 @@ import com.google.common.collect.Lists;
 import shooter.comms.MessageDispatcher;
 import shooter.comms.MessageListener;
 import shooter.geom.Vector;
-import shooter.goals.DoNothing;
 import shooter.goals.UserControl;
 import shooter.goals.miner.MineForEnergy;
 import shooter.goals.watchtower.WatchtowerDuty;
@@ -28,7 +27,6 @@ import shooter.unit.Signpost;
 import shooter.unit.Vehicle;
 import shooter.unit.Wall;
 import shooter.unit.WatchTower;
-import shooter.unit.Weapon;
 import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 
@@ -58,8 +56,7 @@ public class ShooterWorld implements GameWorld {
         //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
         vehicles = newArrayList(vehicle); //, wanderer);
         signpost = new Signpost(new Vector(10, 250), 10, radio, "Sign");
-        watchTower = new WatchTower(new Vector(300, 500), 10, radio, this, new Steering(this));
-        Entity watchTowerGun = new Gun(watchTower, 0.1, radio, new WatchtowerDuty(), 40000, 1000, this, new Steering(this));
+        watchTower = new WatchTower(new Vector(300, 500), 5, radio, this, new Steering(this));
         obstacles = newArrayList();
         addObstacles();
         addVehicles();
@@ -73,7 +70,6 @@ public class ShooterWorld implements GameWorld {
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
-        entities.add(watchTowerGun);
         entities.add(miner);
         entities.add(mine);
         Scout scout = new Scout(new Vector(Math.random() * worldArea.x(), Math.random() * worldArea.y()),
@@ -81,8 +77,8 @@ public class ShooterWorld implements GameWorld {
         scout.steering().obstacleAvoidanceOn();
         vehicles.add(scout);
         entities.add(scout);
-        Entity scoutGun = new Gun(watchTower, 0.1, radio, new WatchtowerDuty(), 40000, 1000, this, new Steering(this));
-        entities.add(scoutGun);
+        new Gun<WatchTower>(watchTower, 0.1, radio, new WatchtowerDuty(), 40000, 1000, this, new Steering(this));
+        new Gun<Scout>(scout, 0.1, radio, new WatchtowerDuty(), 40000, 1000, this, new Steering(this));
     }
 
     private void addVehicles() {

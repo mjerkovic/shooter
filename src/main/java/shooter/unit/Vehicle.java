@@ -15,7 +15,6 @@ public class Vehicle extends MovingEntity {
         this.heading = heading;
     }
 
-    @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
     }

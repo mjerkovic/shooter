@@ -10,7 +10,6 @@ public class Obstacle extends Entity {
         super(position, boundingRadius, radio);
     }
 
-    @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
     }

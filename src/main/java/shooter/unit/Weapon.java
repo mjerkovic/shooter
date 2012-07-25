@@ -1,6 +1,6 @@
 package shooter.unit;
 
-public interface Weapon {
+public interface Weapon<T extends Entity & Armed> extends Unit {
 
     boolean acquireTarget();
 
@@ -15,5 +15,7 @@ public interface Weapon {
     void startTracking();
 
     void stopTracking();
+
+    Entity owner();
 
 }

@@ -28,7 +28,6 @@ public class Bullet extends MovingEntity {
         return position.subtract(initialPosition).lengthSquared() > MAX_RANGE_SQUARED;
     }
 
-    @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
     }

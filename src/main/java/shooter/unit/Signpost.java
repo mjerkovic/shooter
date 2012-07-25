@@ -17,7 +17,6 @@ public class Signpost extends Entity {
         return label;
     }
 
-    @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
     }

@@ -11,7 +11,6 @@ public class StorageTank extends Entity {
         super(position, radius, radio);
     }
 
-    @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
     }

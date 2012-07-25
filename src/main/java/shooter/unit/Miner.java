@@ -69,7 +69,6 @@ public class Miner extends Vehicle {
         radio.broadcast(this, "Leaving mine");
     }
 
-    @Override
     public void renderWith(GameRenderer renderer) {
         renderer.render(this);
     }
