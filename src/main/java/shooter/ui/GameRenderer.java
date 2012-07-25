@@ -115,7 +115,7 @@ public class GameRenderer {
         Vector heading = watchTower.heading();
         int x2 = x1 + (int) (heading.x() * 20);
         int y2 = y1 + (int) (heading.y() * 20);
-        graphics.drawLine(x1, y1, x2, y2);
+        graphics.drawLine(x1 + (int) (heading.x() * 5), y1 + (int) (heading.y() * 5), x2, y2);
     }
 
     public void render(Bullet bullet) {

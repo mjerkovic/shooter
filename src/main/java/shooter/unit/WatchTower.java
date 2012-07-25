@@ -11,12 +11,10 @@ public class WatchTower extends MovingEntity {
 
     private static final int RANGE_SQUARED = 40000;
 
-    private final ShooterWorld world;
-    private TargetingSystem targetingSystem;
+    private final TargetingSystem targetingSystem;
 
     public WatchTower(Vector position, double radius, MessageDispatcher radio, ShooterWorld world, Steering steering) {
         super(position, radius, radio, new WatchtowerDuty(), steering);
-        this.world = world;
         this.targetingSystem = new TargetingSystem(world, this);
         steering.setOwner(this);
         heading = new Vector(1, 0);
@@ -24,7 +22,7 @@ public class WatchTower extends MovingEntity {
 
     @Override
     public void update() {
-        goal.process(this);
+        brain.process(this);
         Vector steeringForce = steering.calculate();
         steeringForce = restrictTurnRate(steeringForce);
         if (steeringForce.length() > 0.0001) {
