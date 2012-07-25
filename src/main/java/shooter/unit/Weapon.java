@@ -2,10 +2,18 @@ package shooter.unit;
 
 public interface Weapon {
 
-    boolean inRange(double rangeSquared);
+    boolean acquireTarget();
 
-    double rateOfFire(int milliseconds);
+    boolean targetAcquired();
 
-    boolean fire();
+    boolean targetInRange();
+
+    MovingEntity getTarget();
+
+    public void fire();
+
+    void startTracking();
+
+    void stopTracking();
 
 }

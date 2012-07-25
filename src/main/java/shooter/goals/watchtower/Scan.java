@@ -3,20 +3,21 @@ package shooter.goals.watchtower;
 import shooter.goals.GoalState;
 import shooter.goals.SimpleGoal;
 import shooter.unit.WatchTower;
+import shooter.unit.Weapon;
 
-public class Scan extends SimpleGoal<WatchTower> {
+public class Scan extends SimpleGoal<Weapon> {
 
     @Override
-    protected void doActivation(WatchTower tower) {
+    protected void doActivation(Weapon weapon) {
     }
 
     @Override
-    protected GoalState doProcess(WatchTower tower) {
-         return (tower.targetAcquired() || tower.acquireTarget()) ? GoalState.COMPLETED : GoalState.ACTIVE;
+    protected GoalState doProcess(Weapon weapon) {
+         return (weapon.targetAcquired() || weapon.acquireTarget()) ? GoalState.COMPLETED : GoalState.ACTIVE;
     }
 
 
-    public void terminate(WatchTower entity) {
+    public void terminate(Weapon weapon) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

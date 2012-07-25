@@ -8,12 +8,9 @@ import shooter.world.ShooterWorld;
 
 public class Scout extends Vehicle {
 
-    private final TargetingSystem targetingSystem;
-
     public Scout(Vector position, double radius, Vector heading, double maxTurnRate, MessageDispatcher radio,
-                 Steering steering, ShooterWorld world, Weapon weapon) {
+                 Steering steering, ShooterWorld world) {
         super(position, radius, heading, maxTurnRate, radio, new Scouting(), steering);
-        targetingSystem = new TargetingSystem(world, this, weapon);
     }
 
 }

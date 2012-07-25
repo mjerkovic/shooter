@@ -1,24 +1,16 @@
 package shooter.unit;
 
+import java.util.Collection;
+
 import shooter.geom.Vector;
-import shooter.world.ShooterWorld;
 
 public class TargetingSystem {
 
-    private final ShooterWorld world;
-    private final Entity owner;
-    private final Weapon weapon;
     private MovingEntity target = null;
 
-    public TargetingSystem(ShooterWorld world, Entity owner, Weapon weapon) {
-        this.world = world;
-        this.owner = owner;
-        this.weapon = weapon;
-    }
-
-    public boolean acquireTarget() {
-        for (Vehicle vehicle : world.getVehicles()) {
-            if (inRange(vehicle)) {
+    public boolean acquireTarget(Collection<Vehicle> vehicles, Vector currentPosition, int rangeSquared) {
+        for (Vehicle vehicle : vehicles) {
+            if (inRange(vehicle, currentPosition, rangeSquared)) {
                 target = vehicle;
                 return true;
             }
@@ -26,26 +18,27 @@ public class TargetingSystem {
         return false;
     }
 
-    private boolean inRange(Entity target) {
-        double rangeToTarget = target.position().subtract(owner.position()).lengthSquared();
-        return weapon.inRange(rangeToTarget); //target.position().subtract(watchTower.position()).lengthSquared() <= range;
+    public boolean isInRange(Vector currentPosition, int rangeSquared) {
+        return hasTarget() && inRange(target, currentPosition, rangeSquared);
     }
 
-    public boolean isInRange() {
-        return target != null && inRange(target);
+    public boolean hasTarget() {
+        return target != null;
     }
 
     public MovingEntity getTarget() {
         return target;
     }
 
-    public void fire() {
-        Vector toTarget = target.position().subtract(owner.position());
-        double relativeHeading = toTarget.normalise().dot(owner.position());
+    public boolean canFire(Vector currentPosition) {
+        Vector toTarget = target.position().subtract(currentPosition);
+        double relativeHeading = toTarget.normalise().dot(currentPosition);
         double range = toTarget.length();
-        if (relativeHeading >= 0.99 && range < 200 && weapon.fire()) {
-            world.shotFired(owner, target);
-        }
+        return (hasTarget() && relativeHeading >= 0.99 && range < 200);
+    }
+
+    private boolean inRange(Entity target, Vector currentPosition, int rangeSquared) {
+        return target.position().subtract(currentPosition).lengthSquared() <= rangeSquared;
     }
 
     public void stopTracking() {

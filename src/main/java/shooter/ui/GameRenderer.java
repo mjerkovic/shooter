@@ -9,6 +9,7 @@ import shooter.geom.Rotation;
 import shooter.geom.Vector;
 import shooter.unit.Bullet;
 import shooter.unit.Entity;
+import shooter.unit.Gun;
 import shooter.unit.Health;
 import shooter.unit.Miner;
 import shooter.unit.Obstacle;
@@ -172,4 +173,8 @@ public class GameRenderer {
         graphics.drawString("Base", (int)pos.x() - 10, (int)pos.y());
     }
 
+    public void render(Gun gun) {
+        Vector pos = gun.position().add(viewPoint);
+        graphics.drawLine((int) pos.x(), (int) pos.y(), (int) (gun.heading().x() * 5), (int) (gun.heading().y()  * 5));
+    }
 }

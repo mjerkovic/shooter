@@ -3,24 +3,25 @@ package shooter.goals.watchtower;
 import shooter.goals.CompositeGoal;
 import shooter.goals.GoalState;
 import shooter.unit.WatchTower;
+import shooter.unit.Weapon;
 
 import static shooter.goals.GoalState.ACTIVE;
 import static shooter.goals.GoalState.COMPLETED;
 
-public class WatchtowerDuty extends CompositeGoal<WatchTower> {
+public class WatchtowerDuty extends CompositeGoal<Weapon> {
 
     @Override
-    public void activate(WatchTower tower) {
+    public void activate(Weapon weapon) {
         addSubGoal(new Track());
         addSubGoal(new Scan());
-        super.activate(tower);
+        super.activate(weapon);
     }
 
     @Override
-    public GoalState process(WatchTower tower) {
-        GoalState goalState = super.process(tower);
+    public GoalState process(Weapon weapon) {
+        GoalState goalState = super.process(weapon);
         if (goalState == COMPLETED) {
-            activate(tower);
+            activate(weapon);
             return ACTIVE;
         } else {
             return goalState;
@@ -28,8 +29,8 @@ public class WatchtowerDuty extends CompositeGoal<WatchTower> {
     }
 
     @Override
-    public void terminate(WatchTower tower) {
-        activate(tower);
+    public void terminate(Weapon weapon) {
+        activate(weapon);
     }
 
 }
