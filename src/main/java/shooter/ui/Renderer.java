@@ -1,13 +1,6 @@
 package shooter.ui;
 
-import shooter.unit.Bullet;
-import shooter.unit.Miner;
-import shooter.unit.Obstacle;
-import shooter.unit.Signpost;
-import shooter.unit.Vehicle;
-import shooter.unit.Wall;
-import shooter.unit.WatchTower;
-import shooter.unit.Weapon;
+import shooter.unit.*;
 import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 import shooter.unit.structure.StorageTank;
@@ -34,5 +27,6 @@ public interface Renderer {
 
     void render(BaseCamp baseCamp);
 
-    void render(Weapon weapon);
+    void render(TargetingSystem targetingSystem);
+
 }

@@ -1,29 +1,17 @@
 package shooter.ui;
 
-import static shooter.geom.Geometry.createFeelersFor;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-
 import shooter.geom.Rotation;
 import shooter.geom.Vector;
-import shooter.unit.Bullet;
-import shooter.unit.Entity;
-import shooter.unit.Health;
-import shooter.unit.Miner;
-import shooter.unit.Obstacle;
-import shooter.unit.Signpost;
-import shooter.unit.Vehicle;
-import shooter.unit.Wall;
-import shooter.unit.WatchTower;
-import shooter.unit.Weapon;
+import shooter.unit.*;
 import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 import shooter.unit.structure.StorageTank;
 import shooter.world.GameWorld;
+
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+
+import static shooter.geom.Geometry.createFeelersFor;
 
 public class GameRenderer implements Renderer {
 
@@ -194,22 +182,15 @@ public class GameRenderer implements Renderer {
         graphics.drawString("Base", (int)pos.x() - 10, (int)pos.y());
     }
 
-    public void render(Weapon weapon) {
-        Vector pos = weapon.position().add(viewPoint);
+    public void render(TargetingSystem targetingSystem) {
+        Vector pos = targetingSystem.position().add(viewPoint);
         int x = (int) pos.x();
         int y = (int) pos.y();
-        double radius = weapon.owner().boundingRadius();
-/*
-        Vector heading = watchTower.heading();
-        int x2 = x1 + (int) (heading.x() * 20);
-        int y2 = y1 + (int) (heading.y() * 20);
-        graphics.drawLine(x1 + (int) (heading.x() * 5), y1 + (int) (heading.y() * 5), x2, y2);
-*/
-        graphics.drawLine(
-                x + (int) (weapon.heading().x() * radius),
-                y + (int) (weapon.heading().y() * radius),
-                x + (int) (weapon.heading().x() * 20),
-                y + (int) (weapon.heading().y() * 20));
+        int radius = (int) targetingSystem.boundingRadius();
+        graphics.drawOval(x - radius, y - radius, 10, 10);
+        double hx = targetingSystem.heading().x();
+        double hy = targetingSystem.heading().y();
+        graphics.drawLine(x + (int) (hx * radius), y + (int) (hy * radius), x + (int) (hx * radius), y + (int) (hy * radius));
     }
 
 }

@@ -18,7 +18,7 @@ public class Miner extends Vehicle {
 
     public Miner(Vector position, double radius, Vector heading, double maxTurnRate, MessageDispatcher radio,
                  Goal<Miner> goal, Steering steering, int capacity) {
-        super(position, radius, heading, maxTurnRate, radio, goal, steering);
+        super(position, heading, radius, maxTurnRate, radio, goal, steering);
         this.capacity = capacity;
     }
 

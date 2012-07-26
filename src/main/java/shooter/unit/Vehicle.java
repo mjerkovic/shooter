@@ -8,7 +8,7 @@ import shooter.ui.Renderer;
 
 public class Vehicle extends MovingEntity {
 
-    public Vehicle(Vector position, double radius, Vector heading, double maxTurnRate, MessageDispatcher radio,
+    public Vehicle(Vector position, Vector heading, double radius, double maxTurnRate, MessageDispatcher radio,
                    Goal goal, Steering steering) {
         super(position, radius, radio, goal, steering);
         steering.setOwner(this);

@@ -2,22 +2,29 @@ package shooter.goals.watchtower;
 
 import shooter.goals.GoalState;
 import shooter.goals.SimpleGoal;
-import shooter.unit.WatchTower;
-import shooter.unit.Weapon;
+import shooter.unit.TargetingSystem;
+import shooter.world.ShooterWorld;
 
-public class Scan extends SimpleGoal<Weapon> {
+public class Scan extends SimpleGoal<TargetingSystem> {
 
-    @Override
-    protected void doActivation(Weapon weapon) {
+    private final ShooterWorld world;
+
+    public Scan(ShooterWorld world) {
+        this.world = world;
     }
 
     @Override
-    protected GoalState doProcess(Weapon weapon) {
-         return (weapon.targetAcquired() || weapon.acquireTarget()) ? GoalState.COMPLETED : GoalState.ACTIVE;
+    protected void doActivation(TargetingSystem targetingSystem) {
+    }
+
+    @Override
+    protected GoalState doProcess(TargetingSystem targetingSystem) {
+         return (targetingSystem.hasTarget() ||
+                 targetingSystem.acquireTarget(world.getVehicles())) ? GoalState.COMPLETED : GoalState.ACTIVE;
     }
 
 
-    public void terminate(Weapon weapon) {
+    public void terminate(TargetingSystem targetingSystem) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

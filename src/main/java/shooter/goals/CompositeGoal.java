@@ -9,7 +9,7 @@ import java.util.Deque;
 
 public abstract class CompositeGoal<T> implements Goal<T> {
 
-    private final Deque<Goal<T>> subGoals = new ArrayDeque<Goal<T>>();
+    protected final Deque<Goal<T>> subGoals = new ArrayDeque<Goal<T>>();
     protected GoalState state = INACTIVE;
 
     @Override

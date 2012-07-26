@@ -14,7 +14,12 @@ public class Pursuit implements SteeringBehaviour {
     }
 
     public Vector calculate() {
-        Vector toEvader = evader.position().subtract(pursuer.position());
+        Vector toEvader = null;
+        try {
+            toEvader = evader.position().subtract(pursuer.position());
+        } catch (NullPointerException npe) {
+            System.out.println("evader = " + pursuer);
+        }
         double relativeHeading = pursuer.heading().dot(evader.heading());
         if ((toEvader.dot(pursuer.heading()) > 0) && (relativeHeading < 0.95)) {
             return new SeekBehaviour().calculate(pursuer, evader.position());

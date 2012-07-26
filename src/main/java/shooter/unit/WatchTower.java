@@ -6,30 +6,15 @@ import shooter.steering.Steering;
 import shooter.ui.Renderer;
 import shooter.world.ShooterWorld;
 
-public class WatchTower extends Entity implements Armed {
+public class WatchTower extends Entity {
 
-    private Weapon weapon;
-
-    public WatchTower(Vector position, double radius, MessageDispatcher radio, ShooterWorld world, Steering steering) {
+    public WatchTower(Vector position, Vector heading, double radius, MessageDispatcher radio) {
         super(position, radius, radio);
-    }
-
-    public void armWith(Weapon weapon) {
-        this.weapon = weapon;
-    }
-
-    @Override
-    public void update() {
-        if (weapon != null) {
-            weapon.update();
-        }
+        this.heading = heading;
     }
 
     public void renderWith(Renderer renderer) {
         renderer.render(this);
-        if (weapon != null) {
-            weapon.renderWith(renderer);
-        }
     }
 
 }

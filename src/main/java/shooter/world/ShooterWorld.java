@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import shooter.comms.EventListener;
 import shooter.comms.MessageDispatcher;
 import shooter.comms.MessageListener;
 import shooter.geom.Vector;
@@ -17,20 +18,11 @@ import shooter.goals.watchtower.WatchtowerDuty;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.Renderer;
-import shooter.unit.Bullet;
-import shooter.unit.Entity;
-import shooter.unit.Gun;
-import shooter.unit.Miner;
-import shooter.unit.Obstacle;
-import shooter.unit.Scout;
-import shooter.unit.Signpost;
-import shooter.unit.Vehicle;
-import shooter.unit.Wall;
-import shooter.unit.WatchTower;
+import shooter.unit.*;
 import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 
-public class ShooterWorld implements GameWorld {
+public class ShooterWorld implements GameWorld, EventListener {
 
     private Vehicle vehicle;
     private Signpost signpost;
@@ -50,13 +42,14 @@ public class ShooterWorld implements GameWorld {
 
     public ShooterWorld(Vector worldArea, MessageListener messageListener) {
         this.worldArea = worldArea;
-        MessageDispatcher radio = new MessageDispatcher(Lists.<MessageListener>newArrayList(messageListener));
-        vehicle = new Vehicle(new Vector(100, 100), 10, new Vector(1, 0), 0.1, radio, new UserControl(), new Steering(this));
+        MessageDispatcher radio = new MessageDispatcher(Lists.<MessageListener>newArrayList(messageListener),
+                Lists.<EventListener>newArrayList(this));
+        vehicle = new Vehicle(new Vector(100, 100), new Vector(1, 0), 10, 0.1, radio, new UserControl(), new Steering(this));
         vehicle.steering().obstacleAvoidanceOn();
         //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
         vehicles = newArrayList(vehicle); //, wanderer);
         signpost = new Signpost(new Vector(10, 250), 10, radio, "Sign");
-        watchTower = new WatchTower(new Vector(300, 500), 5, radio, this, new Steering(this));
+        watchTower = new WatchTower(new Vector(300, 500), new Vector(0, -1), 5, radio);
         obstacles = newArrayList();
         addObstacles();
         addVehicles();
@@ -72,13 +65,18 @@ public class ShooterWorld implements GameWorld {
         entities.add(watchTower);
         entities.add(miner);
         entities.add(mine);
-        Scout scout = new Scout(new Vector(Math.random() * worldArea.x(), Math.random() * worldArea.y()),
-                10, new Vector(0, -1), 0.1, radio, new Steering(this), this);
+        Vector scoutPos = new Vector(Math.random() * worldArea.x(), Math.random() * worldArea.y());
+        Scout scout = new Scout(new Vector(400, 400),
+                10, new Vector(0, -1), 0.1, radio, new Steering(this));
         scout.steering().obstacleAvoidanceOn();
         vehicles.add(scout);
         entities.add(scout);
-        new Gun<WatchTower>(watchTower, 0.1, radio, new WatchtowerDuty(), 40000, 1000, this, new Steering(this));
-        new Gun<Scout>(scout, 0.1, radio, new WatchtowerDuty(), 40000, 1000, this, new Steering(this));
+        TargetingSystem scoutWeapon = new TargetingSystem(scout, 5, radio, new WatchtowerDuty(this), new Steering(this),
+                0.1, 10000);
+        entities.add(scoutWeapon);
+        TargetingSystem watchtowerWeapon = new TargetingSystem(watchTower, 5, radio, new WatchtowerDuty(this),
+                new Steering(this), 0.1, 10000);
+        entities.add(watchtowerWeapon);
     }
 
     private void addVehicles() {
@@ -211,6 +209,11 @@ public class ShooterWorld implements GameWorld {
 
     public Vector getWorldArea() {
         return worldArea;
+    }
+
+    @Override
+    public void shotFired(Entity shooter, Vector heading, Entity target) {
+        addBullet(new Bullet(shooter, target, heading));
     }
 
 }

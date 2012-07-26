@@ -18,6 +18,7 @@ public abstract class MovingEntity extends Entity {
     public MovingEntity(Vector position, double radius, MessageDispatcher radio, Goal brain, Steering steering) {
         super(position, radius, radio, brain);
         this.steering = steering;
+        this.steering.setOwner(this);
     }
 
     public void update() {
