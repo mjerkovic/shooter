@@ -24,4 +24,9 @@ public class Track extends SimpleGoal<TargetingSystem> {
         targetingSystem.stopTracking();
     }
 
+    @Override
+    public String description() {
+        return "Tracking target";
+    }
+    
 }

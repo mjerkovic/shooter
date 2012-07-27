@@ -10,7 +10,12 @@ import java.util.Deque;
 public abstract class CompositeGoal<T> implements Goal<T> {
 
     protected final Deque<Goal<T>> subGoals = new ArrayDeque<Goal<T>>();
+    protected final String mainDescription;
     protected GoalState state = INACTIVE;
+
+    public CompositeGoal(String mainDescription) {
+        this.mainDescription = mainDescription;
+    }
 
     @Override
     public void activate(T entity) {
@@ -58,6 +63,15 @@ public abstract class CompositeGoal<T> implements Goal<T> {
 
     protected void clearSubGoals() {
         subGoals.clear();
+    }
+
+    @Override
+    public String description() {
+        return mainDescription + " - " + getSubGoalDescription();
+    }
+
+    private String getSubGoalDescription() {
+        return (subGoals.isEmpty() ? "N/A" : subGoals.peek().description());
     }
 
 }

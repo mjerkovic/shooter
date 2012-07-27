@@ -31,4 +31,8 @@ public class Unload extends SimpleGoal<Miner> {
         world.getBase().unloadingCompleted(miner);
     }
 
+    @Override
+    public String description() {
+        return "Unloading";
+    }
 }

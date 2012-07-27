@@ -19,4 +19,9 @@ public class Roam extends SimpleGoal<MovingEntity> {
         entity.steering().wanderOff();
     }
 
+    @Override
+    public String description() {
+        return "Wandering";
+    }
+
 }

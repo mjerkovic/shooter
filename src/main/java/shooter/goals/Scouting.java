@@ -4,6 +4,10 @@ import shooter.unit.MovingEntity;
 
 public class Scouting extends CompositeGoal<MovingEntity> {
 
+    public Scouting() {
+        super("Scouting");
+    }
+
     @Override
     public void activate(MovingEntity entity) {
         super.activate(entity);

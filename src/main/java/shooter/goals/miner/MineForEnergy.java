@@ -13,6 +13,7 @@ public class MineForEnergy extends CompositeGoal<Miner> {
     private final ShooterWorld world;
 
     public MineForEnergy(ShooterWorld world) {
+        super("Mining");
         this.world = world;
     }
 

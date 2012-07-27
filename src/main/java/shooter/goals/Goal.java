@@ -12,4 +12,6 @@ public interface Goal<T> {
 
     void activate(T entity);
 
+    String description();
+
 }

@@ -5,6 +5,7 @@ public class Think<T> extends CompositeGoal<T> {
     private final Goal<T> initialGoal;
 
     public Think(Goal<T> initialGoal) {
+        super("");
         this.initialGoal = initialGoal;
     }
 
@@ -18,6 +19,11 @@ public class Think<T> extends CompositeGoal<T> {
         if (subGoals.isEmpty()) {
             addSubGoalToEnd(initialGoal);
         }
+    }
+
+    @Override
+    public String description() {
+        return subGoals.peek().description();
     }
 
 }

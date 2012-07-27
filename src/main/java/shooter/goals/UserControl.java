@@ -19,4 +19,9 @@ public class UserControl extends SimpleGoal<MovingEntity> {
     protected void doTermination(MovingEntity entity) {
     }
 
+    @Override
+    public String description() {
+        return "Under user control";
+    }
+    
 }

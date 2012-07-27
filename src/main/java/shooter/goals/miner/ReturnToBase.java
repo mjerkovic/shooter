@@ -30,4 +30,9 @@ public class ReturnToBase extends SimpleGoal<Miner> {
     @Override
     protected void doTermination(Miner entity) {
     }
+
+    @Override
+    public String description() {
+        return "Returning to base";
+    }
 }

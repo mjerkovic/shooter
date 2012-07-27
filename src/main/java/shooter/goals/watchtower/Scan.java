@@ -27,4 +27,9 @@ public class Scan extends SimpleGoal<TargetingSystem> {
     protected void doTermination(TargetingSystem entity) {
     }
 
+    @Override
+    public String description() {
+        return "Scanning for targets";
+    }
+    
 }

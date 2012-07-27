@@ -28,4 +28,8 @@ public class Offset extends SimpleGoal<MovingEntity> {
     protected void doTermination(MovingEntity entity) {
     }
 
+    @Override
+    public String description() {
+        return "";
+    }
 }

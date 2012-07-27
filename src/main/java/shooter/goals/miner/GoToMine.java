@@ -31,4 +31,9 @@ public class GoToMine extends SimpleGoal<Miner> {
         miner.arrivedAtMine();
     }
 
+    @Override
+    public String description() {
+        return "Going to mine";
+    }
+    
 }

@@ -12,6 +12,7 @@ public class Tracking extends CompositeGoal<TargetingSystem> {
     private final ShooterWorld world;
 
     public Tracking(ShooterWorld world) {
+        super("TargetingSystem");
         this.world = world;
     }
 

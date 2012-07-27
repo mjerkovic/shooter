@@ -17,4 +17,9 @@ public class DoNothing extends SimpleGoal<Entity> {
     protected void doTermination(Entity entity) {
     }
 
+    @Override
+    public String description() {
+        return "Doing nothing";
+    }
+
 }

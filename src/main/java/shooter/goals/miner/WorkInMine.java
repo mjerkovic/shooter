@@ -23,4 +23,8 @@ public class WorkInMine extends SimpleGoal<Miner> {
     protected void doTermination(Miner entity) {
     }
 
+    @Override
+    public String description() {
+        return "Working in mine";
+    }
 }
