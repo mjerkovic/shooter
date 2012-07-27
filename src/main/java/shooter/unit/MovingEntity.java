@@ -1,5 +1,6 @@
 package shooter.unit;
 
+import org.apache.commons.math3.util.FastMath;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.steering.Steering;
@@ -9,6 +10,8 @@ public abstract class MovingEntity extends Entity {
     protected final Steering steering;
     protected double maxSpeed = 3.5;
     protected double maxTurnRate = 0.2;
+    protected final double minConsumption;
+    protected final double maxConsumption;
     //protected double maxForce = 2;
 
     public MovingEntity(Orientation orientation, Goal brain, Movement movement) {
@@ -18,11 +21,18 @@ public abstract class MovingEntity extends Entity {
         this.maxSpeed = movement.getMaxSpeed();
         this.maxTurnRate = movement.getMaxTurnRate();
         //this.maxForce = movement.getMaxForce();
+        this.minConsumption = movement.getMinConsumption();
+        this.maxConsumption = movement.getMaxConsumption();
     }
 
     public void update() {
         brain.process(this);
         calculateSteering();
+        energy = energy - energyConsumption();
+    }
+
+    private double energyConsumption() {
+        return FastMath.min(minConsumption + (velocity.length() / maxSpeed), maxConsumption);
     }
 
     protected void calculateSteering() {

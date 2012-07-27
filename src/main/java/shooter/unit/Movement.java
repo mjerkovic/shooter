@@ -8,6 +8,8 @@ public class Movement {
     private final double maxTurnRate; // = 0.2;
     private final double maxSpeed; // = 3.5;
     private final double maxForce; // = 2;
+    private final double minConsumption = 0.0001;
+    private final double maxConsumption = 0.0005;
 
     public Movement(Steering steering, double maxTurnRate, double maxSpeed, double maxForce) {
         this.steering = steering;
@@ -44,4 +46,11 @@ public class Movement {
         return maxForce;
     }
 
+    public double getMinConsumption() {
+        return minConsumption;
+    }
+
+    public double getMaxConsumption() {
+        return maxConsumption;
+    }
 }

@@ -20,6 +20,7 @@ public class Shooter {
     public static void main(String[] args) {
         JTextArea messageArea = new JTextArea(20, 1);
         messageArea.setEditable(false);
+        messageArea.setFocusable(false);
         MessageDispatcher.addMessageListener(new BattlefieldMessageListener(messageArea));
 
         Vector worldArea = new Vector(1800, 1800);

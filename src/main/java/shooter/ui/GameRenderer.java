@@ -80,6 +80,7 @@ public class GameRenderer implements Renderer {
             }
         }
         renderHealthBar(vehicle, x, y);
+        renderEnergyBar(vehicle, x, y);
     }
 
     public void render(Miner miner) {
@@ -98,16 +99,27 @@ public class GameRenderer implements Renderer {
                 (int) miner.boundingRadius(), (int) miner.boundingRadius() * 2);
         graphics.setTransform(orig);
         renderHealthBar(miner, x, y);
+        renderEnergyBar(miner, x, y);
     }
 
     private void renderHealthBar(Entity entity, int x, int y) {
         int yPos = y - ((int) entity.boundingRadius() + 10);
         graphics.drawRect(x - 15, yPos, 30, 7);
         Color originalColor = graphics.getColor();
-        double health = entity.getHealth();
+        double health = entity.health();
         graphics.setColor(getColorFor(health));
         double healthBarLength = 29.0 * health;
         graphics.fillRect(x - 14, yPos + 1, (int) healthBarLength, 6);
+        graphics.setColor(originalColor);
+    }
+
+    private void renderEnergyBar(Entity entity, int x, int y) {
+        int yPos = y + ((int) entity.boundingRadius() + 10);
+        graphics.drawRect(x - 15, yPos, 30, 7);
+        Color originalColor = graphics.getColor();
+        graphics.setColor(Color.BLUE);
+        double energyBarLength = 29.0 * entity.energy();
+        graphics.fillRect(x - 14, yPos + 1, (int) energyBarLength, 6);
         graphics.setColor(originalColor);
     }
 

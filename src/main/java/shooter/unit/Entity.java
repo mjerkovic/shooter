@@ -13,6 +13,7 @@ public abstract class Entity implements Unit {
     protected final double mass;
     protected final Goal brain;
     protected double health = 1.0;
+    protected double energy = 1.0;
 
     protected Entity(Orientation orientation, Goal brain) {
         this.position = orientation.getPosition();
@@ -46,8 +47,12 @@ public abstract class Entity implements Unit {
         return boundingRadius;
     }
 
-    public double getHealth() {
+    public double health() {
         return health;
+    }
+
+    public double energy() {
+        return energy;
     }
 
     public Vector velocity() {

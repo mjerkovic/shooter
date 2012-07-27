@@ -2,11 +2,9 @@ package shooter.ui.map;
 
 import static java.awt.Color.WHITE;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
-import javax.swing.JPanel;
 
 import shooter.unit.Entity;
 import shooter.world.ShooterWorld;
@@ -21,6 +19,7 @@ public class MapDisplay extends JPanel {
         setSize(size);
         setPreferredSize(size);
         setBackground(WHITE);
+        setFocusable(false);
     }
 
     @Override

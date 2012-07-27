@@ -12,6 +12,7 @@ public class MessageDisplay extends JFrame {
         Dimension preferredSize = new Dimension(400, 200);
         setSize(preferredSize);
         setPreferredSize(preferredSize);
+        setFocusable(false);
         pack();
         setVisible(true);
     }
