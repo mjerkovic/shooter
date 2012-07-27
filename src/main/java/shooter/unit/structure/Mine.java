@@ -2,7 +2,6 @@ package shooter.unit.structure;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import shooter.comms.MessageDispatcher;
 import shooter.ui.Renderer;
 import shooter.unit.Entity;
 import shooter.unit.Miner;
@@ -12,8 +11,8 @@ public class Mine extends Entity {
 
     private final AtomicInteger yield;
 
-    public Mine(Orientation orientation, MessageDispatcher radio, int yield) {
-        super(orientation, radio);
+    public Mine(Orientation orientation, int yield) {
+        super(orientation);
         this.yield = new AtomicInteger(yield);
     }
 

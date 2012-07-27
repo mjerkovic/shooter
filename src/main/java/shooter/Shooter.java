@@ -1,17 +1,17 @@
 package shooter;
 
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import shooter.comms.BattlefieldMessageListener;
-import shooter.comms.MessageListener;
+import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.ui.GameDisplay;
 import shooter.ui.GameMediator;
 import shooter.ui.GameRenderer;
 import shooter.ui.InfoPanel;
-import shooter.ui.map.MapDisplay;
 import shooter.ui.MessageDisplay;
 import shooter.ui.ShooterPanel;
+import shooter.ui.map.MapDisplay;
 import shooter.ui.map.WorldMap;
 import shooter.world.ShooterWorld;
 
@@ -20,10 +20,10 @@ public class Shooter {
     public static void main(String[] args) {
         JTextArea messageArea = new JTextArea(20, 1);
         messageArea.setEditable(false);
-        MessageListener battleFieldMessageListener = new BattlefieldMessageListener(messageArea);
+        MessageDispatcher.addMessageListener(new BattlefieldMessageListener(messageArea));
 
         Vector worldArea = new Vector(1800, 1800);
-        ShooterWorld world = new ShooterWorld(worldArea, battleFieldMessageListener);
+        ShooterWorld world = new ShooterWorld(worldArea);
 
         new MessageDisplay(messageArea);
         new WorldMap(new MapDisplay(world));

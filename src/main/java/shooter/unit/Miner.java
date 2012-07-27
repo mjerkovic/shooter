@@ -1,6 +1,7 @@
 package shooter.unit;
 
-import shooter.comms.MessageDispatcher;
+import static shooter.comms.MessageDispatcher.broadcast;
+
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.ui.Renderer;
@@ -15,15 +16,15 @@ public class Miner extends Vehicle {
     private int cycles;
     private int load;
 
-    public Miner(Orientation orientation, MessageDispatcher radio, Goal<Miner> brain, Movement movement, int capacity) {
-        super(orientation, radio, brain, movement);
+    public Miner(Orientation orientation, Goal<Miner> brain, Movement movement, int capacity) {
+        super(orientation, brain, movement);
         this.capacity = capacity;
     }
 
     public void goToMine(Mine mine) {
         this.workingMine = mine;
         steering.arriveOn(mine.position());
-        radio.broadcast(this, "Going to mine");
+        broadcast(this, "Going to mine");
     }
 
     public void returnToBase(Vector position) {
@@ -63,7 +64,7 @@ public class Miner extends Vehicle {
     public void leaveMine() {
         cycles = 0;
         workingMine = null;
-        radio.broadcast(this, "Leaving mine");
+        broadcast(this, "Leaving mine");
     }
 
     public void renderWith(Renderer renderer) {

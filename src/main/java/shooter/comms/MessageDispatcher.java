@@ -1,28 +1,31 @@
 package shooter.comms;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-import com.google.common.collect.Lists;
 import shooter.geom.Vector;
 import shooter.unit.Entity;
 
 public class MessageDispatcher {
 
-    private final Collection<MessageListener> messageListeners;
-    private final Collection<EventListener> eventListeners;
+    private static final Collection<MessageListener> messageListeners = new ArrayList<MessageListener>();
+    private static final Collection<EventListener> eventListeners = new ArrayList<EventListener>();
 
-    public MessageDispatcher(Collection<MessageListener> messageListeners, Collection<EventListener> eventListeners) {
-        this.eventListeners = eventListeners;
-        this.messageListeners = Lists.newArrayList(messageListeners);
+    public static void addMessageListener(MessageListener messageListener) {
+        messageListeners.add(messageListener);
     }
 
-    public void broadcast(Entity sender, String message) {
+    public static void addEventListener(EventListener eventListener) {
+        eventListeners.add(eventListener);
+    }
+
+    public static void broadcast(Entity sender, String message) {
         for (MessageListener listener : messageListeners) {
             listener.onMessage(sender, message);
         }
     }
 
-    public void shotFired(Entity shooter, Vector heading, Entity target) {
+    public static void shotFired(Entity shooter, Vector heading, Entity target) {
         for (EventListener eventListener : eventListeners) {
             eventListener.shotFired(shooter, heading, target);
         }

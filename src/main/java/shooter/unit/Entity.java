@@ -1,6 +1,5 @@
 package shooter.unit;
 
-import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.DoNothing;
 import shooter.goals.Goal;
@@ -13,20 +12,18 @@ public abstract class Entity implements Unit {
     protected final double boundingRadius;
     protected final double mass;
     protected final Goal brain;
-    protected final MessageDispatcher radio;
     protected double health = 1.0;
 
-    protected Entity(Orientation orientation, MessageDispatcher radio, Goal brain) {
+    protected Entity(Orientation orientation, Goal brain) {
         this.position = orientation.getPosition();
         this.heading = orientation.getHeading();
         this.boundingRadius = orientation.getRadius();
         this.mass = orientation.getMass();
-        this.radio = radio;
         this.brain = brain;
     }
 
-    protected Entity(Orientation orientation, MessageDispatcher radio) {
-        this(orientation, radio, new DoNothing());
+    protected Entity(Orientation orientation) {
+        this(orientation, new DoNothing());
     }
 
     public Vector position() {

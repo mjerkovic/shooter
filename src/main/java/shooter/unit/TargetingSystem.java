@@ -1,10 +1,10 @@
 package shooter.unit;
 
+import static shooter.comms.MessageDispatcher.shotFired;
 import static shooter.geom.Transformations.rotateAroundOrigin;
 
 import java.util.Collection;
 
-import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.ui.Renderer;
@@ -16,9 +16,9 @@ public class TargetingSystem extends MovingEntity {
     private final int rangeOfSight;
     private MovingEntity target = null;
 
-    public TargetingSystem(Entity owner, double boundingRadius, MessageDispatcher radio, Goal brain, Movement movement,
+    public TargetingSystem(Entity owner, double boundingRadius, Goal brain, Movement movement,
                            int rangeOfSight, Weapon weapon) {
-        super(new Orientation(owner.position(), owner.heading(), boundingRadius), radio, brain, movement);
+        super(new Orientation(owner.position(), owner.heading(), boundingRadius), brain, movement);
         this.owner = owner;
         this.weapon = weapon;
         this.heading = owner.heading();
@@ -46,7 +46,7 @@ public class TargetingSystem extends MovingEntity {
 
     public void fire() {
         if (hasTarget() && inLineOfSight() && withinRange(target) && weapon.fire()) {
-            radio.shotFired(owner, heading, target);
+            shotFired(owner, heading, target);
         }
     }
 

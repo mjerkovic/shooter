@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import shooter.comms.MessageDispatcher;
 import shooter.ui.Renderer;
 import shooter.unit.Entity;
 import shooter.unit.Miner;
@@ -15,8 +14,8 @@ public class BaseCamp extends Entity {
     Map<Miner, Long> minersUnloading = new ConcurrentHashMap<Miner, Long>();
     AtomicInteger energy = new AtomicInteger(0);
 
-    public BaseCamp(Orientation orientation, MessageDispatcher radio) {
-        super(orientation, radio);
+    public BaseCamp(Orientation orientation) {
+        super(orientation);
     }
 
     public void renderWith(Renderer renderer) {

@@ -1,12 +1,11 @@
 package shooter.unit;
 
-import shooter.comms.MessageDispatcher;
 import shooter.ui.Renderer;
 
 public class WatchTower extends Entity {
 
-    public WatchTower(Orientation orientation, MessageDispatcher radio) {
-        super(orientation, radio);
+    public WatchTower(Orientation orientation) {
+        super(orientation);
     }
 
     public void renderWith(Renderer renderer) {

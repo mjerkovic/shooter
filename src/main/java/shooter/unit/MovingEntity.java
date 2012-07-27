@@ -1,6 +1,5 @@
 package shooter.unit;
 
-import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.steering.Steering;
@@ -12,8 +11,8 @@ public abstract class MovingEntity extends Entity {
     protected double maxTurnRate = 0.2;
     //protected double maxForce = 2;
 
-    public MovingEntity(Orientation orientation, MessageDispatcher radio, Goal brain, Movement movement) {
-        super(orientation, radio, brain);
+    public MovingEntity(Orientation orientation, Goal brain, Movement movement) {
+        super(orientation, brain);
         this.steering = movement.getSteering();
         this.steering.setOwner(this);
         this.maxSpeed = movement.getMaxSpeed();
