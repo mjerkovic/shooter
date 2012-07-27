@@ -1,24 +1,24 @@
 package shooter.goals.watchtower;
 
+import static shooter.goals.GoalState.ACTIVE;
+
 import shooter.goals.CompositeGoal;
 import shooter.goals.GoalState;
 import shooter.unit.TargetingSystem;
 import shooter.world.ShooterWorld;
 
-import static shooter.goals.GoalState.ACTIVE;
-
-public class WatchtowerDuty extends CompositeGoal<TargetingSystem> {
+public class Tracking extends CompositeGoal<TargetingSystem> {
 
     private final ShooterWorld world;
 
-    public WatchtowerDuty(ShooterWorld world) {
+    public Tracking(ShooterWorld world) {
         this.world = world;
     }
 
     @Override
     public void activate(TargetingSystem targetingSystem) {
-        addSubGoal(new Track());
-        addSubGoal(new Scan(world));
+        addSubGoalToEnd(new Scan(world));
+        addSubGoalToEnd(new Track());
         super.activate(targetingSystem);
     }
 

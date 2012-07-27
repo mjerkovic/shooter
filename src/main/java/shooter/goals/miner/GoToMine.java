@@ -1,13 +1,12 @@
 package shooter.goals.miner;
 
+import static shooter.goals.GoalState.ACTIVE;
+import static shooter.goals.GoalState.COMPLETED;
+
 import shooter.goals.GoalState;
 import shooter.goals.SimpleGoal;
 import shooter.unit.Miner;
-import shooter.unit.structure.Mine;
 import shooter.world.ShooterWorld;
-
-import static shooter.goals.GoalState.ACTIVE;
-import static shooter.goals.GoalState.COMPLETED;
 
 public class GoToMine extends SimpleGoal<Miner> {
 
@@ -28,7 +27,7 @@ public class GoToMine extends SimpleGoal<Miner> {
     }
 
     @Override
-    public void terminate(Miner miner) {
+    protected void doTermination(Miner miner) {
         miner.arrivedAtMine();
     }
 

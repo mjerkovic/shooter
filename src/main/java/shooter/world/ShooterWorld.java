@@ -12,9 +12,10 @@ import shooter.comms.EventListener;
 import shooter.comms.MessageDispatcher;
 import shooter.comms.MessageListener;
 import shooter.geom.Vector;
+import shooter.goals.Think;
 import shooter.goals.UserControl;
 import shooter.goals.miner.MineForEnergy;
-import shooter.goals.watchtower.WatchtowerDuty;
+import shooter.goals.watchtower.Tracking;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.Renderer;
@@ -64,8 +65,8 @@ public class ShooterWorld implements GameWorld, EventListener {
         addObstacles();
         addVehicles();
         addWalls();
-        miner = (new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, radio, new MineForEnergy(this),
-                  new Steering(this), 100));
+        miner = (new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, radio, new Think<Miner>(new MineForEnergy(this)),
+                  new Steering(this), 1));
         miners = newArrayList(miner);
         mine = new Mine(new Vector(450, 60), 50, radio, 3000);
         mines = newArrayList(mine);
@@ -81,12 +82,11 @@ public class ShooterWorld implements GameWorld, EventListener {
         scout.steering().obstacleAvoidanceOn();
         vehicles.add(scout);
         entities.add(scout);
-/*
-        TargetingSystem scoutWeapon = new TargetingSystem(scout, 5, radio, new WatchtowerDuty(this), new Steering(this),
+        TargetingSystem scoutWeapon = new TargetingSystem(scout, 5, radio, new Think<TargetingSystem>(new Tracking(this)), new Steering(this),
                 0.1, 40000, new Cannon(20000, 1000));
         entities.add(scoutWeapon);
-*/
-        TargetingSystem watchtowerWeapon = new TargetingSystem(watchTower, 5, radio, new WatchtowerDuty(this),
+        TargetingSystem watchtowerWeapon = new TargetingSystem(watchTower, 5, radio,
+                new Think<TargetingSystem>(new Tracking(this)),
                 new Steering(this), 0.1, 40000, new Cannon(20000, 1000));
         entities.add(watchtowerWeapon);
     }

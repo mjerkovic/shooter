@@ -15,6 +15,7 @@ public class Scan extends SimpleGoal<TargetingSystem> {
 
     @Override
     protected void doActivation(TargetingSystem targetingSystem) {
+        System.out.println("IN scan");
     }
 
     @Override
@@ -23,9 +24,9 @@ public class Scan extends SimpleGoal<TargetingSystem> {
                  targetingSystem.acquireTarget(world.getVehicles())) ? GoalState.COMPLETED : GoalState.ACTIVE;
     }
 
-
-    public void terminate(TargetingSystem targetingSystem) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    @Override
+    protected void doTermination(TargetingSystem entity) {
+        System.out.println("Terminating scan");
     }
 
 }

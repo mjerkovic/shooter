@@ -15,7 +15,7 @@ public class Roam extends SimpleGoal<MovingEntity> {
     }
 
     @Override
-    public void terminate(MovingEntity entity) {
+    protected void doTermination(MovingEntity entity) {
         entity.steering().wanderOff();
     }
 

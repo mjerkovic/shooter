@@ -1,12 +1,12 @@
 package shooter.goals.miner;
 
+import static shooter.goals.GoalState.ACTIVE;
+import static shooter.goals.GoalState.COMPLETED;
+
 import shooter.goals.GoalState;
 import shooter.goals.SimpleGoal;
 import shooter.unit.Miner;
 import shooter.world.ShooterWorld;
-
-import static shooter.goals.GoalState.ACTIVE;
-import static shooter.goals.GoalState.COMPLETED;
 
 public class ReturnToBase extends SimpleGoal<Miner> {
 
@@ -28,7 +28,6 @@ public class ReturnToBase extends SimpleGoal<Miner> {
     }
 
     @Override
-    public void terminate(Miner miner) {
+    protected void doTermination(Miner entity) {
     }
-
 }

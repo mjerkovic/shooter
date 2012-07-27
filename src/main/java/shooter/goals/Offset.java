@@ -25,8 +25,7 @@ public class Offset extends SimpleGoal<MovingEntity> {
     }
 
     @Override
-    public void terminate(MovingEntity entity) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    protected void doTermination(MovingEntity entity) {
     }
 
 }

@@ -1,11 +1,11 @@
 package shooter.goals.miner;
 
+import static shooter.goals.GoalState.ACTIVE;
+
 import shooter.goals.GoalState;
 import shooter.goals.SimpleGoal;
 import shooter.unit.Miner;
 import shooter.world.ShooterWorld;
-
-import static shooter.goals.GoalState.ACTIVE;
 
 public class Unload extends SimpleGoal<Miner> {
 
@@ -27,7 +27,7 @@ public class Unload extends SimpleGoal<Miner> {
     }
 
     @Override
-    public void terminate(Miner miner) {
+    protected void doTermination(Miner miner) {
         world.getBase().unloadingCompleted(miner);
     }
 

@@ -4,7 +4,9 @@ public interface Goal<T> {
 
     GoalState process(T entity);
 
-    void addSubGoal(Goal<T> goal);
+    void addSubGoalToFront(Goal<T> goal);
+
+    void addSubGoalToEnd(Goal<T> goal);
 
     void terminate(T entity);
 

@@ -19,7 +19,8 @@ public class Track extends SimpleGoal<TargetingSystem> {
         return targetingSystem.isInRange() ? GoalState.ACTIVE : COMPLETED;
     }
 
-    public void terminate(TargetingSystem targetingSystem) {
+    @Override
+    protected void doTermination(TargetingSystem targetingSystem) {
         targetingSystem.stopTracking();
     }
 

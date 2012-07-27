@@ -1,12 +1,12 @@
 package shooter.goals.miner;
 
+import static shooter.goals.GoalState.ACTIVE;
+import static shooter.goals.GoalState.COMPLETED;
+
 import shooter.goals.CompositeGoal;
 import shooter.goals.GoalState;
 import shooter.unit.Miner;
 import shooter.world.ShooterWorld;
-
-import static shooter.goals.GoalState.ACTIVE;
-import static shooter.goals.GoalState.COMPLETED;
 
 public class MineForEnergy extends CompositeGoal<Miner> {
 
@@ -32,7 +32,7 @@ public class MineForEnergy extends CompositeGoal<Miner> {
 
     private void unload() {
         clearSubGoals();
-        addSubGoal(new Unload(world));
+        addSubGoalToFront(new Unload(world));
     }
 
     @Override
@@ -48,17 +48,17 @@ public class MineForEnergy extends CompositeGoal<Miner> {
 
     private void returnToBase() {
         clearSubGoals();
-        addSubGoal(new ReturnToBase(world));
+        addSubGoalToFront(new ReturnToBase(world));
     }
 
     private void startMining() {
         clearSubGoals();
-        addSubGoal(new WorkInMine());
+        addSubGoalToFront(new WorkInMine());
     }
 
     private void findAMineToWork() {
         clearSubGoals();
-        addSubGoal(new GoToMine(world));
+        addSubGoalToFront(new GoToMine(world));
     }
 
     @Override

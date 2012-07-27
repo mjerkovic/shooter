@@ -7,7 +7,7 @@ public class Scouting extends CompositeGoal<MovingEntity> {
     @Override
     public void activate(MovingEntity entity) {
         super.activate(entity);
-        addSubGoal(new Roam());
+        addSubGoalToFront(new Roam());
     }
 
     @Override

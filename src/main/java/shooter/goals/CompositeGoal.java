@@ -24,8 +24,23 @@ public abstract class CompositeGoal<T> implements Goal<T> {
         return processSubGoals(entity);
     }
 
-    public void addSubGoal(Goal<T> goal) {
+    public void addSubGoalToFront(Goal<T> goal) {
         subGoals.push(goal);
+    }
+
+    @Override
+    public void addSubGoalToEnd(Goal<T> goal) {
+        subGoals.addLast(goal);
+    }
+
+    @Override
+    public void terminate(T entity) {
+        if (!subGoals.isEmpty()) {
+            subGoals.peek().terminate(entity);
+        }
+        if (state == ACTIVE) {
+            state = INACTIVE;
+        }
     }
 
     protected GoalState processSubGoals(T entity) {
@@ -37,7 +52,8 @@ public abstract class CompositeGoal<T> implements Goal<T> {
             Goal<T> subGoal = subGoals.removeFirst();
             subGoal.terminate(entity);
         }
-        return (!subGoals.isEmpty()) ? ACTIVE : subGoalState;
+        state = (!subGoals.isEmpty()) ? ACTIVE : subGoalState;
+        return state;
     }
 
     protected void clearSubGoals() {

@@ -3,6 +3,7 @@ package shooter.goals;
 import shooter.unit.Entity;
 
 public class DoNothing extends SimpleGoal<Entity> {
+
     @Override
     protected void doActivation(Entity entity) {
     }
@@ -12,7 +13,8 @@ public class DoNothing extends SimpleGoal<Entity> {
         return GoalState.ACTIVE;
     }
 
-    public void terminate(Entity entity) {
+    @Override
+    protected void doTermination(Entity entity) {
     }
 
 }
