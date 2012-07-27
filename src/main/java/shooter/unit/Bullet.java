@@ -3,7 +3,7 @@ package shooter.unit;
 import shooter.geom.Vector;
 import shooter.ui.Renderer;
 
-public class Bullet extends MovingEntity {
+public class Bullet extends Entity {
 
     private static final double MAX_RANGE_SQUARED = 10000;
 
@@ -12,7 +12,7 @@ public class Bullet extends MovingEntity {
     private final Entity target;
 
     public Bullet(Entity shooter, Entity target, Vector heading) {
-        super(shooter.position(), 8, null, null, null);
+        super(shooter.position(), 8, null);
         this.shooter = shooter;
         this.target = target;
         this.heading = heading;

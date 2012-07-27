@@ -1,40 +1,48 @@
 package shooter.unit;
 
+import static shooter.geom.Transformations.rotateAroundOrigin;
+
+import java.util.Collection;
+
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
 import shooter.steering.Steering;
 import shooter.ui.Renderer;
 
-import java.util.Collection;
-
-import static shooter.geom.Transformations.rotateAroundOrigin;
-
 public class TargetingSystem extends MovingEntity {
 
     private final Entity owner;
-    private final int rangeSquared;
+    private final Weapon weapon;
+    private final int rangeOfSight;
     private MovingEntity target = null;
+    int i = 0;
 
     public TargetingSystem(Entity owner, double boundingRadius, MessageDispatcher radio,
-                           Goal brain, Steering steering, double maxTurnRate, int rangeSquared) {
+                           Goal brain, Steering steering, double maxTurnRate, int rangeOfSight, Weapon weapon) {
         super(owner.position(), boundingRadius, radio, brain, steering);
         this.owner = owner;
+        this.weapon = weapon;
         this.heading = owner.heading();
-        this.rangeSquared = rangeSquared;
+        this.rangeOfSight = rangeOfSight;
         this.maxTurnRate = maxTurnRate;
     }
 
+/*
     @Override
     public void update() {
         brain.process(this);
     }
+*/
 
     public boolean acquireTarget(Collection<Vehicle> vehicles) {
+        System.out.println("velocity = " + velocity);
+        System.out.println("Acquiring target " + ++i + " " + heading);
         heading = rotateAroundOrigin(heading, maxTurnRate);
         for (Vehicle vehicle : vehicles) {
-            if (vehicle != owner && inRange(vehicle)) {
+            if (vehicle != owner && withinRange(vehicle)) {
                 target = vehicle;
+                System.out.println("Target acquired");
                 return true;
             }
         }
@@ -42,7 +50,7 @@ public class TargetingSystem extends MovingEntity {
     }
 
     public boolean isInRange() {
-        return hasTarget() && inRange(target);
+        return hasTarget() && withinRange(target);
     }
 
     public boolean hasTarget() {
@@ -50,23 +58,28 @@ public class TargetingSystem extends MovingEntity {
     }
 
     public void fire() {
-        Vector toTarget = target.position().subtract(owner.position());
-        double relativeHeading = toTarget.normalise().dot(owner.position());
-        double range = toTarget.length();
-        if (hasTarget() && relativeHeading >= 0.99 && range < 200) {
+        if (hasTarget() && inLineOfSight() && withinRange(target) && weapon.fire()) {
             radio.shotFired(owner, heading, target);
         }
     }
 
-    private boolean inRange(Entity target) {
-        return target.position().subtract(owner.position()).lengthSquared() <= rangeSquared;
+    private boolean inLineOfSight() {
+        double angleToTarget = target.position().normalise().dot(heading);
+        return withinRange(target) && angleToTarget <= 0.44;
+    }
+
+    private boolean withinRange(Entity target) {
+        return target.position().subtract(owner.position()).lengthSquared() <= rangeOfSight;
     }
 
     public void startTracking() {
+        stop();
         steering.pursuitOn(target);
     }
 
     public void stopTracking() {
+        steering.pursuitOff();
+        stop();
         target = null;
     }
 

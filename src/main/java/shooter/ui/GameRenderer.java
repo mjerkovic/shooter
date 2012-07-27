@@ -1,17 +1,26 @@
 package shooter.ui;
 
-import shooter.geom.Rotation;
-import shooter.geom.Vector;
-import shooter.unit.*;
-import shooter.unit.structure.BaseCamp;
-import shooter.unit.structure.Mine;
-import shooter.unit.structure.StorageTank;
-import shooter.world.GameWorld;
+import static shooter.geom.Geometry.createFeelersFor;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-import static shooter.geom.Geometry.createFeelersFor;
+import shooter.geom.Rotation;
+import shooter.geom.Vector;
+import shooter.unit.Bullet;
+import shooter.unit.Entity;
+import shooter.unit.Health;
+import shooter.unit.Miner;
+import shooter.unit.Obstacle;
+import shooter.unit.Signpost;
+import shooter.unit.TargetingSystem;
+import shooter.unit.Vehicle;
+import shooter.unit.Wall;
+import shooter.unit.WatchTower;
+import shooter.unit.structure.BaseCamp;
+import shooter.unit.structure.Mine;
+import shooter.unit.structure.StorageTank;
+import shooter.world.GameWorld;
 
 public class GameRenderer implements Renderer {
 
@@ -187,10 +196,12 @@ public class GameRenderer implements Renderer {
         int x = (int) pos.x();
         int y = (int) pos.y();
         int radius = (int) targetingSystem.boundingRadius();
-        graphics.drawOval(x - radius, y - radius, 10, 10);
+        int diameter = radius * 2;
+        graphics.drawOval(x - radius, y - radius, diameter, diameter);
         double hx = targetingSystem.heading().x();
         double hy = targetingSystem.heading().y();
-        graphics.drawLine(x + (int) (hx * radius), y + (int) (hy * radius), x + (int) (hx * radius), y + (int) (hy * radius));
+        graphics.drawLine(x + (int) (hx * radius), y + (int) (hy * radius),
+                x + (int) (hx * diameter), y + (int) (hy * diameter));
     }
 
 }

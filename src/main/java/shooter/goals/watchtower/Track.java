@@ -1,10 +1,10 @@
 package shooter.goals.watchtower;
 
+import static shooter.goals.GoalState.COMPLETED;
+
 import shooter.goals.GoalState;
 import shooter.goals.SimpleGoal;
 import shooter.unit.TargetingSystem;
-
-import static shooter.goals.GoalState.COMPLETED;
 
 public class Track extends SimpleGoal<TargetingSystem> {
 

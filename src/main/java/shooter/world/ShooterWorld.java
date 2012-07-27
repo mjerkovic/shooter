@@ -18,7 +18,17 @@ import shooter.goals.watchtower.WatchtowerDuty;
 import shooter.steering.Direction;
 import shooter.steering.Steering;
 import shooter.ui.Renderer;
-import shooter.unit.*;
+import shooter.unit.Bullet;
+import shooter.unit.Cannon;
+import shooter.unit.Entity;
+import shooter.unit.Miner;
+import shooter.unit.Obstacle;
+import shooter.unit.Scout;
+import shooter.unit.Signpost;
+import shooter.unit.TargetingSystem;
+import shooter.unit.Vehicle;
+import shooter.unit.Wall;
+import shooter.unit.WatchTower;
 import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 
@@ -71,11 +81,13 @@ public class ShooterWorld implements GameWorld, EventListener {
         scout.steering().obstacleAvoidanceOn();
         vehicles.add(scout);
         entities.add(scout);
+/*
         TargetingSystem scoutWeapon = new TargetingSystem(scout, 5, radio, new WatchtowerDuty(this), new Steering(this),
-                0.1, 10000);
+                0.1, 40000, new Cannon(20000, 1000));
         entities.add(scoutWeapon);
+*/
         TargetingSystem watchtowerWeapon = new TargetingSystem(watchTower, 5, radio, new WatchtowerDuty(this),
-                new Steering(this), 0.1, 10000);
+                new Steering(this), 0.1, 40000, new Cannon(20000, 1000));
         entities.add(watchtowerWeapon);
     }
 
