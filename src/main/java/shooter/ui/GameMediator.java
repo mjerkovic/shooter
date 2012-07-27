@@ -10,9 +10,6 @@ public class GameMediator {
 
     private final GameWorld gameWorld;
     private final GameRenderer renderer;
-    private boolean showFeelers;
-    private boolean showWallNormals;
-    private Vector viewPoint = Vector.ZERO;
 
     public GameMediator(GameWorld gameWorld, GameRenderer renderer) {
         this.gameWorld = gameWorld;
@@ -33,16 +30,12 @@ public class GameMediator {
         gameWorld.moveVehicle(direction);
     }
 
-    public void moveTo(Vector position) {
-        gameWorld.moveTo(position);
-    }
-
     public void toggleFeelers() {
-        renderer.toggleFeelers(); showFeelers = !showFeelers;
+        renderer.toggleFeelers();
     }
 
     public void toggleWallNormals() {
-        renderer.toggleWallNormals();showWallNormals = !showWallNormals;
+        renderer.toggleWallNormals();
     }
 
     public void scrollView(Vector viewPoint) {

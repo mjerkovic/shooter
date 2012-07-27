@@ -169,16 +169,18 @@ public class GameRenderer implements Renderer {
     public void render(Wall wall) {
         Stroke stroke = graphics.getStroke();
         graphics.setStroke(new BasicStroke(10));
-        graphics.drawLine((int) wall.from().x(), (int) wall.from().y(), (int) wall.to().x(), (int) wall.to().y());
+        Vector from = wall.from().add(viewPoint);
+        Vector to = wall.to().add(viewPoint);
+        graphics.drawLine((int) from.x(), (int) from.y(), (int) to.x(), (int) to.y());
         graphics.setStroke(stroke);
 
         if (showWallNormals) {
-            Vector centre = wall.centre();
+            Vector centre = wall.centre().add(viewPoint);
             Vector normal = wall.normal();
             int x = (int) centre.x();
             int y = (int) centre.y();
-            int toX = x + (int) normal.x() * 10;
-            int toY = y + (int) normal.y() * 10;
+            int toX = x + (int) (normal.x() * 10);
+            int toY = y + (int) (normal.y() * 10);
             graphics.drawLine(x, y, toX, toY);
         }
     }

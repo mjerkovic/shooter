@@ -59,7 +59,6 @@ public class ShooterWorld implements GameWorld, EventListener {
         vehicle = new Vehicle(new Orientation(new Vector(100, 100), new Vector(1, 0), 10), new UserControl(),
                 new Movement(new Steering(this), 0.1));
         vehicle.steering().obstacleAvoidanceOn();
-        //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
         vehicles = newArrayList(vehicle); //, wanderer);
         signpost = new Signpost(new Orientation(new Vector(10, 250), 10), "Sign");
         watchTower = new WatchTower(new Orientation(new Vector(300, 500), new Vector(0, -1), 5));
@@ -79,9 +78,10 @@ public class ShooterWorld implements GameWorld, EventListener {
         entities.add(miner);
         entities.add(mine);
         Vector scoutPos = new Vector(Math.random() * worldArea.x(), Math.random() * worldArea.y());
-        Scout scout = new Scout(new Orientation(new Vector(400, 400), new Vector(0, -1), 10), new Roam(),
+        Scout scout = new Scout(new Orientation(scoutPos, new Vector(0, -1), 10), new Roam(),
                 new Movement(new Steering(this), 0.1));
         scout.steering().obstacleAvoidanceOn();
+        scout.steering().wallAvoidanceOn();
         vehicles.add(scout);
         entities.add(scout);
         TargetingSystem scoutWeapon = new TargetingSystem(scout, 5, new Think<TargetingSystem>(new Tracking(this)),
