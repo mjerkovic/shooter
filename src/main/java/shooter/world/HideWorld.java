@@ -5,10 +5,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import java.util.Collection;
 
 import shooter.geom.Vector;
-import shooter.goals.Roam;
-import shooter.goals.UserControl;
 import shooter.steering.Direction;
-import shooter.steering.Steering;
 import shooter.ui.Renderer;
 import shooter.unit.Obstacle;
 import shooter.unit.Vehicle;
@@ -24,6 +21,7 @@ public class HideWorld implements GameWorld {
     public HideWorld() {
         addObstacles();
         addWalls();
+/*
         hunter = new Vehicle(new Vector(500, 500), new Vector(0, -1), 10, 0.3, null, new Roam(), new Steering(this));
         hunter.steering().wallAvoidanceOn();
         hunter.steering().obstacleAvoidanceOn();
@@ -32,7 +30,7 @@ public class HideWorld implements GameWorld {
         prey.steering().wallAvoidanceOn();
         hunter.steering().obstacleAvoidanceOn();
         prey.steering().hideOn(hunter);
-
+*/
     }
 
     public void update() {
@@ -72,8 +70,10 @@ public class HideWorld implements GameWorld {
     }
 
     private void addObstacles() {
+/*
         obstacles.add(new Obstacle(new Vector(200, 200), null, 50));
         obstacles.add(new Obstacle(new Vector(400, 400), null, 50));
+*/
     }
 
     private void addWalls() {

@@ -15,7 +15,6 @@ public class Scan extends SimpleGoal<TargetingSystem> {
 
     @Override
     protected void doActivation(TargetingSystem targetingSystem) {
-        System.out.println("IN scan");
     }
 
     @Override
@@ -26,7 +25,6 @@ public class Scan extends SimpleGoal<TargetingSystem> {
 
     @Override
     protected void doTermination(TargetingSystem entity) {
-        System.out.println("Terminating scan");
     }
 
 }

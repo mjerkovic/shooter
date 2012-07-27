@@ -3,17 +3,17 @@ package shooter.unit.structure;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import shooter.comms.MessageDispatcher;
-import shooter.geom.Vector;
 import shooter.ui.Renderer;
 import shooter.unit.Entity;
 import shooter.unit.Miner;
+import shooter.unit.Orientation;
 
 public class Mine extends Entity {
 
     private final AtomicInteger yield;
 
-    public Mine(Vector position, double radius, MessageDispatcher radio, int yield) {
-        super(position, radius, radio);
+    public Mine(Orientation orientation, MessageDispatcher radio, int yield) {
+        super(orientation, radio);
         this.yield = new AtomicInteger(yield);
     }
 

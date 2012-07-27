@@ -1,13 +1,10 @@
 package shooter.comms;
 
+import java.util.Collection;
+
 import com.google.common.collect.Lists;
 import shooter.geom.Vector;
 import shooter.unit.Entity;
-import shooter.unit.MovingEntity;
-import shooter.unit.Scout;
-import shooter.unit.Shot;
-
-import java.util.Collection;
 
 public class MessageDispatcher {
 

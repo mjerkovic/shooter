@@ -7,7 +7,6 @@ import java.util.Collection;
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
-import shooter.steering.Steering;
 import shooter.ui.Renderer;
 
 public class TargetingSystem extends MovingEntity {
@@ -16,33 +15,21 @@ public class TargetingSystem extends MovingEntity {
     private final Weapon weapon;
     private final int rangeOfSight;
     private MovingEntity target = null;
-    int i = 0;
 
-    public TargetingSystem(Entity owner, double boundingRadius, MessageDispatcher radio,
-                           Goal brain, Steering steering, double maxTurnRate, int rangeOfSight, Weapon weapon) {
-        super(owner.position(), boundingRadius, radio, brain, steering);
+    public TargetingSystem(Entity owner, double boundingRadius, MessageDispatcher radio, Goal brain, Movement movement,
+                           int rangeOfSight, Weapon weapon) {
+        super(new Orientation(owner.position(), owner.heading(), boundingRadius), radio, brain, movement);
         this.owner = owner;
         this.weapon = weapon;
         this.heading = owner.heading();
         this.rangeOfSight = rangeOfSight;
-        this.maxTurnRate = maxTurnRate;
     }
-
-/*
-    @Override
-    public void update() {
-        brain.process(this);
-    }
-*/
 
     public boolean acquireTarget(Collection<Vehicle> vehicles) {
-        System.out.println("velocity = " + velocity);
-        System.out.println("Acquiring target " + ++i + " " + heading);
         heading = rotateAroundOrigin(heading, maxTurnRate);
         for (Vehicle vehicle : vehicles) {
             if (vehicle != owner && withinRange(vehicle)) {
                 target = vehicle;
-                System.out.println("Target acquired");
                 return true;
             }
         }

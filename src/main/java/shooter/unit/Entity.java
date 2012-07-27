@@ -9,20 +9,24 @@ public abstract class Entity implements Unit {
 
     protected Vector position = new Vector(2, 2);
     protected Vector heading = new Vector(1, 0);
+    protected Vector velocity = new Vector(0, 0);
     protected final double boundingRadius;
-    protected double health = 1.0;
+    protected final double mass;
     protected final Goal brain;
     protected final MessageDispatcher radio;
+    protected double health = 1.0;
 
-    protected Entity(Vector position, double boundingRadius, MessageDispatcher radio, Goal brain) {
-        this.position = position;
-        this.boundingRadius = boundingRadius;
+    protected Entity(Orientation orientation, MessageDispatcher radio, Goal brain) {
+        this.position = orientation.getPosition();
+        this.heading = orientation.getHeading();
+        this.boundingRadius = orientation.getRadius();
+        this.mass = orientation.getMass();
         this.radio = radio;
         this.brain = brain;
     }
 
-    protected Entity(Vector position, double boundingRadius, MessageDispatcher radio) {
-        this(position, boundingRadius, radio, new DoNothing());
+    protected Entity(Orientation orientation, MessageDispatcher radio) {
+        this(orientation, radio, new DoNothing());
     }
 
     public Vector position() {
@@ -47,6 +51,14 @@ public abstract class Entity implements Unit {
 
     public double getHealth() {
         return health;
+    }
+
+    public Vector velocity() {
+        return velocity;
+    }
+
+    public Vector side() {
+        return heading().side();
     }
 
     public boolean intersects(Entity other) {

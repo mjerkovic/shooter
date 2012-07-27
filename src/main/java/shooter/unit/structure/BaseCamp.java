@@ -1,22 +1,22 @@
 package shooter.unit.structure;
 
-import shooter.comms.MessageDispatcher;
-import shooter.geom.Vector;
-import shooter.ui.Renderer;
-import shooter.unit.Entity;
-import shooter.unit.Miner;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import shooter.comms.MessageDispatcher;
+import shooter.ui.Renderer;
+import shooter.unit.Entity;
+import shooter.unit.Miner;
+import shooter.unit.Orientation;
 
 public class BaseCamp extends Entity {
 
     Map<Miner, Long> minersUnloading = new ConcurrentHashMap<Miner, Long>();
     AtomicInteger energy = new AtomicInteger(0);
 
-    public BaseCamp(Vector position, double boundingRadius, MessageDispatcher radio) {
-        super(position, boundingRadius, radio);
+    public BaseCamp(Orientation orientation, MessageDispatcher radio) {
+        super(orientation, radio);
     }
 
     public void renderWith(Renderer renderer) {

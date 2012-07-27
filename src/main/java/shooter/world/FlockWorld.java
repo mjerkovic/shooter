@@ -6,9 +6,7 @@ import java.util.Collection;
 import java.util.Random;
 
 import shooter.geom.Vector;
-import shooter.goals.Roam;
 import shooter.steering.Direction;
-import shooter.steering.Steering;
 import shooter.ui.Renderer;
 import shooter.unit.Obstacle;
 import shooter.unit.Vehicle;
@@ -72,6 +70,7 @@ public class FlockWorld implements GameWorld {
         for (int i=0; i < 10; i++) {
             double headingX = rand.nextDouble() - rand.nextDouble();
             double headingY = rand.nextDouble() - rand.nextDouble();
+/*
             Vehicle v = new Vehicle(new Vector(rand.nextInt(600), rand.nextInt(600)), new Vector(headingX, headingY), 10,
                     0.3, null, new Roam(), new Steering(this));
             v.steering().separationOn();
@@ -79,6 +78,7 @@ public class FlockWorld implements GameWorld {
             v.steering().alignmentOn();
             v.steering().wallAvoidanceOn();
             vehicles.add(v);
+*/
         }
     }
 

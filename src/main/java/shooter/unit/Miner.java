@@ -3,7 +3,6 @@ package shooter.unit;
 import shooter.comms.MessageDispatcher;
 import shooter.geom.Vector;
 import shooter.goals.Goal;
-import shooter.steering.Steering;
 import shooter.ui.Renderer;
 import shooter.unit.structure.Mine;
 
@@ -16,9 +15,8 @@ public class Miner extends Vehicle {
     private int cycles;
     private int load;
 
-    public Miner(Vector position, double radius, Vector heading, double maxTurnRate, MessageDispatcher radio,
-                 Goal<Miner> goal, Steering steering, int capacity) {
-        super(position, heading, radius, maxTurnRate, radio, goal, steering);
+    public Miner(Orientation orientation, MessageDispatcher radio, Goal<Miner> brain, Movement movement, int capacity) {
+        super(orientation, radio, brain, movement);
         this.capacity = capacity;
     }
 

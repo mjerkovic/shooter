@@ -12,6 +12,7 @@ import shooter.comms.EventListener;
 import shooter.comms.MessageDispatcher;
 import shooter.comms.MessageListener;
 import shooter.geom.Vector;
+import shooter.goals.Roam;
 import shooter.goals.Think;
 import shooter.goals.UserControl;
 import shooter.goals.miner.MineForEnergy;
@@ -23,7 +24,9 @@ import shooter.unit.Bullet;
 import shooter.unit.Cannon;
 import shooter.unit.Entity;
 import shooter.unit.Miner;
+import shooter.unit.Movement;
 import shooter.unit.Obstacle;
+import shooter.unit.Orientation;
 import shooter.unit.Scout;
 import shooter.unit.Signpost;
 import shooter.unit.TargetingSystem;
@@ -55,39 +58,42 @@ public class ShooterWorld implements GameWorld, EventListener {
         this.worldArea = worldArea;
         MessageDispatcher radio = new MessageDispatcher(Lists.<MessageListener>newArrayList(messageListener),
                 Lists.<EventListener>newArrayList(this));
-        vehicle = new Vehicle(new Vector(100, 100), new Vector(1, 0), 10, 0.1, radio, new UserControl(), new Steering(this));
+        vehicle = new Vehicle(new Orientation(new Vector(100, 100), new Vector(1, 0), 10),
+                radio, new UserControl(), new Movement(new Steering(this), 0.1));
         vehicle.steering().obstacleAvoidanceOn();
         //Vehicle wanderer = new Vehicle(army, new Vector(300, 300), new Vector(1, 0), 0.3, new Roam(), new Steering(this));
         vehicles = newArrayList(vehicle); //, wanderer);
-        signpost = new Signpost(new Vector(10, 250), 10, radio, "Sign");
-        watchTower = new WatchTower(new Vector(300, 500), new Vector(0, -1), 5, radio);
+        signpost = new Signpost(new Orientation(new Vector(10, 250), 10), radio, "Sign");
+        watchTower = new WatchTower(new Orientation(new Vector(300, 500), new Vector(0, -1), 5), radio);
         obstacles = newArrayList();
         addObstacles();
         addVehicles();
         addWalls();
-        miner = (new Miner(new Vector(20, 50), 10, new Vector(1, 0), 0.1, radio, new Think<Miner>(new MineForEnergy(this)),
-                  new Steering(this), 1));
+        miner = (new Miner(new Orientation(new Vector(20, 50), new Vector(1, 0), 10), radio,
+                new Think<Miner>(new MineForEnergy(this)), new Movement(new Steering(this), 0.1), 1));
         miners = newArrayList(miner);
-        mine = new Mine(new Vector(450, 60), 50, radio, 3000);
+        mine = new Mine(new Orientation(new Vector(450, 60), 50), radio, 3000);
         mines = newArrayList(mine);
-        baseCamp = new BaseCamp(new Vector(30, 30), 15, radio);
+        baseCamp = new BaseCamp(new Orientation(new Vector(30, 30), 15), radio);
         entities = Lists.<Entity>newArrayList(vehicles);
         entities.add(signpost);
         entities.add(watchTower);
         entities.add(miner);
         entities.add(mine);
         Vector scoutPos = new Vector(Math.random() * worldArea.x(), Math.random() * worldArea.y());
-        Scout scout = new Scout(new Vector(400, 400),
-                10, new Vector(0, -1), 0.1, radio, new Steering(this));
+        //Vector position, double radius, Vector heading, double maxTurnRate, MessageDispatcher radio,
+        //         Steering steering
+        Scout scout = new Scout(new Orientation(new Vector(400, 400), new Vector(0, -1), 10), radio, new Roam(),
+                new Movement(new Steering(this), 0.1));
         scout.steering().obstacleAvoidanceOn();
         vehicles.add(scout);
         entities.add(scout);
-        TargetingSystem scoutWeapon = new TargetingSystem(scout, 5, radio, new Think<TargetingSystem>(new Tracking(this)), new Steering(this),
-                0.1, 40000, new Cannon(20000, 1000));
+        TargetingSystem scoutWeapon = new TargetingSystem(scout, 5, radio, new Think<TargetingSystem>(new Tracking(this)),
+                new Movement(new Steering(this), 0.1), 40000, new Cannon(20000, 1000));
         entities.add(scoutWeapon);
         TargetingSystem watchtowerWeapon = new TargetingSystem(watchTower, 5, radio,
-                new Think<TargetingSystem>(new Tracking(this)),
-                new Steering(this), 0.1, 40000, new Cannon(20000, 1000));
+                new Think<TargetingSystem>(new Tracking(this)), new Movement(new Steering(this), 0.1),
+                40000, new Cannon(20000, 1000));
         entities.add(watchtowerWeapon);
     }
 

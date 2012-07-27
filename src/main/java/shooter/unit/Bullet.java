@@ -12,11 +12,10 @@ public class Bullet extends Entity {
     private final Entity target;
 
     public Bullet(Entity shooter, Entity target, Vector heading) {
-        super(shooter.position(), 8, null);
+        super(new Orientation(shooter.position(), heading, 8), null);
+        this.initialPosition = shooter.position();
         this.shooter = shooter;
         this.target = target;
-        this.heading = heading;
-        this.initialPosition = shooter.position();
     }
 
     @Override

@@ -8,17 +8,17 @@ import shooter.steering.Steering;
 public abstract class MovingEntity extends Entity {
 
     protected final Steering steering;
-    protected Vector velocity = new Vector(0, 0);
-    protected Vector side = new Vector(1, 0);
-    double mass = 1;
-    double maxSpeed = 3.5;
-    //double maxForce = 2;
-    double maxTurnRate = 0.2;
+    protected double maxSpeed = 3.5;
+    protected double maxTurnRate = 0.2;
+    //protected double maxForce = 2;
 
-    public MovingEntity(Vector position, double radius, MessageDispatcher radio, Goal brain, Steering steering) {
-        super(position, radius, radio, brain);
-        this.steering = steering;
+    public MovingEntity(Orientation orientation, MessageDispatcher radio, Goal brain, Movement movement) {
+        super(orientation, radio, brain);
+        this.steering = movement.getSteering();
         this.steering.setOwner(this);
+        this.maxSpeed = movement.getMaxSpeed();
+        this.maxTurnRate = movement.getMaxTurnRate();
+        //this.maxForce = movement.getMaxForce();
     }
 
     public void update() {
@@ -35,7 +35,6 @@ public abstract class MovingEntity extends Entity {
 
         if (velocity.lengthSquared() > 0.00000001) {
             heading = velocity.normalise();
-            side = heading.perp();
         }
     }
 
@@ -50,14 +49,6 @@ public abstract class MovingEntity extends Entity {
 
     public double getMaxSpeed() {
         return maxSpeed;
-    }
-
-    public Vector velocity() {
-        return velocity;
-    }
-
-    public Vector side() {
-        return side;
     }
 
     public Steering steering() {

@@ -1,15 +1,12 @@
 package shooter.unit;
 
 import shooter.comms.MessageDispatcher;
-import shooter.geom.Vector;
-import shooter.goals.Scouting;
-import shooter.steering.Steering;
+import shooter.goals.Goal;
 
 public class Scout extends Vehicle {
 
-    public Scout(Vector position, double radius, Vector heading, double maxTurnRate, MessageDispatcher radio,
-                 Steering steering) {
-        super(position, heading, radius, maxTurnRate, radio, new Scouting(), steering);
+    public Scout(Orientation orientation, MessageDispatcher radio, Goal<MovingEntity> brain, Movement movement) {
+        super(orientation, radio, brain, movement);
     }
 
 }

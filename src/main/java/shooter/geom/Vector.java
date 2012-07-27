@@ -69,6 +69,10 @@ public class Vector {
         return new Vector(-point.y, point.x);
     }
 
+    public Vector side() {
+        return perp();
+    }
+
     public Vector subtract(Vector vector) {
         Vector2d v = new Vector2d(point);
         v.sub(vector.point);
