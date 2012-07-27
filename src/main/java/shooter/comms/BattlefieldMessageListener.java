@@ -1,8 +1,8 @@
 package shooter.comms;
 
-import shooter.unit.Entity;
-
 import javax.swing.*;
+
+import shooter.unit.Entity;
 
 public class BattlefieldMessageListener implements MessageListener {
 
@@ -14,7 +14,7 @@ public class BattlefieldMessageListener implements MessageListener {
 
     @Override
     public void onMessage(Entity sender, String message) {
-        messageArea.append(sender.getClass().getSimpleName() + ": " +  message);
+        messageArea.append(sender.getClass().getSimpleName() + ": " +  message + "\n");
     }
 
 }
