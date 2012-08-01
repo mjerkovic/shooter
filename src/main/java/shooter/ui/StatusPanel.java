@@ -1,9 +1,11 @@
 package shooter.ui;
 
-import shooter.world.ShooterWorld;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
-import javax.swing.*;
-import java.awt.*;
+import shooter.world.ShooterWorld;
 
 public class StatusPanel extends JPanel {
 
@@ -15,7 +17,8 @@ public class StatusPanel extends JPanel {
         this.list = new JList();
         setSize(new Dimension(200, 400));
         setPreferredSize(new Dimension(200, 400));
-        add(this.list);
+        setLayout(new BorderLayout());
+        add(this.list, BorderLayout.CENTER);
         setVisible(true);
     }
 

@@ -1,7 +1,9 @@
 package shooter.ui;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import java.awt.Container;
+import java.awt.Dimension;
 
 public class MessageDisplay extends JFrame {
 

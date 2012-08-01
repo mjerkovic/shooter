@@ -5,11 +5,11 @@ import static java.awt.Color.RED;
 import static java.awt.Color.YELLOW;
 import static shooter.geom.Transformations.pointToLocalSpace;
 
+import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import javax.swing.JPanel;
 
 import org.apache.commons.math3.util.FastMath;
 import shooter.geom.Vector;

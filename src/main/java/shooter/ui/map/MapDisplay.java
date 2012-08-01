@@ -2,8 +2,10 @@ package shooter.ui.map;
 
 import static java.awt.Color.WHITE;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 import shooter.unit.Entity;

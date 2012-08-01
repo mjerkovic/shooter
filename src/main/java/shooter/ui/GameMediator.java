@@ -1,6 +1,6 @@
 package shooter.ui;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 import shooter.geom.Vector;
 import shooter.steering.Direction;

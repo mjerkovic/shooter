@@ -1,7 +1,9 @@
 package shooter.ui.map;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.HeadlessException;
 
 public class WorldMap extends JFrame {
 

@@ -3,6 +3,7 @@ package shooter.ui;
 import static java.awt.Color.WHITE;
 import static org.apache.commons.math3.util.FastMath.max;
 
+import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,7 +12,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
 
