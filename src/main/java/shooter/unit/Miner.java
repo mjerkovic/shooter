@@ -71,7 +71,7 @@ public class Miner extends Vehicle {
         renderer.render(this);
     }
 
-    public void arrivedAtMine() {
+    public void arrived() {
         steering.arriveOff();
         stop();
     }

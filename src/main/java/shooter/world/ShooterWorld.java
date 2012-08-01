@@ -66,8 +66,8 @@ public class ShooterWorld implements GameWorld, EventListener {
         addObstacles();
         addVehicles();
         addWalls();
-        miner = (new Miner(new Orientation(new Vector(20, 50), new Vector(1, 0), 10),
-                new Think<Miner>(new MineForEnergy(this)), new Movement(new Steering(this), 0.1), 1));
+        miner = (new Miner(new Orientation(new Vector(20, 50), new Vector(1, 0), 10, 50),
+                new Think<Miner>(new MineForEnergy(this)), new Movement(new Steering(this), 0.1, 2.0), 1));
         miners = newArrayList(miner);
         mine = new Mine(new Orientation(new Vector(450, 60), 50), 3000);
         mines = newArrayList(mine);

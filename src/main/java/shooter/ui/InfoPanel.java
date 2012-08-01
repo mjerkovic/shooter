@@ -13,6 +13,8 @@ public class InfoPanel extends JPanel {
         setFocusable(true);
         setLayout(new BorderLayout());
         add(new CompassPanel(world), BorderLayout.NORTH);
+        add(new StatusPanel(world), BorderLayout.CENTER);
+        validate();
     }
 
 }

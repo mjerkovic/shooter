@@ -28,7 +28,7 @@ public class GoToMine extends SimpleGoal<Miner> {
 
     @Override
     protected void doTermination(Miner miner) {
-        miner.arrivedAtMine();
+        miner.arrived();
     }
 
     @Override

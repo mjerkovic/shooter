@@ -68,4 +68,8 @@ public abstract class MovingEntity extends Entity {
         return maxTurnRate;
     }
 
+    public double maxConsumption() {
+        return maxConsumption;
+    }
+
 }
