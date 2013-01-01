@@ -1,29 +1,16 @@
 package shooter.ui;
 
-import static shooter.geom.Geometry.createFeelersFor;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-
-import shooter.geom.Rotation;
 import shooter.geom.Vector;
-import shooter.unit.Bullet;
-import shooter.unit.Entity;
-import shooter.unit.Health;
-import shooter.unit.Miner;
-import shooter.unit.Obstacle;
-import shooter.unit.Signpost;
-import shooter.unit.TargetingSystem;
-import shooter.unit.Vehicle;
-import shooter.unit.Wall;
-import shooter.unit.WatchTower;
+import shooter.unit.*;
 import shooter.unit.structure.BaseCamp;
 import shooter.unit.structure.Mine;
 import shooter.unit.structure.StorageTank;
 import shooter.world.GameWorld;
+
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+
+import static shooter.geom.Geometry.createFeelersFor;
 
 public class GameRenderer implements Renderer {
 
@@ -59,19 +46,16 @@ public class GameRenderer implements Renderer {
         int x = (int) adjustedPosition.x();
         int y = (int) adjustedPosition.y();
 
-        Vector tip = new Vector(x, y - vehicle.boundingRadius());
-        Vector left = new Vector(x - 5, y + 5);
-        Vector right = new Vector(x + 5, y + 5);
+        Vector tip = new Vector(x + vehicle.boundingRadius(), y);
+        Vector left = new Vector(x - 5, y - 5);
+        Vector right = new Vector(x - 5, y + 5);
 
         int[] xPos = {(int) tip.x(), (int) left.x(), (int) right.x()};
         int[] yPos = {(int) tip.y(), (int) left.y(), (int) right.y()};
 
         AffineTransform orig = graphics.getTransform();
-        Vector up = new Vector(0, -1);
-        double angle = up.angle(vehicle.heading());
-        Rotation rotation = up.rotationTo(vehicle.heading());
 
-        AffineTransform rot = AffineTransform.getRotateInstance(rotation.rotate(angle), x, y);
+        AffineTransform rot = AffineTransform.getRotateInstance(vehicle.heading().x(), vehicle.heading().y(), x, y);
         graphics.transform(rot);
         graphics.drawPolygon(xPos, yPos, 3);
         graphics.setTransform(orig);
@@ -92,14 +76,10 @@ public class GameRenderer implements Renderer {
         int y = (int) adjustedPosition.y();
 
         AffineTransform orig = graphics.getTransform();
-        Vector up = new Vector(0, -1);
-        double angle = up.angle(miner.heading());
-        Rotation rotation = up.rotationTo(miner.heading());
-
-        AffineTransform rot = AffineTransform.getRotateInstance(rotation.rotate(angle), x, y);
+        AffineTransform rot = AffineTransform.getRotateInstance(miner.heading().x(), miner.heading().y(), x, y);
         graphics.transform(rot);
-        graphics.drawRect(x - ((int) miner.boundingRadius() / 2), y - ((int) miner.boundingRadius() / 2),
-                (int) miner.boundingRadius(), (int) miner.boundingRadius() * 2);
+        graphics.drawRect(x - (int) miner.boundingRadius(), y - ((int) miner.boundingRadius() / 2),
+                (int) miner.boundingRadius() * 2, (int) miner.boundingRadius());
         graphics.setTransform(orig);
         renderHealthBar(miner, x, y);
         renderEnergyBar(miner, x, y);
